@@ -1,0 +1,22 @@
+package me.kix.uzi.management.event.input.mouse;
+
+import me.kix.uzi.api.event.Event;
+
+/**
+ * An event for mouse presses.
+ *
+ * @author Jax
+ * Created in Apr 2019
+ */
+public class EventMousePressed extends Event {
+
+    private final int mouseButton;
+
+    public EventMousePressed(int mouseButton) {
+        this.mouseButton = mouseButton;
+    }
+
+    public int getMouseButton() {
+        return mouseButton;
+    }
+}

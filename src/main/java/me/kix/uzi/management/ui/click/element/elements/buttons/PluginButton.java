@@ -1,5 +1,6 @@
 package me.kix.uzi.management.ui.click.element.elements.buttons;
 
+import me.kix.uzi.api.plugin.Plugin;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.util.math.mouse.MouseUtil;
 import me.kix.uzi.api.util.render.font.NahrFont;
@@ -13,13 +14,13 @@ import java.util.List;
 
 public abstract class PluginButton extends Button {
 
-    private final ToggleablePlugin plugin;
+    private final Plugin plugin;
     private final List<Element> elements = new ArrayList<>();
     private boolean extended;
     private final NahrFont font = new NahrFont("Verdana", 18);
     private int pHeight;
 
-    public PluginButton(Panel parent, String label, int posX, int posY, int width, int height, ToggleablePlugin plugin) {
+    public PluginButton(Panel parent, String label, int posX, int posY, int width, int height, Plugin plugin) {
         super(parent, label, posX, posY, width, height);
         this.plugin = plugin;
         this.pHeight = height;
@@ -32,7 +33,7 @@ public abstract class PluginButton extends Button {
         super.drawScreen(mouseX, mouseY, partialTicks);
         int posX = getParent().getPosX() + getPosX();
         int posY = getParent().getPosY() + getParent().getHeight() + getPosY();
-        Gui.drawRect(posX, posY, posX + getWidth(), posY + pHeight, plugin.isEnabled() ? 0xFFc16e6e : 0xFF515151);
+        Gui.drawRect(posX, posY, posX + getWidth(), posY + pHeight, 0xFF515151);
         font.drawString(getLabel(), posX + 3, posY + 3.5f, NahrFont.FontType.SHADOW_THIN, 0xFFFFFFFF, 0xFF000000);
         if (extended) {
             setHeight(14 + elements.size() * 16);
@@ -69,11 +70,23 @@ public abstract class PluginButton extends Button {
 
     @Override
     public void onToggle() {
-        plugin.toggle();
+
     }
 
     public List<Element> getElements() {
         return elements;
+    }
+
+    public boolean isExtended() {
+        return extended;
+    }
+
+    public void setExtended(boolean extended) {
+        this.extended = extended;
+    }
+
+    public Plugin getPlugin() {
+        return plugin;
     }
 
     public int getpHeight() {

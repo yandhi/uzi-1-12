@@ -9,7 +9,7 @@ import me.kix.uzi.api.util.logging.Logger;
 
 /**
  * An implementation of {@link Command} for plugins.
- * 
+ *
  * @author Kix
  * @since 4/19/2019
  */
@@ -27,6 +27,7 @@ public class PluginCommand extends Command {
 
     @Override
     public void execute(String args) {
+        System.out.println(args);
         for (Property property : plugin.getProperties()) {
             if (args.split(" ")[1].equalsIgnoreCase(property.getLabel())) {
                 if (property.getValue() instanceof Boolean) {
@@ -46,5 +47,4 @@ public class PluginCommand extends Command {
             }
         }
     }
-
 }

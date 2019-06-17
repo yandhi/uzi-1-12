@@ -38,5 +38,4 @@ public class ColorSigns extends ToggleablePlugin {
             }
         }
     }
-
 }

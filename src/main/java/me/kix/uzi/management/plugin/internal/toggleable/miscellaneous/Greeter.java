@@ -33,5 +33,4 @@ public class Greeter extends ToggleablePlugin {
 			}
         }
     }
-
 }

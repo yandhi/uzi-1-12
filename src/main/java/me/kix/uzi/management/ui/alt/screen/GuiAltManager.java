@@ -9,6 +9,7 @@ import net.minecraft.client.gui.GuiScreen;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 /**
  * The UI for management of Alts.
@@ -38,6 +39,11 @@ public class GuiAltManager extends GuiScreen {
      */
     private AuthenticationThread authThread;
 
+    /**
+     * Allows us to choose random alts.
+     */
+    private final Random random = new Random();
+
     public GuiAltManager(GuiScreen parentScreen) {
         this.parentScreen = parentScreen;
     }
@@ -50,9 +56,10 @@ public class GuiAltManager extends GuiScreen {
 
         this.alts = new AltSlot(this, mc, width, height, 25, height - 98, 36);
 
-        this.buttonList.add(new GuiButton(0, width / 2 - 25, height - 90, 50, 20, "Login"));
-        this.buttonList.add(new GuiButton(1, width / 2 - 25, height - 60, 50, 20, "Add"));
-        this.buttonList.add(new GuiButton(2, width / 2 - 25, height - 30, 50, 20, "Remove"));
+        this.buttonList.add(new GuiButton(0, width / 2 - 60, height - 90, 50, 20, "Login"));
+        this.buttonList.add(new GuiButton(1, width / 2 + 10, height - 90, 50, 20, "Add"));
+        this.buttonList.add(new GuiButton(2, width / 2 + 10, height - 60, 50, 20, "Remove"));
+        this.buttonList.add(new GuiButton(3, width / 2 - 60, height - 60, 50, 20, "Random"));
     }
 
     @Override
@@ -68,6 +75,9 @@ public class GuiAltManager extends GuiScreen {
             }
             if (button.id == 2) {
                 Uzi.INSTANCE.getAltManager().remove(alts.getAlt().getUsername());
+            }
+            if (button.id == 3) {
+                login(alts.getAlt(random.nextInt(alts.size())));
             }
         }
     }

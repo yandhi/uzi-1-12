@@ -32,7 +32,7 @@ public class Overlay extends Plugin {
         if (mc.gameSettings.showDebugInfo) return;
 
         if (branding.getValue()) {
-            mc.fontRenderer.drawStringWithShadow("\247ouziware", 2, 2, 0xFFFFFFFF);
+            mc.fontRenderer.drawStringWithShadow("\247oUzi", 2, 2, 0xFFFFFFFF);
         }
 
         if (coords.getValue()) {

@@ -36,5 +36,4 @@ public class Stamp extends ToggleablePlugin {
             sign.signText[3] = new TextComponentString(dateFormatter.format(date));
         }
     }
-
 }

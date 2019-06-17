@@ -25,5 +25,4 @@ public class PortalGodMode extends ToggleablePlugin {
             send.setCancelled(true);
         }
     }
-
 }

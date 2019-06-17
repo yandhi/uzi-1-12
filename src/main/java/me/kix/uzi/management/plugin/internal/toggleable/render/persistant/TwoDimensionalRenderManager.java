@@ -4,18 +4,14 @@ import me.kix.uzi.Uzi;
 import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.Plugin;
-
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector4f;
-
-import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
-import me.kix.uzi.api.util.render.glu.GLUProjection;
+import me.kix.uzi.api.util.render.GLUProjection;
 import me.kix.uzi.management.event.render.EventRender;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
 
 /**

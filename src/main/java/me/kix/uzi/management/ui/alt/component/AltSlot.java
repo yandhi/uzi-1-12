@@ -16,6 +16,13 @@ public class AltSlot extends GuiSlot {
         this.screen = screen;
     }
 
+    /**
+     * @return The amount of alts.
+     */
+    public int size() {
+        return getSize();
+    }
+
     @Override
     protected int getSize() {
         return screen.getAccounts().size();

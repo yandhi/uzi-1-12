@@ -121,6 +121,8 @@ public class PluginManager extends ListManager<Plugin> {
         getContents().add(new AntiVanish());
         getContents().add(new SourceMovement());
         getContents().add(new Doorbell());
+        getContents().add(new SoundLag());
+        getContents().add(new AntiSoundSploit());
         load();
     }
 

@@ -22,6 +22,10 @@ public class Tiles extends ToggleablePlugin {
     public Tiles() {
         super("Tiles", Category.RENDER);
         setHidden(true);
+        getProperties().add(chests);
+        getProperties().add(furnaces);
+        getProperties().add(brewingStands);
+        getProperties().add(redstoneBlocks);
     }
 
     @Register

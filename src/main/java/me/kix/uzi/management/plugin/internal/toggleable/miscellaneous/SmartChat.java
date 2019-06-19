@@ -38,7 +38,7 @@ public class SmartChat extends ToggleablePlugin {
     /**
      * The common splitters for chat and player.
      */
-    private static final String[] CHAT_SPLITTERS = {":", ">>", ">"};
+    public static String splitter = ":";
 
     public SmartChat() {
         super("SmartChat", Category.MISCELLANEOUS);
@@ -51,7 +51,7 @@ public class SmartChat extends ToggleablePlugin {
             SPacketChat packetChat = (SPacketChat) read.getPacket();
             String messageHeader = "";
             String extractedMessage = StringUtils.stripControlCodes(packetChat.getChatComponent().getFormattedText());
-            String[] splitMessage = packetChat.getChatComponent().getFormattedText().split(":");
+            String[] splitMessage = extractedMessage.split(splitter);
             if (splitMessage.length >= 1) {
                 messageHeader = splitMessage[0];
                 extractedMessage = StringUtils.stripControlCodes(splitMessage[1]);
@@ -97,7 +97,7 @@ public class SmartChat extends ToggleablePlugin {
      */
     private String getLanguage(String text) {
         try {
-            URL url = new URL(String.format("https://translate.yandex.net/api/v1.5/tr.json/detect?key=%s&text=%s", API_KEY, text));
+            URL url = new URL(String.format("https://translate.yandex.net/api/v1.5/tr.json/detect?key=%s&text=%s", API_KEY, URLEncoder.encode(text)));
             URLConnection request = url.openConnection();
             request.connect();
             JsonParser jsonParser = new JsonParser();

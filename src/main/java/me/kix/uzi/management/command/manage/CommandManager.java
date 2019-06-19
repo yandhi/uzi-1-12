@@ -23,6 +23,7 @@ public class CommandManager extends ListManager<Command> {
         getContents().add(new NameHistoryCommand());
         getContents().add(new WhomstveWolfCommand());
         getContents().add(new ClipCommand());
+        getContents().add(new SmartChatCommand());
 
         addPluginCommands();
         getContents().stream().filter(command -> command instanceof ArgumentativeCommand)

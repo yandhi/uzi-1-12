@@ -123,6 +123,8 @@ public class PluginManager extends ListManager<Plugin> {
         getContents().add(new Doorbell());
         getContents().add(new SoundLag());
         getContents().add(new AntiSoundSploit());
+        getContents().add(new CapabilityFly());
+        getContents().add(new SmartChat());
         load();
     }
 

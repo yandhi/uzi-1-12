@@ -15,7 +15,6 @@ public class Slider extends Element {
     private final PluginButton container;
     private final NumberProperty property;
     private boolean dragging;
-    private final NahrFont font = new NahrFont("Verdana", 18);
 
     public Slider(Panel parent, String label, int posX, int posY, int width, int height, PluginButton container, NumberProperty property) {
         super(parent, label, posX, posY, width, height);
@@ -28,10 +27,11 @@ public class Slider extends Element {
         int posX = getParent().getPosX() + container.getPosX() + getPosX();
         int posY = getParent().getPosY() + getParent().getHeight() + container.getPosY() + container.getpHeight() + getPosY();
         float length = MathHelper.floor((((Number) property.getValue()).floatValue() - property.getMinimum().floatValue()) / (property.getMaximum().floatValue() - property.getMinimum().floatValue()) * getWidth());
-        Gui.drawRect(posX, posY, posX + getWidth(), posY + getHeight(), 0xFF3A3A3A);
-        RenderUtil.drawRect(posX, posY, posX + length, posY + getHeight(), 0xFF915151);
-        font.drawString(getLabel() + ": " + property.getValue(), posX + 3, posY + 3.5f, NahrFont.FontType.SHADOW_THIN, 0xFFFFFFFF, 0xFF000000);
-        if(dragging){
+        RenderUtil.border(posX, posY, posX + getWidth(), posY + getHeight(), 1f, 0xff000000);
+        RenderUtil.verticalGradientRectangle(posX, posY, posX + getWidth(), posY + getHeight(), 0xff222222, 0xff2a2a2a);
+        RenderUtil.verticalGradientRectangle(posX, posY, posX + length, posY + getHeight(), 0xff256bb6, 0xff185ea9);
+        RenderUtil.drawTinyString(getLabel() + ": " + property.getValue(), posX + 3, posY + 5f, 0xFFFFFFFF);
+        if (dragging) {
             property.setValue(((mouseX - posX) * (property.getMaximum().floatValue() - property.getMinimum().floatValue()) / getWidth() + property.getMinimum().floatValue()));
         }
     }

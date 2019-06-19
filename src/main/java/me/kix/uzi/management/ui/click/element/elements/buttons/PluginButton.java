@@ -3,6 +3,7 @@ package me.kix.uzi.management.ui.click.element.elements.buttons;
 import me.kix.uzi.api.plugin.Plugin;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.util.math.mouse.MouseUtil;
+import me.kix.uzi.api.util.render.RenderUtil;
 import me.kix.uzi.api.util.render.font.NahrFont;
 import me.kix.uzi.management.ui.click.element.Element;
 import me.kix.uzi.management.ui.click.element.elements.Button;
@@ -33,7 +34,7 @@ public abstract class PluginButton extends Button {
         super.drawScreen(mouseX, mouseY, partialTicks);
         int posX = getParent().getPosX() + getPosX();
         int posY = getParent().getPosY() + getParent().getHeight() + getPosY();
-        Gui.drawRect(posX, posY, posX + getWidth(), posY + pHeight, 0xFF515151);
+        RenderUtil.drawRect(posX, posY, posX + getWidth(), posY + pHeight, 0xFF515151);
         font.drawString(getLabel(), posX + 3, posY + 3.5f, NahrFont.FontType.SHADOW_THIN, 0xFFFFFFFF, 0xFF000000);
         if (extended) {
             setHeight(14 + elements.size() * 16);

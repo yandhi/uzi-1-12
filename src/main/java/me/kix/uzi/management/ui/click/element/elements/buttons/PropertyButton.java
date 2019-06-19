@@ -2,6 +2,7 @@ package me.kix.uzi.management.ui.click.element.elements.buttons;
 
 import me.kix.uzi.api.property.Property;
 import me.kix.uzi.api.util.math.mouse.MouseUtil;
+import me.kix.uzi.api.util.render.RenderUtil;
 import me.kix.uzi.api.util.render.font.NahrFont;
 import me.kix.uzi.management.ui.click.element.elements.Button;
 import me.kix.uzi.management.ui.click.panel.Panel;
@@ -11,7 +12,6 @@ public class PropertyButton extends Button {
 
     private final PluginButton container;
     private final Property<Boolean> property;
-    private final NahrFont font = new NahrFont("Verdana", 18);
 
     public PropertyButton(Panel parent, String label, int posX, int posY, int width, int height, PluginButton container, Property<Boolean> property) {
         super(parent, label, posX, posY, width, height);
@@ -24,8 +24,12 @@ public class PropertyButton extends Button {
         super.drawScreen(mouseX, mouseY, partialTicks);
         int posX = getParent().getPosX() + container.getPosX() + getPosX();
         int posY = getParent().getPosY() + getParent().getHeight() + container.getPosY() + container.getpHeight() + getPosY();
-        Gui.drawRect(posX, posY, posX + getWidth(), posY + getHeight(), property.getValue() ? 0xFF915151 : 0xFF3A3A3A);
-        font.drawString(getLabel(), posX + 3, posY + 3.5f, NahrFont.FontType.NORMAL, 0xFFFFFFFF, 0xFFFFFFFF);
+        RenderUtil.border(posX + getWidth() - 30, posY, posX + getWidth(), posY + getHeight(), 1f, 0xff000000);
+        RenderUtil.verticalGradientRectangle(posX + getWidth() - 30, posY, posX + getWidth() - 15, posY + getHeight(), property.getValue() ? 0xff256bb6 : 0xff222222, property.getValue() ? 0xff185ea9 : 0xff2a2a2a);
+        RenderUtil.verticalGradientRectangle(posX + getWidth() - 15, posY, posX + getWidth(), posY + getHeight(), !property.getValue() ? 0xff256bb6 : 0xff222222, !property.getValue() ? 0xff185ea9 : 0xff2a2a2a);
+        RenderUtil.drawTinyString(getLabel(), posX + 3, posY + 5f, 0xFFFFFFFF);
+        RenderUtil.drawTinyString("On", posX + getWidth() - 22.5f - (mc.fontRenderer.getStringWidth("On") / 4f), posY + 5f, 0xffffffff);
+        RenderUtil.drawTinyString("Off", posX + getWidth() - 7.5f - (mc.fontRenderer.getStringWidth("Off") / 4f), posY + 5f, 0xffffffff);
     }
 
     @Override

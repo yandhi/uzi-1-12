@@ -53,31 +53,6 @@ public class GuiClick extends GuiScreen {
             });
             posX += 112;
         }
-        panels.add(new Panel("Services", posX, 2, 110, 16) {
-            @Override
-            public void init() {
-                for (Plugin plugin : Uzi.INSTANCE.getPluginManager().getContents()) {
-                    if (!(plugin instanceof ToggleablePlugin)) {
-                        getElements().add(new PluginButton(this, plugin.getLabel(), 2, 2, 106, 14, plugin) {
-                            @Override
-                            public void init() {
-                                int posY = 2;
-                                for (Property property : plugin.getProperties()) {
-                                    if (property.getValue() instanceof Boolean) {
-                                        getElements().add(new PropertyButton(getParent(), property.getLabel(), 2, posY, 102, 14, this, (Property<Boolean>) property));
-                                        posY += 16;
-                                    }
-                                    if (property instanceof NumberProperty) {
-                                        getElements().add(new Slider(getParent(), property.getLabel(), 2, posY, 102, 14, this, (NumberProperty) property));
-                                        posY += 16;
-                                    }
-                                }
-                            }
-                        });
-                    }
-                }
-            }
-        });
         panels.forEach(Panel::init);
     }
 

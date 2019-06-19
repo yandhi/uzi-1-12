@@ -18,7 +18,6 @@ public abstract class Panel implements Labeled, MinecraftAccessor {
     private final String label;
     private int posX, posY, lastPosX, lastPosY, width, height;
     private boolean dragging, extended;
-    private final NahrFont font = new NahrFont(new Font("Verdana", Font.BOLD, 18), 18);
 
     protected Panel(String label, int posX, int posY, int width, int height) {
         this.label = label;
@@ -37,16 +36,23 @@ public abstract class Panel implements Labeled, MinecraftAccessor {
             this.posX = mouseX + this.lastPosX;
             this.posY = mouseY + this.lastPosY;
         }
-        RenderUtil.drawRect(posX, posY, posX + width, posY + height, 0xFF2d2d2d);
-        font.drawString(label, posX + 4.5f, posY + 4.5f, NahrFont.FontType.SHADOW_THIN, 0xFFFFFFFF, 0xFF000000);
+        RenderUtil.border(posX, posY, posX + width, posY + height, 2f, 0xff000000);
+        RenderUtil.verticalGradientRectangle(posX, posY, posX + width, posY + height, 0xFF222222, 0xFF2a2a2a);
+        RenderUtil.drawTinyString(label, posX + 4.5f, posY + 6f, 0xFFFFFFFF);
+
+        RenderUtil.border(posX + width - 14, posY + 2, posX + width - 2, posY + getHeight() - 2, 1f, 0xff000000);
+        RenderUtil.verticalGradientRectangle(posX + width - 14, posY + 2, posX + width - 2, posY + getHeight() - 2, 0xff256bb6, 0xff185ea9);
+        RenderUtil.drawTinyString(extended ? "-" : "+", posX + width - 8f - (mc.fontRenderer.getStringWidth(extended ? "-" : "+") / 4f), posY + (getHeight() / 2f) - (mc.fontRenderer.FONT_HEIGHT / 4f), 0xffffffff);
+
         if (extended) {
-            int addition = 0;
+            int addition = 2;
             for (Element element : getElements()) {
                 element.setPosY(addition);
                 addition += element.getHeight() + 2;
             }
+            RenderUtil.border(posX, posY + height, posX + width, posY + height + addition, 2f, 0xff000000);
             if (!elements.isEmpty()) {
-                Gui.drawRect(posX, posY + height, posX + width, posY + height + addition, 0xFF2d2d2d);
+                RenderUtil.verticalGradientRectangle(posX, posY + height, posX + width, posY + height + addition, 0xff313131, 0xff2e2e2e);
             }
             elements.forEach(element -> element.drawScreen(mouseX, mouseY, partialTicks));
         }

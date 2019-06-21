@@ -59,8 +59,9 @@ public class KillAura extends ToggleablePlugin {
     public void onPostUpdate(EventUpdate.Post event) {
         if (target != null) {
             if (cooldown.getValue()) {
-                if (mc.player.getCooledAttackStrength(-5) >= 1) {
+                if (mc.player.getCooledAttackStrength(0) >= 1 && timer.completed(250)) {
                     attack(target);
+                    timer.reset();
                 }
             } else {
                 if (timer.completed(1000 / aps.getValue())) {

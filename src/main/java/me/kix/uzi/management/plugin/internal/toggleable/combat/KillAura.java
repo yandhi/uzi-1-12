@@ -15,6 +15,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.play.client.CPacketUseEntity;
 import net.minecraft.util.EnumHand;
 
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class KillAura extends ToggleablePlugin {
     public void onPostUpdate(EventUpdate.Post event) {
         if (target != null) {
             if (cooldown.getValue()) {
-                if (mc.player.getCooledAttackStrength(0) >= 1 && timer.completed(250)) {
+                if (mc.player.getCooledAttackStrength(0) >= 1f && timer.completed(250)) {
                     attack(target);
                     timer.reset();
                 }
@@ -73,8 +74,8 @@ public class KillAura extends ToggleablePlugin {
     }
 
     private void attack(EntityLivingBase target) {
-        mc.player.swingArm(EnumHand.MAIN_HAND);
         mc.playerController.attackEntity(mc.player, target);
+        mc.player.swingArm(EnumHand.MAIN_HAND);
     }
 
     private EntityLivingBase getBestTarget() {

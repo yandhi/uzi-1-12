@@ -19,7 +19,4 @@ public class MixinRender {
         if (event.isCancelled())
             ci.cancel();
     }
-
-
-
 }

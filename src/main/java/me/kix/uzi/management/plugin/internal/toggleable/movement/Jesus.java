@@ -5,16 +5,21 @@ import me.kix.uzi.api.game.accessors.entity.IPlayerSP;
 import me.kix.uzi.api.game.accessors.packet.ICPacketPlayer;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
+import me.kix.uzi.api.util.math.MathUtil;
 import me.kix.uzi.management.event.block.EventBoundingBox;
 import me.kix.uzi.management.event.entity.EventUpdate;
 import me.kix.uzi.management.event.input.packet.EventPacket;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
 
 /**
- * Bob jesus.
+ * A simple jesus hack.
+ *
  * @author Kix
+ * @since June 21, 2019
  */
 public class Jesus extends ToggleablePlugin {
 
@@ -24,16 +29,31 @@ public class Jesus extends ToggleablePlugin {
     }
 
     @Register
-    public void onPreUpdate(EventUpdate.Pre event) {
-        if (((IPlayerSP) mc.player).isInLiquid() && !mc.player.isSneaking() && !mc.gameSettings.keyBindJump.isPressed())
-            mc.player.motionY = 0.1;
+    public void onPreUpdate(EventUpdate.Pre preUpdate) {
+        IPlayerSP player = (IPlayerSP) mc.player;
+        if (player.isInLiquid() && !mc.player.isSneaking()) {
+            if (mc.gameSettings.keyBindJump.isPressed()) {
+                /* Lets us jump. */
+                mc.player.motionY = 0.085;
+            } else {
+                /* The normal swim value. */
+                mc.player.motionY = 0.1;
+            }
+        }
     }
 
     @Register
-    public void onSendPacket(EventPacket.Send event) {
-        if (event.getPacket() instanceof CPacketPlayer) {
-            if (((IPlayerSP) mc.player).isOnLiquid())
-                ((ICPacketPlayer) event.getPacket()).setY(mc.player.posY + (mc.player.ticksExisted % 2 == 0 ? 0.01 : -0.01));
+    public void onSendPacket(EventPacket.Send send) {
+        if (send.getPacket() instanceof CPacketPlayer) {
+            CPacketPlayer packetPlayer = (CPacketPlayer) send.getPacket();
+            ICPacketPlayer mixinPacketPlayer = (ICPacketPlayer) packetPlayer;
+            EntityPlayerSP player = mc.player;
+            IPlayerSP mixinPlayer = (IPlayerSP) mc.player;
+
+            if (mixinPlayer.isOnLiquid() && !mixinPlayer.isInLiquid() && mc.player.fallDistance <= 3 && !mc.gameSettings.keyBindSneak.isPressed()) {
+                /* Offset our value in order to bypass NoCheatPlus. */
+                mixinPacketPlayer.setY(player.posY + (player.ticksExisted % 2 == 0 ? 0.1 : -0.1));
+            }
         }
     }
 

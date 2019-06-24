@@ -18,7 +18,7 @@ import net.minecraft.util.math.RayTraceResult;
  * with this stupid command.
  * </p>
  * 
- * @author Jackson
+ * @author Kix
  * @since April 2019
  */
 public class WhomstveWolfCommand extends ArgumentativeCommand implements MinecraftAccessor {

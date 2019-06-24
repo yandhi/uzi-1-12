@@ -1,16 +1,10 @@
 package me.kix.uzi.management.plugin.internal.toggleable.movement;
 
 import me.kix.uzi.api.event.Register;
-import me.kix.uzi.api.game.accessors.client.IMinecraft;
-import me.kix.uzi.api.game.accessors.client.math.ITimer;
-import me.kix.uzi.api.game.accessors.entity.IEntityLivingBase;
-import me.kix.uzi.api.game.accessors.entity.IPlayerSP;
+import me.kix.uzi.api.game.accessors.entity.LivingEntity;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.management.event.entity.EventStep;
-import me.kix.uzi.management.event.misc.EventTick;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.network.play.client.CPacketPlayer;
 
 import java.util.Arrays;
@@ -48,7 +42,7 @@ public class Step extends ToggleablePlugin {
 	@Register
 	public void onPreStep(EventStep.Pre event) {
 		float stepHeight = 1f;
-		if (((IEntityLivingBase) mc.player).getIsJumping() || mc.player.isInWater() || mc.player.isInLava() || !mc.player.isCollidedHorizontally)
+		if (((LivingEntity) mc.player).getIsJumping() || mc.player.isInWater() || mc.player.isInLava() || !mc.player.isCollidedHorizontally)
 			return;
 		if (mc.world.getCollisionBoxes(mc.player, mc.player.getEntityBoundingBox().offset(mc.player.motionX, 1.6, mc.player.motionZ)).isEmpty())
 			stepHeight = 1.5f;
@@ -67,7 +61,7 @@ public class Step extends ToggleablePlugin {
 
 	@Register
 	public void onPostStep(EventStep.Post event) {
-		if (((IEntityLivingBase) mc.player).getIsJumping() || mc.player.isInWater() || mc.player.isInLava() || !mc.player.isCollidedHorizontally)
+		if (((LivingEntity) mc.player).getIsJumping() || mc.player.isInWater() || mc.player.isInLava() || !mc.player.isCollidedHorizontally)
 			return;
 		if (offsets != null) {
 			Arrays.stream(offsets)

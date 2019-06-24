@@ -4,8 +4,11 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import me.kix.uzi.Uzi;
+import me.kix.uzi.api.event.EventManager;
 import me.kix.uzi.api.manager.ListManager;
 import me.kix.uzi.api.plugin.Plugin;
+import me.kix.uzi.api.util.network.TPSTracker;
 import me.kix.uzi.management.plugin.internal.*;
 import me.kix.uzi.management.plugin.internal.toggleable.combat.*;
 import me.kix.uzi.management.plugin.internal.toggleable.miscellaneous.*;
@@ -27,6 +30,7 @@ public class PluginManager extends ListManager<Plugin> {
     }
 
     public void init() {
+        Uzi.INSTANCE.getEventManager().register(TPSTracker.getTracker());
         getContents().add(new Overlay());
         getContents().add(new TwoDimensionalRenderManager());
         getContents().add(new Commands());
@@ -125,6 +129,7 @@ public class PluginManager extends ListManager<Plugin> {
         getContents().add(new AntiSoundSploit());
         getContents().add(new CapabilityFly());
         getContents().add(new SmartChat());
+        getContents().add(new AntiDesync());
         load();
     }
 

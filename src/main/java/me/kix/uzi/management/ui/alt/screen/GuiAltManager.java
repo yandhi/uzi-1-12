@@ -14,7 +14,7 @@ import java.util.Random;
 /**
  * The UI for management of Alts.
  *
- * @author Jax
+ * @author Kix
  * Created in Apr 2019
  */
 public class GuiAltManager extends GuiScreen {

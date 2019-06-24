@@ -3,10 +3,12 @@ package me.kix.uzi.api.game.accessors.screen;
 import net.minecraft.tileentity.TileEntitySign;
 
 /**
- * @author Jax
+ * The gui screen for a sign.
+ *
+ * @author Kix
  * Created in Apr 2019
  */
-public interface IGuiEditSign {
+public interface EditSign {
 
     /**
      * @return The instance of the sign being edited.

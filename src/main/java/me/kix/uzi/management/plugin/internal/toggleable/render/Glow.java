@@ -8,7 +8,7 @@ import me.kix.uzi.management.event.render.EventRender;
 /**
  * Adds a glow to nearby players.
  *
- * @author Jax
+ * @author Kix
  * Created in Apr 2019
  */
 public class Glow extends ToggleablePlugin {

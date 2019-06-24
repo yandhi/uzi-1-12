@@ -10,7 +10,7 @@ import net.minecraft.network.play.server.SPacketPlayerListItem;
 /**
  * Prevents server admins from going into vanish without the user knowing.
  * 
- * @author Jackson
+ * @author Kix
  * @since April 2019
  */
 public class AntiVanish extends ToggleablePlugin {

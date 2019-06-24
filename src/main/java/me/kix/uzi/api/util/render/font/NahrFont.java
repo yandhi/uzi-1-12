@@ -1,6 +1,6 @@
 package me.kix.uzi.api.util.render.font;
 
-import me.kix.uzi.api.game.accessors.client.font.IFontRenderer;
+import me.kix.uzi.api.game.accessors.client.font.TextRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -178,7 +178,7 @@ public class NahrFont {
                 int colorCode = "0123456789abcdefklmnorg".indexOf(oneMore);
                 if (colorCode < 16)
                     try {
-                        int newColor = ((IFontRenderer) Minecraft.getMinecraft().fontRenderer).getColorCode()[colorCode];
+                        int newColor = ((TextRenderer) Minecraft.getMinecraft().fontRenderer).getColorCode()[colorCode];
                         GlStateManager.color((newColor >> 16) / 255.0F,
                                 (newColor >> 8 & 0xFF) / 255.0F,
                                 (newColor & 0xFF) / 255.0F, alpha);

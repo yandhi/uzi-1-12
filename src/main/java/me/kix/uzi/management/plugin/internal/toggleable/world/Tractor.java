@@ -17,7 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
 /**
- * @author jackson
+ * @author Kix
  * @since 8/26/18
  */
 public class Tractor extends ToggleablePlugin {

@@ -1,19 +1,14 @@
 package me.kix.uzi.management.plugin.internal.toggleable.movement;
 
 import me.kix.uzi.api.event.Register;
-import me.kix.uzi.api.game.accessors.entity.IPlayerSP;
-import me.kix.uzi.api.game.accessors.packet.ICPacketPlayer;
+import me.kix.uzi.api.game.accessors.entity.Player;
+import me.kix.uzi.api.game.accessors.packet.PacketPlayer;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
-import me.kix.uzi.api.util.math.MathUtil;
-import me.kix.uzi.management.event.block.EventBoundingBox;
 import me.kix.uzi.management.event.entity.EventUpdate;
 import me.kix.uzi.management.event.input.packet.EventPacket;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockLiquid;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.network.play.client.CPacketPlayer;
-import net.minecraft.util.math.AxisAlignedBB;
 
 /**
  * A simple jesus hack.
@@ -30,7 +25,7 @@ public class Jesus extends ToggleablePlugin {
 
     @Register
     public void onPreUpdate(EventUpdate.Pre preUpdate) {
-        IPlayerSP player = (IPlayerSP) mc.player;
+        Player player = (Player) mc.player;
         if (player.isInLiquid() && !mc.player.isSneaking()) {
             if (mc.gameSettings.keyBindJump.isPressed()) {
                 /* Lets us jump. */
@@ -46,9 +41,9 @@ public class Jesus extends ToggleablePlugin {
     public void onSendPacket(EventPacket.Send send) {
         if (send.getPacket() instanceof CPacketPlayer) {
             CPacketPlayer packetPlayer = (CPacketPlayer) send.getPacket();
-            ICPacketPlayer mixinPacketPlayer = (ICPacketPlayer) packetPlayer;
+            PacketPlayer mixinPacketPlayer = (PacketPlayer) packetPlayer;
             EntityPlayerSP player = mc.player;
-            IPlayerSP mixinPlayer = (IPlayerSP) mc.player;
+            Player mixinPlayer = (Player) mc.player;
 
             if (mixinPlayer.isOnLiquid() && !mixinPlayer.isInLiquid() && mc.player.fallDistance <= 3 && !mc.gameSettings.keyBindSneak.isPressed()) {
                 /* Offset our value in order to bypass NoCheatPlus. */

@@ -13,7 +13,7 @@ import java.awt.*;
 /**
  * Automatically accepts teleport requests from friends.
  *
- * @author jackson
+ * @author Kix
  * @since 9/1/18
  */
 public class AutoAccept extends ToggleablePlugin {

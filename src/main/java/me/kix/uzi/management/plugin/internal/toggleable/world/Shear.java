@@ -14,7 +14,7 @@ import net.minecraft.network.play.client.CPacketUseEntity;
 import net.minecraft.util.EnumHand;
 
 /**
- * @author jackson
+ * @author Kix
  * @since 8/26/18
  */
 public class Shear extends ToggleablePlugin {

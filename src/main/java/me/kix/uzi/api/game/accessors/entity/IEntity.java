@@ -5,7 +5,9 @@ import net.minecraft.entity.Entity;
 import java.util.List;
 
 /**
- * @author Jax
+ * An outline for all entities in the game.
+ *
+ * @author Kix
  * Created in Apr 2019
  */
 public interface IEntity {

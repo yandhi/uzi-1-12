@@ -7,7 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
 
 /**
- * @author jackson
+ * @author Kix
  * @since 8/29/18
  */
 public class ServerCommand extends ArgumentativeCommand {

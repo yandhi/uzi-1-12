@@ -10,7 +10,7 @@ import net.minecraft.util.text.ITextComponent;
 /**
  * Pings the user once they are mentioned in chat.
  * 
- * @author Jackson
+ * @author Kix
  * @since April 2019
  */
 public class Mentions extends ToggleablePlugin {

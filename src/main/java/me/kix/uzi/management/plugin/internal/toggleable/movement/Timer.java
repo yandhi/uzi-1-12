@@ -1,7 +1,7 @@
 package me.kix.uzi.management.plugin.internal.toggleable.movement;
 
 import me.kix.uzi.api.event.Register;
-import me.kix.uzi.api.game.accessors.client.IMinecraft;
+import me.kix.uzi.api.game.accessors.client.Game;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.property.properties.NumberProperty;
@@ -10,7 +10,7 @@ import me.kix.uzi.management.event.entity.EventUpdate;
 /**
  * Speeds the game up.
  *
- * @author Jax
+ * @author Kix
  * Created in Apr 2019
  */
 public class Timer extends ToggleablePlugin {
@@ -27,12 +27,12 @@ public class Timer extends ToggleablePlugin {
 
     @Register
     public void onPreUpdate(EventUpdate.Pre pre) {
-        ((IMinecraft) mc).getTimer().elapsedTicks = speed.getValue();
+        ((Game) mc).getTimer().elapsedTicks = speed.getValue();
     }
 
     @Override
     public void onDisable() {
         super.onDisable();
-        ((IMinecraft) mc).getTimer().elapsedTicks = 1;
+        ((Game) mc).getTimer().elapsedTicks = 1;
     }
 }

@@ -10,7 +10,7 @@ import net.minecraft.util.StringUtils;
 /**
  * Greets players that join / leave.
  * 
- * @author Jackson
+ * @author Kix
  * @since April 2019
  */
 public class Greeter extends ToggleablePlugin {

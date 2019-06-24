@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
  * Prevents us from being book banned.
  * Automatically drops any books in our inventory.
  *
- * @author Jax
+ * @author Kix
  * Created in Apr 2019
  */
 public class AntiBookBan extends ToggleablePlugin {

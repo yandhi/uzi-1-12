@@ -6,7 +6,7 @@ import me.kix.uzi.api.command.commands.PluginCommand;
 import me.kix.uzi.api.util.logging.Logger;
 
 /**
- * @author jackson
+ * @author Kix
  * @since 8/31/18
  */
 public class HelpCommand extends Command {

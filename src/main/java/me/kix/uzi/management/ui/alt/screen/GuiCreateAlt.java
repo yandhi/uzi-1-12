@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * A UI screen for creating an alt.
  *
- * @author Jax
+ * @author Kix
  * Created in Apr 2019
  */
 public class GuiCreateAlt extends GuiScreen {

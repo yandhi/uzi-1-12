@@ -20,7 +20,7 @@ import java.util.Set;
  * Some of this information would be if the chunk has already been loaded and if it has not been.
  * </p>
  *
- * @author jackson
+ * @author Kix
  * @since 8/28/18
  */
 public class ChunkUpdates extends ToggleablePlugin {

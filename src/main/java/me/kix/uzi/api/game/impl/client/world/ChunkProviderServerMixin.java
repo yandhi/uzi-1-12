@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
 import java.util.Set;
 
 /**
- * @author jackson
+ * @author Kix
  * @since 8/28/18
  */
 @Mixin(ChunkProviderServer.class)

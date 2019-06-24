@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * Creates a core mod for Uzi.
  *
- * @author Jax
+ * @author Kix
  * Created in Apr 2019
  */
 @IFMLLoadingPlugin.MCVersion("1.12.2")

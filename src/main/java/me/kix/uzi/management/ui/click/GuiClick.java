@@ -25,23 +25,23 @@ public class GuiClick extends GuiScreen {
     public void init() {
         int posX = 2;
         for (Category category : Category.values()) {
-            panels.add(new Panel(WordUtils.capitalizeFully(category.name()), posX, 2, 110, 16) {
+            panels.add(new Panel(WordUtils.capitalizeFully(category.name()), posX, 2, 90, 12) {
                 @Override
                 public void init() {
                     for (Plugin plugin : Uzi.INSTANCE.getPluginManager().getContents()) {
                         if (plugin instanceof ToggleablePlugin && plugin.getCategory() == category) {
-                            getElements().add(new ToggleablePluginButton(this, plugin.getLabel(), 2, 2, 106, 14, (ToggleablePlugin) plugin) {
+                            getElements().add(new ToggleablePluginButton(this, plugin.getLabel(), 2, 2, 86, 10, (ToggleablePlugin) plugin) {
                                 @Override
                                 public void init() {
                                     int posY = 2;
                                     for (Property property : plugin.getProperties()) {
                                         if (property.getValue() instanceof Boolean) {
-                                            getElements().add(new PropertyButton(getParent(), property.getLabel(), 2, posY, 102, 14, this, (Property<Boolean>) property));
-                                            posY += 16;
+                                            getElements().add(new PropertyButton(getParent(), property.getLabel(), 2, posY, 82, 10, this, (Property<Boolean>) property));
+                                            posY += 12;
                                         }
                                         if (property instanceof NumberProperty) {
-                                            getElements().add(new Slider(getParent(), property.getLabel(), 2, posY, 102, 14, this, (NumberProperty) property));
-                                            posY += 16;
+                                            getElements().add(new Slider(getParent(), property.getLabel(), 2, posY, 82, 10, this, (NumberProperty) property));
+                                            posY += 12;
                                         }
                                     }
                                 }
@@ -51,7 +51,7 @@ public class GuiClick extends GuiScreen {
                     getElements().stream().filter(element -> element instanceof PluginButton).forEach(element -> ((PluginButton) element).init());
                 }
             });
-            posX += 112;
+            posX += 92;
         }
         panels.forEach(Panel::init);
     }

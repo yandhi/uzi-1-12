@@ -10,7 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 /**
  * Warns the player when someone enters their render distance.
  * 
- * @author Jackson
+ * @author Kix
  * @since April 2019
  */
 public class Doorbell extends ToggleablePlugin {

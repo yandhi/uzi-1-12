@@ -24,7 +24,7 @@ import java.awt.*;
  * This is most useful for SkyBlock.
  * </p>
  *
- * @author Jax
+ * @author Kix
  * Created in Apr 2019
  */
 public class AutoMine extends ToggleablePlugin {

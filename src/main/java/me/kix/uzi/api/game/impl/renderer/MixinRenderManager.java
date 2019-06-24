@@ -1,7 +1,7 @@
 package me.kix.uzi.api.game.impl.renderer;
 
 import me.kix.uzi.Uzi;
-import me.kix.uzi.api.game.accessors.renderer.IRenderManager;
+import me.kix.uzi.api.game.accessors.renderer.GameRenderManager;
 import me.kix.uzi.management.event.render.EventPostRenderEntity;
 import me.kix.uzi.management.event.render.EventPreRenderEntity;
 import net.minecraft.client.renderer.entity.Render;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(RenderManager.class)
-public abstract class MixinRenderManager implements IRenderManager {
+public abstract class MixinRenderManager implements GameRenderManager {
 
 
     @Redirect(method = "doRenderEntity", at = @At(value = "INVOKE", target = "net/minecraft/client/renderer/entity/Render.doRender(Lnet/minecraft/entity/Entity;DDDFF)V"))

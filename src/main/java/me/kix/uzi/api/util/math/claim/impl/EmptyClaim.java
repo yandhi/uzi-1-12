@@ -6,7 +6,7 @@ import net.minecraft.util.math.BlockPos;
 /**
  * An empty form of {@link me.kix.uzi.api.util.math.claim.Claim}.
  *
- * @author Jax
+ * @author Kix
  * Created in Apr 2019
  */
 public class EmptyClaim extends Claim {

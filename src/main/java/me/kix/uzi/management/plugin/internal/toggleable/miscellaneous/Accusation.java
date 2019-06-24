@@ -18,7 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
  * feel free!
  * </p>
  * 
- * @author Jackson
+ * @author Kix
  * @since April 2019
  */
 public class Accusation extends ToggleablePlugin {

@@ -1,9 +1,9 @@
 package me.kix.uzi.management.command.commands;
 
 import me.kix.uzi.Uzi;
-import me.kix.uzi.api.action.actions.TogglePluginAction;
+import me.kix.uzi.api.keybind.task.tasks.TogglePluginKeybindTaskStrategy;
 import me.kix.uzi.api.command.Command;
-import me.kix.uzi.api.macro.Macro;
+import me.kix.uzi.api.keybind.Keybind;
 import me.kix.uzi.api.plugin.Plugin;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.util.logging.Logger;
@@ -13,7 +13,7 @@ import java.util.Optional;
 public class MacroCommand extends Command {
 
     public MacroCommand() {
-        super("Macro", new String[]{"bind", "keybind", "mcro", "kbind", "bnd"}, "Allows the user to bind a action to a certain key via macros.");
+        super("Keybind", new String[]{"bind", "keybind", "mcro", "kbind", "bnd"}, "Allows the user to bind a action to a certain key via macros.");
     }
 
     @Override
@@ -24,12 +24,12 @@ public class MacroCommand extends Command {
             if (givenPlugin.isPresent()) {
                 if (givenPlugin.get() instanceof ToggleablePlugin) {
                     ToggleablePlugin p = (ToggleablePlugin) givenPlugin.get();
-                    Optional<Macro> givenMacro = Uzi.INSTANCE.getMacroManager().getMacro(p.getLabel());
+                    Optional<Keybind> givenMacro = Uzi.INSTANCE.getKeybindManager().getKeybind(p.getLabel());
                     if (givenMacro.isPresent()) {
-                        givenMacro.get().setFacet(split[2].toUpperCase());
+                        givenMacro.get().setKey(split[2].toUpperCase());
                         Logger.printMessage("Set facet to " + split[2].toUpperCase() + " for " + p.getLabel());
                     } else {
-                        Uzi.INSTANCE.getMacroManager().getContents().add(new Macro(p.getLabel(), split[2].toUpperCase(), new TogglePluginAction(p)));
+                        Uzi.INSTANCE.getKeybindManager().getContents().add(new Keybind(p.getLabel(), split[2].toUpperCase(), new TogglePluginKeybindTaskStrategy(p)));
                         Logger.printMessage("Set facet to " + split[2].toUpperCase() + " for " + p.getLabel());
                     }
                 } else {

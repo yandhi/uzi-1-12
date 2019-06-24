@@ -5,7 +5,7 @@ import net.minecraft.util.math.BlockPos;
 /**
  * A "vector" of sorts for claims.
  *
- * @author Jax
+ * @author Kix
  * Created in Apr 2019
  */
 public class Claim {

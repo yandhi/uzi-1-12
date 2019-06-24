@@ -1,7 +1,7 @@
 package me.kix.uzi.management.plugin.internal.toggleable.movement;
 
 import me.kix.uzi.api.event.Register;
-import me.kix.uzi.api.game.accessors.entity.IPlayerSP;
+import me.kix.uzi.api.game.accessors.entity.Player;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.management.event.input.packet.EventPacket;
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Allows the player to "blink" through blocks.
  *
- * @author Jax
+ * @author Kix
  * Created in Apr 2019
  */
 public class Blink extends ToggleablePlugin {
@@ -37,7 +37,7 @@ public class Blink extends ToggleablePlugin {
     @Register
     public void onPacketSend(EventPacket.Send send) {
         if (send.getPacket() instanceof CPacketPlayer) {
-            IPlayerSP player = (IPlayerSP) mc.player;
+            Player player = (Player) mc.player;
             if (player.isMoving() || !((mc.player.posY - mc.player.lastTickPosY) == 0.0D)) {
                 queuedPackets.add(send.getPacket());
             }

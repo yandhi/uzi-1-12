@@ -9,7 +9,7 @@ import net.minecraft.network.play.client.CPacketConfirmTeleport;
 /**
  * We become untouchable after going through a portal.
  *
- * @author Jax
+ * @author Kix
  * Created in Apr 2019
  */
 public class PortalGodMode extends ToggleablePlugin {

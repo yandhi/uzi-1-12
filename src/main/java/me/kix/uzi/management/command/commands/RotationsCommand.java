@@ -5,7 +5,7 @@ import me.kix.uzi.api.command.commands.ArgumentativeCommand;
 import net.minecraft.client.Minecraft;
 
 /**
- * @author jackson
+ * @author Kix
  * @since 9/1/18
  */
 public class RotationsCommand extends ArgumentativeCommand {

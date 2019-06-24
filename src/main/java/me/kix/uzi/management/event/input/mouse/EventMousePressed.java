@@ -5,7 +5,7 @@ import me.kix.uzi.api.event.Event;
 /**
  * An event for mouse presses.
  *
- * @author Jax
+ * @author Kix
  * Created in Apr 2019
  */
 public class EventMousePressed extends Event {

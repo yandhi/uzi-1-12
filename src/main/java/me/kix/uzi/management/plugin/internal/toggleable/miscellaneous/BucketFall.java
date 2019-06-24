@@ -13,7 +13,7 @@ import net.minecraft.util.EnumHand;
 /**
  * An MLG water-bucket hack that works every time!
  *
- * @author Jax
+ * @author Kix
  * Created in Apr 2019
  */
 public class BucketFall extends ToggleablePlugin {

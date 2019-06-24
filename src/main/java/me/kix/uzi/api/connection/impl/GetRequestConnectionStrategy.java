@@ -12,7 +12,7 @@ import me.kix.uzi.api.connection.ConnectionStrategy;
 /**
  * An attempt at creating an easier way of sending GET requests.
  * 
- * @author Jackson
+ * @author Kix
  * @since April 2019
  */
 public class GetRequestConnectionStrategy implements ConnectionStrategy {

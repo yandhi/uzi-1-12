@@ -1,11 +1,10 @@
 package me.kix.uzi.api.game.impl.client;
 
 import me.kix.uzi.Uzi;
-import me.kix.uzi.api.game.accessors.client.IMinecraft;
+import me.kix.uzi.api.game.accessors.client.Game;
 import me.kix.uzi.management.event.input.key.EventKeyPressed;
 import me.kix.uzi.management.event.input.mouse.EventMousePressed;
 import me.kix.uzi.management.event.misc.EventTick;
-import me.kix.uzi.management.event.render.EventRender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
 import net.minecraft.entity.Entity;
@@ -17,7 +16,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Minecraft.class)
-public abstract class MixinMinecraft implements IMinecraft {
+public abstract class MixinMinecraft implements Game {
 
     @Shadow
     public GuiScreen currentScreen;
@@ -37,6 +36,10 @@ public abstract class MixinMinecraft implements IMinecraft {
     @Accessor
     @Override
     public abstract Entity getRenderViewEntity();
+
+    @Override
+    @Accessor
+    public abstract Minecraft getInstance();
 
     @Shadow
     private void clickMouse() {

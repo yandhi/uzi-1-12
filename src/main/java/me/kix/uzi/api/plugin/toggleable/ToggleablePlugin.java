@@ -2,8 +2,8 @@ package me.kix.uzi.api.plugin.toggleable;
 
 import com.google.gson.JsonObject;
 import me.kix.uzi.Uzi;
-import me.kix.uzi.api.action.actions.TogglePluginAction;
-import me.kix.uzi.api.macro.Macro;
+import me.kix.uzi.api.keybind.task.tasks.TogglePluginKeybindTaskStrategy;
+import me.kix.uzi.api.keybind.Keybind;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.Plugin;
 
@@ -37,12 +37,12 @@ public class ToggleablePlugin extends Plugin implements Toggleable {
     public void save(JsonObject destination) {
         super.save(destination);
         String facet = "NONE";
-        for (Macro macro : Uzi.INSTANCE.getMacroManager().getContents()) {
-            if (macro.getAction() instanceof TogglePluginAction && ((TogglePluginAction) macro.getAction()).getPlugin() == this) {
-                facet = macro.getFacet();
+        for (Keybind keybind : Uzi.INSTANCE.getKeybindManager().getContents()) {
+            if (keybind.getTaskStrategy() instanceof TogglePluginKeybindTaskStrategy && ((TogglePluginKeybindTaskStrategy) keybind.getTaskStrategy()).getPlugin() == this) {
+                facet = keybind.getKey();
             }
         }
-        destination.addProperty("Macro", facet);
+        destination.addProperty("Keybind", facet);
         destination.addProperty("Hidden", hidden);
         destination.addProperty("Enabled", enabled);
     }
@@ -52,9 +52,9 @@ public class ToggleablePlugin extends Plugin implements Toggleable {
         super.load(source);
         source.entrySet()
                 .stream()
-                .filter(entry -> entry.getKey().equalsIgnoreCase("Macro"))
+                .filter(entry -> entry.getKey().equalsIgnoreCase("Keybind"))
                 .filter(entry -> !entry.getValue().getAsString().equalsIgnoreCase("NONE"))
-                .forEach(entry -> Uzi.INSTANCE.getMacroManager().getContents().add(new Macro(getLabel(), entry.getValue().getAsString().toUpperCase(), new TogglePluginAction(this))));
+                .forEach(entry -> Uzi.INSTANCE.getKeybindManager().getContents().add(new Keybind(getLabel(), entry.getValue().getAsString().toUpperCase(), new TogglePluginKeybindTaskStrategy(this))));
         source.entrySet()
                 .stream()
                 .filter(entry -> entry.getKey().equalsIgnoreCase("Enabled"))

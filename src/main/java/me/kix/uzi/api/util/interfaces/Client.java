@@ -1,5 +1,11 @@
 package me.kix.uzi.api.util.interfaces;
 
+/**
+ * The outline for all clients utilizing the uzi-core.
+ *
+ * @author Kix
+ * @since April 2018
+ */
 public interface Client {
 
     /**

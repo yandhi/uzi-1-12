@@ -5,7 +5,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 /**
  * Various math functions used around the client.
  *
- * @author Jackson
+ * @author Kix
  * @since April 2019
  */
 public class MathUtil {

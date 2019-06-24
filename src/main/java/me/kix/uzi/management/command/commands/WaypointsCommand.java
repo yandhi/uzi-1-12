@@ -8,7 +8,7 @@ import me.kix.uzi.management.plugin.internal.toggleable.render.Waypoints;
 /**
  * Handles waypoints for the client.
  *
- * @author Jax
+ * @author Kix
  * Created in Apr 2019
  */
 public class WaypointsCommand extends ArgumentativeCommand {

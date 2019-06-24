@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * @author Jax
+ * @author Kix
  * Created in Apr 2019
  */
 @Mixin(GuiIngame.class)

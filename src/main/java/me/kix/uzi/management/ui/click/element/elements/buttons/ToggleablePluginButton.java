@@ -33,12 +33,12 @@ public abstract class ToggleablePluginButton extends PluginButton {
         RenderUtil.border(posX, posY, posX + getWidth(), posY + getpHeight(), 1f, 0xFF000000);
         RenderUtil.verticalGradientRectangle(posX, posY, posX + getWidth(), posY + getpHeight(), ((ToggleablePlugin) getPlugin()).isEnabled() ? 0xff256bb6 : 0xff222222,
                 ((ToggleablePlugin) getPlugin()).isEnabled() ? 0xff185ea9 : 0xff2a2a2a);
-        RenderUtil.drawTinyString(getLabel(), posX + ((getWidth() / 2) - (mc.fontRenderer.getStringWidth(getLabel()) / 4)), posY + 5f, 0xFFFFFFFF);
+        RenderUtil.drawTinyString(getLabel(), posX + ((getWidth() / 2) - (mc.fontRenderer.getStringWidth(getLabel()) / 4)), posY + 3f, 0xFFFFFFFF);
         if (isExtended()) {
-            setHeight(14 + getElements().size() * 16);
+            setHeight(10 + getElements().size() * 12);
             getElements().forEach(element -> element.drawScreen(mouseX, mouseY, partialTicks));
         } else {
-            setHeight(14);
+            setHeight(10);
         }
     }
 

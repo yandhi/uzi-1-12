@@ -8,7 +8,7 @@ import me.kix.uzi.management.event.entity.EventUpdate;
 import java.awt.*;
 
 /**
- * @author jackson
+ * @author Kix
  * @since 8/28/18
  */
 public class NoFall extends ToggleablePlugin {

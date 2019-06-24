@@ -1,7 +1,7 @@
 package me.kix.uzi.management.plugin.internal.toggleable.render;
 
 import me.kix.uzi.api.event.Register;
-import me.kix.uzi.api.game.accessors.renderer.IRenderManager;
+import me.kix.uzi.api.game.accessors.renderer.GameRenderManager;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.property.Property;
@@ -31,9 +31,9 @@ public class Tiles extends ToggleablePlugin {
     @Register
     public void onRender(EventRender.Hand event) {
         for (TileEntity tile : mc.world.loadedTileEntityList) {
-            double posX = tile.getPos().getX() - ((IRenderManager) mc.getRenderManager()).getRenderPosX();
-            double posY = tile.getPos().getY() - ((IRenderManager) mc.getRenderManager()).getRenderPosY();
-            double posZ = tile.getPos().getZ() - ((IRenderManager) mc.getRenderManager()).getRenderPosZ();
+            double posX = tile.getPos().getX() - ((GameRenderManager) mc.getRenderManager()).getRenderPosX();
+            double posY = tile.getPos().getY() - ((GameRenderManager) mc.getRenderManager()).getRenderPosY();
+            double posZ = tile.getPos().getZ() - ((GameRenderManager) mc.getRenderManager()).getRenderPosZ();
             if (tile instanceof TileEntityChest) {
                 if (chests.getValue()) {
                     AxisAlignedBB bb = new AxisAlignedBB(0.0625, 0.0, 0.0625, 1, 0.875, 1).offset(posX, posY, posZ).contract(0.0625, 0, 0.0625);
@@ -47,8 +47,8 @@ public class Tiles extends ToggleablePlugin {
                     if (((TileEntityChest) tile).adjacentChestZPos != null)
                         adjacent = ((TileEntityChest) tile).adjacentChestZPos;
                     if (adjacent != null) {
-                        bb = bb.union(new AxisAlignedBB(0.0625, 0.0, 0.0625, 1, 0.875, 1).offset(adjacent.getPos().getX() - ((IRenderManager) mc.getRenderManager()).getRenderPosX(),
-                                adjacent.getPos().getY() - ((IRenderManager) mc.getRenderManager()).getRenderPosY(), adjacent.getPos().getZ() - ((IRenderManager) mc.getRenderManager()).getRenderPosZ())).contract(0.0625, 0, 0.0625);
+                        bb = bb.union(new AxisAlignedBB(0.0625, 0.0, 0.0625, 1, 0.875, 1).offset(adjacent.getPos().getX() - ((GameRenderManager) mc.getRenderManager()).getRenderPosX(),
+                                adjacent.getPos().getY() - ((GameRenderManager) mc.getRenderManager()).getRenderPosY(), adjacent.getPos().getZ() - ((GameRenderManager) mc.getRenderManager()).getRenderPosZ())).contract(0.0625, 0, 0.0625);
                     }
                     if (((TileEntityChest) tile).getChestType() == BlockChest.Type.TRAP) {
                         drawBlockESP(bb, 255f, 91f, 86f, 255f, 1f);

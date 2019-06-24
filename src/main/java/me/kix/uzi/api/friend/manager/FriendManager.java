@@ -8,15 +8,35 @@ import java.io.*;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * The manager for all allies in the client.
+ *
+ * <p>
+ * This is an ideal example of an instance where {@link ListManager} is useful.
+ * </p>
+ *
+ * @author Kix
+ * @since May 2018 (Revised June 2019).
+ */
 public class FriendManager extends ListManager<Friend> {
 
-    private final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    /**
+     * An instance of Google's JSON library in pretty-printed form.
+     */
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+
+    /**
+     * The file where friends are loaded / saved.
+     */
     private File friendFile;
 
     public FriendManager(File directory) {
         friendFile = new File(directory.toString() + File.separator + "friends.json");
     }
 
+    /**
+     * Initializes the friend manager.
+     */
     public void init() {
         try {
             if (!friendFile.exists()) {
@@ -30,6 +50,9 @@ public class FriendManager extends ListManager<Friend> {
         }
     }
 
+    /**
+     * Saves the current friend system.
+     */
     public void save() {
         try {
             final PrintWriter writer = new PrintWriter(friendFile);
@@ -42,6 +65,9 @@ public class FriendManager extends ListManager<Friend> {
         }
     }
 
+    /**
+     * Loads the current friend system.
+     */
     public void load() {
         try {
             final JsonObject object = new JsonParser().parse(new FileReader(friendFile)).getAsJsonObject();
@@ -52,6 +78,12 @@ public class FriendManager extends ListManager<Friend> {
         }
     }
 
+    /**
+     * Replaces the given text with the friends changed.
+     *
+     * @param text The text to be replaced.
+     * @return The new instance of the text.
+     */
     public String getReplacedText(String text) {
         for (Friend friend : getContents()) {
             if (text != null && text.contains(friend.getLabel()))
@@ -60,6 +92,11 @@ public class FriendManager extends ListManager<Friend> {
         return text;
     }
 
+    /**
+     * Removes a friend based on the provided in-game name.
+     *
+     * @param ign The in-game name of the friend being removed.
+     */
     public void removeFriend(String ign) {
         for (Friend friend : getContents()) {
             if (friend.getLabel().equalsIgnoreCase(ign))
@@ -67,6 +104,12 @@ public class FriendManager extends ListManager<Friend> {
         }
     }
 
+    /**
+     * Whether or not the player with the given in-game name is a friend.
+     *
+     * @param ign The in-game name of the player being checked.
+     * @return Whether or not the player is a friend.
+     */
     public boolean isFriend(String ign) {
         for (Friend friend : getContents()) {
             if (friend.getLabel().equalsIgnoreCase(ign))

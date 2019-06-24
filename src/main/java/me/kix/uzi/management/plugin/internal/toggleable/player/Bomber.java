@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  * This module uses the Rocket Jumper Kit and automatically places the "bombs" for the player.
  * </p>
  *
- * @author Jax
+ * @author Kix
  * Created in Apr 2019
  */
 public class Bomber extends ToggleablePlugin {

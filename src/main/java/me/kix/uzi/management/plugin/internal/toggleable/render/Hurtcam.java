@@ -8,7 +8,7 @@ import me.kix.uzi.management.event.render.EventRender;
 /**
  * Hides the game's hurtcam.
  *
- * @author Jax
+ * @author Kix
  * Created in Apr 2019
  */
 public class Hurtcam extends ToggleablePlugin {

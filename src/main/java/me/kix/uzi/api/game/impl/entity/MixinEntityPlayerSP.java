@@ -1,7 +1,7 @@
 package me.kix.uzi.api.game.impl.entity;
 
 import me.kix.uzi.Uzi;
-import me.kix.uzi.api.game.accessors.entity.IPlayerSP;
+import me.kix.uzi.api.game.accessors.entity.Player;
 import me.kix.uzi.api.util.math.MathUtil;
 import me.kix.uzi.management.event.entity.EventMotion;
 import me.kix.uzi.management.event.entity.EventUpdate;
@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EntityPlayerSP.class)
-public abstract class MixinEntityPlayerSP extends MixinEntityLivingBase implements IPlayerSP {
+public abstract class MixinEntityPlayerSP extends MixinEntityLivingBase implements Player {
 
     @Shadow
     @Final

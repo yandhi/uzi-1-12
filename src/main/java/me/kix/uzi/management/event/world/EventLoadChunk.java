@@ -6,7 +6,7 @@ import net.minecraft.world.chunk.Chunk;
 /**
  * Allows us to hook into the loading of the chunk.
  *
- * @author jackson
+ * @author Kix
  * @since 8/28/18
  */
 public class EventLoadChunk extends Event {

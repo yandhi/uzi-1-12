@@ -38,12 +38,11 @@ public abstract class Panel implements Labeled, MinecraftAccessor {
         }
         RenderUtil.border(posX, posY, posX + width, posY + height, 2f, 0xff000000);
         RenderUtil.verticalGradientRectangle(posX, posY, posX + width, posY + height, 0xFF222222, 0xFF2a2a2a);
-        RenderUtil.drawTinyString(label, posX + 4.5f, posY + 6f, 0xFFFFFFFF);
+        RenderUtil.drawTinyString(label, posX + 4.5f, posY + 4f, 0xFFFFFFFF);
 
-        RenderUtil.border(posX + width - 14, posY + 2, posX + width - 2, posY + getHeight() - 2, 1f, 0xff000000);
-        RenderUtil.verticalGradientRectangle(posX + width - 14, posY + 2, posX + width - 2, posY + getHeight() - 2, 0xff256bb6, 0xff185ea9);
-        RenderUtil.drawTinyString(extended ? "-" : "+", posX + width - 8f - (mc.fontRenderer.getStringWidth(extended ? "-" : "+") / 4f), posY + (getHeight() / 2f) - (mc.fontRenderer.FONT_HEIGHT / 4f), 0xffffffff);
-
+        RenderUtil.border(posX + width - 10.5f, posY + 2, posX + width - 2, posY + getHeight() - 2, 1f, 0xff000000);
+        RenderUtil.verticalGradientRectangle(posX + width - 10.5f, posY + 2, posX + width - 2, posY + getHeight() - 2, 0xff256bb6, 0xff185ea9);
+        RenderUtil.drawTinyString(extended ? "-" : "+", posX + width - 6f - (mc.fontRenderer.getStringWidth(extended ? "-" : "+") / 4f), posY + (getHeight() / 2f) - (mc.fontRenderer.FONT_HEIGHT / 4f) + 0.5f, 0xffffffff);
         if (extended) {
             int addition = 2;
             for (Element element : getElements()) {

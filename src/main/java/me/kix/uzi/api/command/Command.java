@@ -3,8 +3,6 @@ package me.kix.uzi.api.command;
 import me.kix.uzi.api.util.interfaces.Labeled;
 
 public abstract class Command implements Labeled {
-
-
     private final String label;
     private final String[] aliases;
     private final String description;

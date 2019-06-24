@@ -1,7 +1,7 @@
 package me.kix.uzi.management.plugin.internal.toggleable.miscellaneous;
 
 import me.kix.uzi.api.event.Register;
-import me.kix.uzi.api.game.accessors.screen.IGuiChest;
+import me.kix.uzi.api.game.accessors.screen.Chest;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.util.math.timing.Timer;
@@ -24,7 +24,7 @@ public class ChestStealer extends ToggleablePlugin {
     public void onUpdate(EventUpdate.Pre event) {
         if (mc.currentScreen instanceof GuiChest) {
             GuiChest chest = (GuiChest) mc.currentScreen;
-            IGuiChest mxChest = (IGuiChest) chest;
+            Chest mxChest = (Chest) chest;
             int rows = mxChest.getInventoryRows() * 9;
             for (int i = 0; i < rows; i++) {
                 Slot slot = chest.inventorySlots.getSlot(i);

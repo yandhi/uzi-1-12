@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 
 /**
- * @author jackson
+ * @author Kix
  * @since 9/1/18
  */
 public class EventPreRenderEntity extends EventCancellable {

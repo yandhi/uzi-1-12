@@ -9,7 +9,7 @@ import net.minecraft.network.play.server.SPacketTabComplete;
 import java.awt.*;
 
 /**
- * @author jackson
+ * @author Kix
  * @since 9/1/18
  */
 public class NoTab extends ToggleablePlugin {

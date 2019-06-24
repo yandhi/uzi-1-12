@@ -20,7 +20,7 @@ import java.util.Optional;
 /**
  * Adds waypoints on the map.
  *
- * @author Jax
+ * @author Kix
  * Created in Apr 2019
  */
 public class Waypoints extends ToggleablePlugin {

@@ -14,7 +14,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 
 /**
- * @author jackson
+ * @author Kix
  * @since 8/26/18
  */
 public class Lawnmower extends ToggleablePlugin {

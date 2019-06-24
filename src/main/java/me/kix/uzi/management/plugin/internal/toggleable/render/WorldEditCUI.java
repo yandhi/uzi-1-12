@@ -21,7 +21,7 @@ import java.awt.*;
  * Shows the current claim.
  * </p>
  *
- * @author Jax
+ * @author Kix
  * Created in Apr 2019
  */
 public class WorldEditCUI extends ToggleablePlugin {

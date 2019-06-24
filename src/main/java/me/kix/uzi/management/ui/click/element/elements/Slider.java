@@ -30,7 +30,7 @@ public class Slider extends Element {
         RenderUtil.border(posX, posY, posX + getWidth(), posY + getHeight(), 1f, 0xff000000);
         RenderUtil.verticalGradientRectangle(posX, posY, posX + getWidth(), posY + getHeight(), 0xff222222, 0xff2a2a2a);
         RenderUtil.verticalGradientRectangle(posX, posY, posX + length, posY + getHeight(), 0xff256bb6, 0xff185ea9);
-        RenderUtil.drawTinyString(getLabel() + ": " + property.getValue(), posX + 3, posY + 5f, 0xFFFFFFFF);
+        RenderUtil.drawTinyString(getLabel() + ": " + property.getValue(), posX + 3, posY + 3f, 0xFFFFFFFF);
         if (dragging) {
             property.setValue(((mouseX - posX) * (property.getMaximum().floatValue() - property.getMinimum().floatValue()) / getWidth() + property.getMinimum().floatValue()));
         }

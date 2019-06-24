@@ -13,7 +13,7 @@ import net.minecraft.util.MovementInput;
 /**
  * Allows us to go faster on entities.
  *
- * @author Jax
+ * @author Kix
  * Created in Apr 2019
  */
 public class EntitySpeed extends ToggleablePlugin {

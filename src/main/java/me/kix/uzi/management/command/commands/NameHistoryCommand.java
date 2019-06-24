@@ -18,7 +18,7 @@ import me.kix.uzi.api.util.logging.Logger;
  * package.
  * </p>
  * 
- * @author Jackson
+ * @author Kix
  * @since April 2019
  */
 public class NameHistoryCommand extends Command {

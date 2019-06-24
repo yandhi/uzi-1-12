@@ -1,7 +1,7 @@
 package me.kix.uzi.management.plugin.internal.toggleable.player;
 
 import me.kix.uzi.api.event.Register;
-import me.kix.uzi.api.game.accessors.client.multiplayer.IPlayerControllerMP;
+import me.kix.uzi.api.game.accessors.client.multiplayer.PlayerController;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.property.Property;
@@ -29,13 +29,13 @@ public class Speedmine extends ToggleablePlugin {
     public void onUpdate(EventUpdate.Pre event) {
         if (effect.getValue())
             mc.player.addPotionEffect(new PotionEffect(MobEffects.HASTE, Integer.MAX_VALUE, 0));
-        ((IPlayerControllerMP) mc.playerController).setBlockHitDelay(0);
+        ((PlayerController) mc.playerController).setBlockHitDelay(0);
     }
 
     @Register
     public void onDamageBlock(EventDamageBlock event) {
         mc.player.swingArm(EnumHand.MAIN_HAND);
-        final IPlayerControllerMP controller = (IPlayerControllerMP) mc.playerController;
+        final PlayerController controller = (PlayerController) mc.playerController;
         controller.setCurBlockDamageMP(controller.getCurBlockDamageMP() +
                 getBlock(event.getPos().getX(), event.getPos().getY(), event.getPos().getZ())
                         .getPlayerRelativeBlockHardness(getBlock(event.getPos().getX(), event.getPos().getY(), event.getPos().getZ())

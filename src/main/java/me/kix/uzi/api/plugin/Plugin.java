@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import me.kix.uzi.api.command.parsing.parsers.BooleanParser;
 import me.kix.uzi.api.property.Property;
 import me.kix.uzi.api.property.properties.NumberProperty;
-import me.kix.uzi.api.util.interfaces.Configurable;
+import me.kix.uzi.api.util.config.Configurable;
 import me.kix.uzi.api.util.interfaces.Labeled;
 import me.kix.uzi.api.util.interfaces.MinecraftAccessor;
 
@@ -14,8 +14,19 @@ import java.util.Optional;
 
 public class Plugin implements Labeled, Configurable<JsonObject>, MinecraftAccessor {
 
+    /**
+     * The name of the plugin.
+     */
     private final String label;
+
+    /**
+     * The category that the plugin falls under.
+     */
     private final Category category;
+
+    /**
+     * The collection of properties that the plugin has.
+     */
     private final List<Property> properties = new ArrayList<>();
 
     public Plugin(String label, Category category) {
@@ -57,6 +68,12 @@ public class Plugin implements Labeled, Configurable<JsonObject>, MinecraftAcces
         return properties;
     }
 
+    /**
+     * Allows us to gain access to specified properties based on a given term.
+     *
+     * @param term The name of the property being searched for.
+     * @return The {@link Optional} instance of the property.
+     */
     public Optional<Property> getProperty(String term) {
         for (Property property : getProperties()) {
             if (property.getLabel().equalsIgnoreCase(term)) {

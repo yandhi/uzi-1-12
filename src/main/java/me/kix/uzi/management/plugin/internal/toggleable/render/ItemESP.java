@@ -14,7 +14,7 @@ import java.awt.*;
 /**
  * Shows an ESP for items that are on the ground.
  *
- * @author Jax
+ * @author Kix
  * Created in Apr 2019
  */
 public class ItemESP extends ToggleablePlugin {

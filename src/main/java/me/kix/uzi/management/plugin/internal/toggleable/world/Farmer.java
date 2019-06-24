@@ -17,7 +17,7 @@ import net.minecraftforge.common.IPlantable;
 import java.awt.*;
 
 /**
- * @author jackson
+ * @author Kix
  * @since 8/27/18
  */
 public class Farmer extends ToggleablePlugin {

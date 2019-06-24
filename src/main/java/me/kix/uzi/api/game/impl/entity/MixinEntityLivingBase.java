@@ -1,13 +1,13 @@
 package me.kix.uzi.api.game.impl.entity;
 
-import me.kix.uzi.api.game.accessors.entity.IEntityLivingBase;
+import me.kix.uzi.api.game.accessors.entity.LivingEntity;
 import net.minecraft.entity.EntityLivingBase;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(EntityLivingBase.class)
-public abstract class MixinEntityLivingBase extends MixinEntity implements IEntityLivingBase {
+public abstract class MixinEntityLivingBase extends MixinEntity implements LivingEntity {
 
     @Shadow protected boolean isJumping;
 

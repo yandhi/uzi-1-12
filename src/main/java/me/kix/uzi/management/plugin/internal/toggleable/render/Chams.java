@@ -11,7 +11,7 @@ import org.lwjgl.opengl.GL11;
 /**
  * Actual chams, not just wallhack.
  *
- * @author Jax
+ * @author Kix
  * Created in Apr 2019
  */
 public class Chams extends ToggleablePlugin {

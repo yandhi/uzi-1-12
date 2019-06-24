@@ -12,7 +12,7 @@ import java.awt.*;
 /**
  * Emulates a saddle being on riding entities.
  *
- * @author jackson
+ * @author Kix
  * @since 8/31/18
  */
 public class Saddle extends ToggleablePlugin {

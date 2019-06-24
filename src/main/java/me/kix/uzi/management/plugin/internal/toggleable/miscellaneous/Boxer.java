@@ -7,7 +7,7 @@ import net.minecraft.network.play.client.CPacketAnimation;
 /**
  * The Old school crash exploit using CPacketAnimation.
  *
- * @author Jax
+ * @author Kix
  * Created in Apr 2019
  */
 public class Boxer extends ToggleablePlugin {

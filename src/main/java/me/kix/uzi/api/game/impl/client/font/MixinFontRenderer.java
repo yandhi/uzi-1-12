@@ -1,7 +1,7 @@
 package me.kix.uzi.api.game.impl.client.font;
 
 import me.kix.uzi.Uzi;
-import me.kix.uzi.api.game.accessors.client.font.IFontRenderer;
+import me.kix.uzi.api.game.accessors.client.font.TextRenderer;
 import me.kix.uzi.management.event.render.EventRenderString;
 import net.minecraft.client.gui.FontRenderer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(FontRenderer.class)
-public abstract class MixinFontRenderer implements IFontRenderer {
+public abstract class MixinFontRenderer implements TextRenderer {
 
     @Accessor
     @Override
@@ -28,7 +28,7 @@ public abstract class MixinFontRenderer implements IFontRenderer {
     /**
      * Lets us do DashNames easier.
      *
-     * @author Jackson
+     * @author Kix
      */
     @Overwrite
     public int drawString(String text, float x, float y, int color, boolean dropShadow) {

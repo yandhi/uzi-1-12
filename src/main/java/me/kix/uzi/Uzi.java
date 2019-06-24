@@ -2,11 +2,12 @@ package me.kix.uzi;
 
 import me.kix.uzi.api.event.EventManager;
 import me.kix.uzi.api.friend.manager.FriendManager;
-import me.kix.uzi.api.macro.manage.MacroManager;
+import me.kix.uzi.api.keybind.manage.KeybindManager;
 import me.kix.uzi.api.util.interfaces.Client;
 import me.kix.uzi.management.command.manage.CommandManager;
 import me.kix.uzi.management.plugin.manage.PluginManager;
 import me.kix.uzi.management.ui.alt.manage.AltManager;
+
 import java.io.File;
 
 /**
@@ -19,16 +20,47 @@ import java.io.File;
  * </p>
  *
  * @author k1x
+ * @since April 2018 (Revised June 2019).
  */
 public enum Uzi implements Client {
+    /**
+     * The singleton instance of the client.
+     */
     INSTANCE;
 
+    /**
+     * The event system for the client.
+     */
     private final EventManager eventManager = new EventManager();
+
+    /**
+     * The command system for the client.
+     */
     private final CommandManager commandManager = new CommandManager();
-    private final MacroManager macroManager = new MacroManager();
+
+    /**
+     * The keybinding system for the client.
+     */
+    private final KeybindManager keybindManager = new KeybindManager();
+
+    /**
+     * The alt system for the client.
+     */
     private AltManager altManager;
+
+    /**
+     * The friend system for the client.
+     */
     private FriendManager friendManager;
+
+    /**
+     * The plugin system for the client.
+     */
     private PluginManager pluginManager;
+
+    /**
+     * The directory of the client.
+     */
     private File directory;
 
     @Override
@@ -66,7 +98,7 @@ public enum Uzi implements Client {
 
     @Override
     public String getVersion() {
-        return "1.7.5";
+        return "1.8.0";
     }
 
     @Override
@@ -86,8 +118,8 @@ public enum Uzi implements Client {
         return commandManager;
     }
 
-    public MacroManager getMacroManager() {
-        return macroManager;
+    public KeybindManager getKeybindManager() {
+        return keybindManager;
     }
 
     public FriendManager getFriendManager() {

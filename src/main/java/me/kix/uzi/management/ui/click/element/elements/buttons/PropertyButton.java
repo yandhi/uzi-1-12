@@ -27,9 +27,9 @@ public class PropertyButton extends Button {
         RenderUtil.border(posX + getWidth() - 30, posY, posX + getWidth(), posY + getHeight(), 1f, 0xff000000);
         RenderUtil.verticalGradientRectangle(posX + getWidth() - 30, posY, posX + getWidth() - 15, posY + getHeight(), property.getValue() ? 0xff256bb6 : 0xff222222, property.getValue() ? 0xff185ea9 : 0xff2a2a2a);
         RenderUtil.verticalGradientRectangle(posX + getWidth() - 15, posY, posX + getWidth(), posY + getHeight(), !property.getValue() ? 0xff256bb6 : 0xff222222, !property.getValue() ? 0xff185ea9 : 0xff2a2a2a);
-        RenderUtil.drawTinyString(getLabel(), posX + 3, posY + 5f, 0xFFFFFFFF);
-        RenderUtil.drawTinyString("On", posX + getWidth() - 22.5f - (mc.fontRenderer.getStringWidth("On") / 4f), posY + 5f, 0xffffffff);
-        RenderUtil.drawTinyString("Off", posX + getWidth() - 7.5f - (mc.fontRenderer.getStringWidth("Off") / 4f), posY + 5f, 0xffffffff);
+        RenderUtil.drawTinyString(getLabel(), posX + 3, posY + 3f, 0xFFFFFFFF);
+        RenderUtil.drawTinyString("On", posX + getWidth() - 22.5f - (mc.fontRenderer.getStringWidth("On") / 4f), posY + 3f, 0xffffffff);
+        RenderUtil.drawTinyString("Off", posX + getWidth() - 7.5f - (mc.fontRenderer.getStringWidth("Off") / 4f), posY + 3f, 0xffffffff);
     }
 
     @Override

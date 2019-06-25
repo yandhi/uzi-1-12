@@ -130,6 +130,10 @@ public class PluginManager extends ListManager<Plugin> {
         getContents().add(new CapabilityFly());
         getContents().add(new SmartChat());
         getContents().add(new AntiDesync());
+        getContents().add(new BedAura());
+        getContents().add(new PearlLogger());
+        getContents().add(new Strike());
+        getContents().add(new Phase());
         load();
     }
 

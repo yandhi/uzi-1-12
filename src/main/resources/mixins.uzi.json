@@ -10,6 +10,7 @@
     "screen.MixinGuiChest",
     "entity.MixinEntity",
     "entity.MixinEntityLivingBase",
+    "entity.MixinEntityPlayer",
     "entity.MixinEntityPlayerSP",
     "client.MixinMinecraft",
     "client.key.MixinKeybinding",

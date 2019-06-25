@@ -3,6 +3,7 @@ package me.kix.uzi.api.game.impl.entity;
 import me.kix.uzi.Uzi;
 import me.kix.uzi.api.game.accessors.entity.Player;
 import me.kix.uzi.api.util.math.MathUtil;
+import me.kix.uzi.management.event.block.EventPushOutOfBlocks;
 import me.kix.uzi.management.event.entity.EventMotion;
 import me.kix.uzi.management.event.entity.EventUpdate;
 import me.kix.uzi.management.event.input.chat.EventSendOffChatMessage;
@@ -25,9 +26,10 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityPlayerSP.class)
-public abstract class MixinEntityPlayerSP extends MixinEntityLivingBase implements Player {
+public abstract class MixinEntityPlayerSP extends MixinEntityPlayer implements Player {
 
     @Shadow
     @Final
@@ -55,7 +57,6 @@ public abstract class MixinEntityPlayerSP extends MixinEntityLivingBase implemen
     @Shadow
     private boolean autoJumpEnabled;
 
-
     @Shadow
     public abstract boolean isSneaking();
 
@@ -67,6 +68,16 @@ public abstract class MixinEntityPlayerSP extends MixinEntityLivingBase implemen
         EventMotion event = new EventMotion(x, y, z);
         Uzi.INSTANCE.getEventManager().dispatch(event);
         super.move(type, event.getX(), event.getY(), event.getZ());
+    }
+
+    @Inject(method = "pushOutOfBlocks", at = @At("HEAD"), cancellable = true)
+    private void pushOutOfBlocks(double x, double y, double z, CallbackInfoReturnable<Boolean> cir) {
+        EventPushOutOfBlocks pushOutOfBlocks = new EventPushOutOfBlocks();
+        Uzi.INSTANCE.getEventManager().dispatch(pushOutOfBlocks);
+
+        if (pushOutOfBlocks.isCancelled()) {
+            cir.setReturnValue(false);
+        }
     }
 
     @Inject(method = "onUpdate", at = @At("HEAD"))
@@ -195,30 +206,30 @@ public abstract class MixinEntityPlayerSP extends MixinEntityLivingBase implemen
     }
 
     public float getDirection() {
-		float yaw = mc.player.rotationYaw;
-		if (mc.player.moveForward < 0) {
-			yaw += 180;
-		}
-		float forward = 1;
-		if (mc.player.moveForward < 0) {
-			forward = -0.5F;
-		} else if (mc.player.moveForward > 0) {
-			forward = 0.5F;
-		}
-		if (mc.player.moveStrafing > 0) {
-			yaw -= 90 * forward;
-		}
-		if (mc.player.moveStrafing < 0) {
-			yaw += 90 * forward;
-		}
-		yaw *= 0.017453292F;
-		return yaw;
-	}
+        float yaw = mc.player.rotationYaw;
+        if (mc.player.moveForward < 0) {
+            yaw += 180;
+        }
+        float forward = 1;
+        if (mc.player.moveForward < 0) {
+            forward = -0.5F;
+        } else if (mc.player.moveForward > 0) {
+            forward = 0.5F;
+        }
+        if (mc.player.moveStrafing > 0) {
+            yaw -= 90 * forward;
+        }
+        if (mc.player.moveStrafing < 0) {
+            yaw += 90 * forward;
+        }
+        yaw *= 0.017453292F;
+        return yaw;
+    }
 
     @Override
     public void setSpeed(double speed) {
         this.motionX = -MathHelper.sin(this.getDirection()) * speed;
-		this.motionZ = MathHelper.cos(this.getDirection()) * speed;
+        this.motionZ = MathHelper.cos(this.getDirection()) * speed;
     }
 
     @Override

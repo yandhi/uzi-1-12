@@ -7,17 +7,15 @@ import me.kix.uzi.api.property.properties.NumberProperty;
 import me.kix.uzi.api.util.math.angle.Angle;
 import me.kix.uzi.api.util.math.angle.AngleUtil;
 import me.kix.uzi.management.event.entity.EventUpdate;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.tileentity.TileEntityBed;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.Vec3d;
-import net.minecraftforge.common.DimensionManager;
-
+import net.minecraft.world.World;
 import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 /**
  * Lays in nearby beds immediately upon players coming near.
@@ -45,57 +43,75 @@ public class BedAura extends ToggleablePlugin {
 
     @Register
     public void onPreUpdate(EventUpdate.Pre preUpdate) {
-        /* Ensure we are in the nether. */
-        if (mc.player.dimension != -1) {
+        /* Make sure we are in the nether. */
+        if (!isPlayerInNether(mc.player)) {
             return;
         }
 
-        /* The current target. */
-        EntityPlayer target = null;
+        /* The closest target to the player. */
+        Optional<EntityPlayer> nearestTarget = getNearestTarget(mc.player, mc.world);
 
-        /* The nearby beds. */
-        List<TileEntityBed> nearbyBeds = mc.world.loadedTileEntityList.stream()
-                .filter(TileEntityBed.class::isInstance)
-                .map(TileEntityBed.class::cast)
-                .filter(bed -> mc.player.getDistance(bed.getPos().getX(), bed.getPos().getY(), bed.getPos().getZ()) <= range.getValue())
-                .collect(Collectors.toList());
+        /* Make sure the target exists. */
+        if (nearestTarget.isPresent()) {
 
-        /* The nearby players. */
-        List<EntityPlayer> nearbyPlayers = mc.world.playerEntities.stream()
-                .filter(player -> player != mc.player)
-                .filter(player -> mc.player.getDistanceToEntity(player) <= range.getValue())
-                .sorted((o1, o2) -> Float.compare(mc.player.getDistanceToEntity(o1), mc.player.getDistanceToEntity(o2)))
-                .collect(Collectors.toList());
+            /* The closest bed to the target. */
+            Optional<TileEntityBed> nearestBed = getNearestBed(mc.player, mc.world, nearestTarget.get());
 
-        /* Choose the closest player. */
-        if (!nearbyPlayers.isEmpty()) {
-            target = nearbyPlayers.get(0);
-        }
-
-        /* Ensure non-nullability. */
-        if (target != null) {
-            /* Temporary "effectively-final" target. */
-            EntityPlayer finalTarget = target;
-            /* Sort beds based on the position of the target. */
-            nearbyBeds.sort(Comparator.comparingDouble(o -> finalTarget.getDistance(o.getPos().getX(), o.getPos().getY(), o.getPos().getZ())));
-
-            /* Choose the closest bed and enter it. */
-            if (!nearbyBeds.isEmpty()) {
-                TileEntityBed bed = nearbyBeds.get(0);
+            /* Make sure the bed exists. */
+            if (nearestBed.isPresent()) {
 
                 /* Look at bed. */
-                Angle angle = AngleUtil.getAngle(bed);
+                Angle angle = AngleUtil.getAngle(nearestBed.get());
                 preUpdate.getViewAngles().setYaw(angle.getYaw());
                 preUpdate.getViewAngles().setPitch(angle.getPitch());
 
                 /* Bruteforce the facing side because we don't have a way of knowing it. */
                 for (EnumFacing facing : EnumFacing.values()) {
                     if (facing != EnumFacing.UP) {
-                        mc.playerController.processRightClickBlock(mc.player, mc.world, bed.getPos(), facing, new Vec3d(0, 0, 0), EnumHand.MAIN_HAND);
+                        mc.playerController.processRightClickBlock(mc.player, mc.world, nearestBed.get().getPos(), facing, new Vec3d(0, 0, 0), EnumHand.MAIN_HAND);
                     }
                 }
             }
         }
     }
 
+    /**
+     * Gains the nearest target to the player.
+     *
+     * @param clientPlayer The client player.
+     * @param world        The world that the player is in.
+     * @return The closest target to the entity.
+     */
+    private Optional<EntityPlayer> getNearestTarget(EntityPlayerSP clientPlayer, World world) {
+        return world.playerEntities.stream()
+                .filter(player -> player != clientPlayer)
+                .filter(player -> clientPlayer.getDistanceToEntity(player) <= range.getValue())
+                .min(Comparator.comparing(clientPlayer::getDistanceToEntity));
+    }
+
+    /**
+     * Gives us the nearest bed to the target based on nearby beds to the player.
+     *
+     * @param clientPlayer The client entity.
+     * @param world        The world that the player and target are in.
+     * @param target       The target of the bed bombing.
+     * @return The closest entity to the target based on nearby entities to the player in {@link Optional} form.
+     */
+    private Optional<TileEntityBed> getNearestBed(EntityPlayerSP clientPlayer, World world, EntityPlayer target) {
+        return world.loadedTileEntityList.stream()
+                .filter(TileEntityBed.class::isInstance)
+                .map(TileEntityBed.class::cast)
+                .filter(bed -> clientPlayer.getDistance(bed.getPos().getX(), bed.getPos().getY(), bed.getPos().getZ()) <= range.getValue())
+                .min(Comparator.comparingDouble(o -> target.getDistance(o.getPos().getX(), o.getPos().getY(), o.getPos().getZ())));
+    }
+
+    /**
+     * Checks the player's dimension and ensures it's the nether.
+     *
+     * @param player The player who's dimension is being checked.
+     * @return Whether or not the player is in the nether.
+     */
+    private boolean isPlayerInNether(EntityPlayerSP player) {
+        return player.dimension == -1;
+    }
 }

@@ -134,6 +134,7 @@ public class PluginManager extends ListManager<Plugin> {
         getContents().add(new PearlLogger());
         getContents().add(new Strike());
         getContents().add(new Phase());
+        getContents().add(new ServerResponding());
         load();
     }
 

@@ -12,4 +12,7 @@ public class Timer {
         now = System.currentTimeMillis();
     }
 
+    public long getNow() {
+        return now;
+    }
 }

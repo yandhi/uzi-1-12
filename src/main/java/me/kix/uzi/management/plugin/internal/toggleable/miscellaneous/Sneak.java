@@ -23,7 +23,6 @@ public class Sneak extends ToggleablePlugin {
             mc.getConnection().sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
         } else {
             mc.getConnection().sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
-
         }
     }
 

@@ -31,10 +31,10 @@ public class AutoFish extends ToggleablePlugin {
                     caught = false;
                     mc.getConnection().sendPacket(new CPacketPlayerTryUseItem(EnumHand.MAIN_HAND));
                 }
-            } else if (mc.player.fishEntity != null && event.getPacket() instanceof SPacketSoundEffect){
+            } else if (mc.player.fishEntity != null && event.getPacket() instanceof SPacketSoundEffect) {
                 Packet sound = event.getPacket();
                 if (mc.player.getHeldItemMainhand().getItem() instanceof ItemFishingRod &&
-                ((SPacketSoundEffect) sound).getSound().getSoundName().equals(new ResourceLocation("entity.bobber.splash"))){
+                        ((SPacketSoundEffect) sound).getSound().getSoundName().equals(new ResourceLocation("entity.bobber.splash"))) {
                     caught = true;
                     timer.reset();
                     mc.getConnection().sendPacket(new CPacketPlayerTryUseItem(EnumHand.MAIN_HAND));

@@ -15,13 +15,11 @@ import net.minecraft.util.math.BlockPos;
 public class Nuker extends ToggleablePlugin {
 
     private final NumberProperty<Integer> radius = new NumberProperty<>("Radius", 2, 1, 6);
-    private final Timer timer;
 
     public Nuker() {
         super("Nuker", Category.WORLD);
         getProperties().add(radius);
         setColor(0x65E69A);
-        timer = new Timer();
     }
 
     @Register

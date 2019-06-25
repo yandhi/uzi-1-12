@@ -180,6 +180,11 @@ public abstract class MixinEntity implements IEntity {
     @Shadow
     public abstract boolean isBurning();
 
+    @Shadow
+    public boolean isEntityInsideOpaqueBlock() {
+        return false;
+    }
+
     @Accessor
     @Override
     public abstract List<Entity> getRiddenByEntities();
@@ -426,7 +431,7 @@ public abstract class MixinEntity implements IEntity {
                     y = d6;
                     z = d7;
                     this.setEntityBoundingBox(axisalignedbb1);
-                }else{
+                } else {
                     Uzi.INSTANCE.getEventManager().dispatch(new EventStep.Post(_this));
                 }
             }

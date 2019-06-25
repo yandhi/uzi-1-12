@@ -70,7 +70,7 @@ public class ChunkUpdates extends ToggleablePlugin {
 
 		private final double x, z;
 
-		public ChunkData(double x, double z) {
+		ChunkData(double x, double z) {
 			this.x = x;
 			this.z = z;
 		}

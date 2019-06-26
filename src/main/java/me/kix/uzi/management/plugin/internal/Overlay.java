@@ -32,11 +32,11 @@ public class Overlay extends Plugin {
 
     @Register
     public void onWorldToScreen(EventRender.WorldToScreen event) {
-        GlStateManager.pushMatrix();
-        GlStateManager.enableBlend();
         final ScaledResolution scaledResolution = new ScaledResolution(mc);
         if (mc.gameSettings.showDebugInfo) return;
 
+        GlStateManager.pushMatrix();
+        GlStateManager.enableBlend();
         if (branding.getValue()) {
             mc.fontRenderer.drawStringWithShadow("Uzi 1.12", 2, 2, 0xFFFFFFFF);
         }
@@ -77,5 +77,21 @@ public class Overlay extends Plugin {
             }
         }
         GlStateManager.popMatrix();
+    }
+
+    public Property<Boolean> getBranding() {
+        return branding;
+    }
+
+    public Property<Boolean> getCoords() {
+        return coords;
+    }
+
+    public Property<Boolean> getToggleables() {
+        return toggleables;
+    }
+
+    public Property<Boolean> getTps() {
+        return tps;
     }
 }

@@ -4,8 +4,10 @@ import me.kix.uzi.Uzi;
 import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.Plugin;
+
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector4f;
+
 import me.kix.uzi.api.util.render.GLUProjection;
 import me.kix.uzi.management.event.render.EventRender;
 import net.minecraft.client.gui.ScaledResolution;
@@ -29,6 +31,11 @@ public class TwoDimensionalRenderManager extends Plugin {
     @Register
     public void onWorldToScreen(EventRender.WorldToScreen event) {
         final ScaledResolution scaledRes = new ScaledResolution(mc);
+
+        if (mc.gameSettings.showDebugInfo) {
+            return;
+        }
+
         for (Entity entity : mc.world.loadedEntityList) {
             if (entity != mc.player && entity instanceof EntityLivingBase) {
                 double posX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * event.getPartialTicks();

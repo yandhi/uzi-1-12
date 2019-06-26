@@ -9,6 +9,7 @@ import me.kix.uzi.api.util.render.RenderUtil;
 import me.kix.uzi.management.event.render.EventRender;
 import me.kix.uzi.management.event.render.EventRenderNameplate;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityLivingBase;
@@ -106,8 +107,10 @@ public class Nametags extends ToggleablePlugin {
                 GlStateManager.enableLighting();
                 GlStateManager.depthMask(true);
                 GlStateManager.enableDepth();
+                RenderHelper.enableStandardItemLighting();
                 mc.getRenderItem().renderItemIntoGUI(stack, armorX, y);
                 mc.getRenderItem().renderItemOverlayIntoGUI(mc.fontRenderer, stack, armorX, y, "");
+                RenderHelper.disableStandardItemLighting();
                 GlStateManager.enableAlpha();
                 GlStateManager.disableBlend();
                 GlStateManager.disableLighting();
@@ -118,7 +121,7 @@ public class Nametags extends ToggleablePlugin {
                     NBTTagList enchants = stack.getEnchantmentTagList();
                     int enchantY = y;
 
-                    if (enchants.tagCount() >= 6) {
+                    if (enchants.tagCount() >= 4) {
                         RenderUtil.drawTinyString("\2476God", armorX + 3, enchantY, 0xFFFFFFFF);
                     } else {
                         for (int index = 0; index < enchants.tagCount(); ++index) {

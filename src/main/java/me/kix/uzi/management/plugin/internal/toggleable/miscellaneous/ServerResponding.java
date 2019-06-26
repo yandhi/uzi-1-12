@@ -41,8 +41,6 @@ public class ServerResponding extends ToggleablePlugin {
 
     @Register
     public void onPacketRead(EventPacket.Read read) {
-        if (read.getPacket() instanceof SPacketTimeUpdate) {
-            timer.reset();
-        }
+        timer.reset();
     }
 }

@@ -10,7 +10,7 @@ public class EventUpdate {
      * Only on the normal update sequence.
      * Essentially a tick.
      */
-    public static class Living extends Event{
+    public static class Living extends Event {
 
     }
 
@@ -33,6 +33,11 @@ public class EventUpdate {
             return viewAngles;
         }
 
+        public void setViewAngles(Angle angle) {
+            this.viewAngles.setYaw(angle.getYaw());
+            this.viewAngles.setPitch(angle.getPitch());
+        }
+
         public boolean isOnGround() {
             return onGround;
         }
@@ -52,7 +57,6 @@ public class EventUpdate {
         public double getLastY() {
             return lastY;
         }
-
     }
 
     /**

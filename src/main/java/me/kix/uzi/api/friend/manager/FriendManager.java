@@ -7,6 +7,7 @@ import me.kix.uzi.api.manager.ListManager;
 import java.io.*;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
 
 /**
  * The manager for all allies in the client.
@@ -86,8 +87,9 @@ public class FriendManager extends ListManager<Friend> {
      */
     public String getReplacedText(String text) {
         for (Friend friend : getContents()) {
-            if (text != null && text.contains(friend.getLabel()))
-                return text.replaceAll(friend.getLabel(), "\2473" + friend.getAlias() + "\247f");
+            if (text != null) {
+                text = text.replaceAll("(?i)" + Matcher.quoteReplacement(friend.getLabel()), Matcher.quoteReplacement("\247b" + friend.getAlias() + "\247r"));
+            }
         }
         return text;
     }

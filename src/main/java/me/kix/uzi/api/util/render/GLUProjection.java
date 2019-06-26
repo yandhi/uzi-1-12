@@ -487,7 +487,7 @@ public final class GLUProjection {
             INSIDE,
             OUTSIDE,
             INVERTED,
-            FAIL;
+            FAIL
         }
     }
 }

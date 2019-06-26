@@ -2,11 +2,14 @@ package me.kix.uzi.api.game.impl.entity;
 
 import me.kix.uzi.Uzi;
 import me.kix.uzi.management.event.block.EventOpaqueBlock;
+import me.kix.uzi.management.event.entity.EventEntityPushedByWater;
 import me.kix.uzi.management.event.entity.EventPlayerDeath;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.util.DamageSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -17,6 +20,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  */
 @Mixin(EntityPlayer.class)
 public abstract class MixinEntityPlayer extends MixinEntityLivingBase {
+
+    @Shadow
+    public PlayerCapabilities capabilities;
+
+    /**
+     * @author Kix
+     */
+    @Overwrite
+    public boolean isPushedByWater() {
+        EventEntityPushedByWater pushedByWater = new EventEntityPushedByWater();
+        Uzi.INSTANCE.getEventManager().dispatch(pushedByWater);
+        return !pushedByWater.isCancelled() && !this.capabilities.isFlying;
+    }
 
     /**
      * @author Kix

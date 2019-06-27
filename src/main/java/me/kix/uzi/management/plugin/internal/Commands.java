@@ -6,7 +6,7 @@ import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.Plugin;
 import me.kix.uzi.api.util.logging.Logger;
-import me.kix.uzi.management.event.input.chat.EventSendOffChatMessage;
+import me.kix.uzi.api.event.events.input.chat.EventSendOffChatMessage;
 
 public class Commands extends Plugin {
 

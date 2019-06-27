@@ -6,7 +6,7 @@ import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.property.Property;
 import me.kix.uzi.api.util.render.RenderUtil;
-import me.kix.uzi.management.event.render.EventRender;
+import me.kix.uzi.api.event.events.render.EventRender;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;

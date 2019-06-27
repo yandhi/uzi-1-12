@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import me.kix.uzi.Uzi;
-import me.kix.uzi.management.event.entity.EventEntityChunk;
+import me.kix.uzi.api.event.events.entity.EventEntityChunk;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.Entity;
 

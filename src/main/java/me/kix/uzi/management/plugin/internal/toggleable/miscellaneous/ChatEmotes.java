@@ -3,7 +3,7 @@ package me.kix.uzi.management.plugin.internal.toggleable.miscellaneous;
 import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
-import me.kix.uzi.management.event.input.chat.EventSendOffChatMessage;
+import me.kix.uzi.api.event.events.input.chat.EventSendOffChatMessage;
 
 import java.util.HashMap;
 import java.util.Map;

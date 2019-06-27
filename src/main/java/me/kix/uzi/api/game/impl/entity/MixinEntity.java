@@ -4,7 +4,7 @@ import me.kix.uzi.Uzi;
 import me.kix.uzi.api.game.accessors.entity.IEntity;
 import me.kix.uzi.api.util.math.angle.Angle;
 import me.kix.uzi.api.util.math.vector.Vector3;
-import me.kix.uzi.management.event.entity.EventStep;
+import me.kix.uzi.api.event.events.entity.EventStep;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockFenceGate;

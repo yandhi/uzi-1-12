@@ -1,7 +1,7 @@
 package me.kix.uzi.api.util.network;
 
 import me.kix.uzi.api.event.Register;
-import me.kix.uzi.management.event.input.packet.EventPacket;
+import me.kix.uzi.api.event.events.input.packet.EventPacket;
 import net.minecraft.network.play.server.SPacketTimeUpdate;
 
 /**

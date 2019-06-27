@@ -4,10 +4,9 @@ import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.util.math.timing.Timer;
-import me.kix.uzi.management.event.input.packet.EventPacket;
-import me.kix.uzi.management.event.render.EventRender;
+import me.kix.uzi.api.event.events.input.packet.EventPacket;
+import me.kix.uzi.api.event.events.render.EventRender;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.network.play.server.SPacketTimeUpdate;
 
 /**
  * Tells whether or not the server is responding.

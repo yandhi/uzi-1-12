@@ -31,6 +31,7 @@
     "screen.MixinGuiEditSign",
     "screen.MixinGuiBossOverlay",
     "screen.MixinGuiIngame",
-    "renderer.MixinRenderManager"
+    "renderer.MixinRenderManager",
+    "renderer.MixinVisGraph"
   ]
 }

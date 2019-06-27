@@ -4,7 +4,7 @@ import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.game.accessors.client.Game;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
-import me.kix.uzi.management.event.entity.EventUpdate;
+import me.kix.uzi.api.event.events.entity.EventUpdate;
 
 public class FastPlace extends ToggleablePlugin {
 

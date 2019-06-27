@@ -5,7 +5,7 @@ import me.kix.uzi.api.game.accessors.entity.IEntity;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.property.properties.NumberProperty;
-import me.kix.uzi.management.event.entity.EventUpdate;
+import me.kix.uzi.api.event.events.entity.EventUpdate;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.util.MovementInput;

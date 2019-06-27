@@ -8,7 +8,7 @@ import me.kix.uzi.api.property.Property;
 import me.kix.uzi.api.property.properties.NumberProperty;
 import me.kix.uzi.api.util.math.angle.Angle;
 import me.kix.uzi.api.util.math.angle.AngleUtil;
-import me.kix.uzi.management.event.entity.EventUpdate;
+import me.kix.uzi.api.event.events.entity.EventUpdate;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

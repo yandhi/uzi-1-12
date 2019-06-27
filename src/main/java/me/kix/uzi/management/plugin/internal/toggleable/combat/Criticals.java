@@ -4,7 +4,7 @@ import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.game.accessors.entity.LivingEntity;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
-import me.kix.uzi.management.event.input.packet.EventPacket;
+import me.kix.uzi.api.event.events.input.packet.EventPacket;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.network.play.client.CPacketUseEntity;
 

@@ -1,9 +1,6 @@
 package me.kix.uzi.api.game.impl.client.world;
 
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
-import me.kix.uzi.Uzi;
-import me.kix.uzi.api.event.EventManager;
-import me.kix.uzi.management.event.world.EventLoadChunk;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
@@ -12,7 +9,6 @@ import net.minecraft.world.gen.ChunkProviderServer;
 import net.minecraft.world.gen.IChunkGenerator;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
 import javax.annotation.Nullable;

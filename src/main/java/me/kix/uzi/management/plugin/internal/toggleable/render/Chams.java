@@ -3,8 +3,8 @@ package me.kix.uzi.management.plugin.internal.toggleable.render;
 import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
-import me.kix.uzi.management.event.render.EventPostRenderEntity;
-import me.kix.uzi.management.event.render.EventPreRenderEntity;
+import me.kix.uzi.api.event.events.render.EventPostRenderEntity;
+import me.kix.uzi.api.event.events.render.EventPreRenderEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import org.lwjgl.opengl.GL11;
 

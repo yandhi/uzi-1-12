@@ -4,7 +4,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import me.kix.uzi.Uzi;
-import me.kix.uzi.management.event.input.packet.EventPacket;
+import me.kix.uzi.api.event.events.input.packet.EventPacket;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import org.spongepowered.asm.mixin.Mixin;

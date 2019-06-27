@@ -4,7 +4,7 @@ import me.kix.uzi.Uzi;
 import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
-import me.kix.uzi.management.event.render.EventRender;
+import me.kix.uzi.api.event.events.render.EventRender;
 
 public class Fullbright extends ToggleablePlugin {
 

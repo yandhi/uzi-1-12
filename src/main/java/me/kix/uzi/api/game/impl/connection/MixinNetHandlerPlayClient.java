@@ -1,8 +1,8 @@
 package me.kix.uzi.api.game.impl.connection;
 
 import me.kix.uzi.Uzi;
-import me.kix.uzi.management.event.input.packet.EventPacket;
-import me.kix.uzi.management.event.world.EventLoadChunk;
+import me.kix.uzi.api.event.events.input.packet.EventPacket;
+import me.kix.uzi.api.event.events.world.EventLoadChunk;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;

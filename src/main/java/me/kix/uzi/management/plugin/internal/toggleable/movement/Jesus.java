@@ -5,8 +5,8 @@ import me.kix.uzi.api.game.accessors.entity.Player;
 import me.kix.uzi.api.game.accessors.packet.PacketPlayer;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
-import me.kix.uzi.management.event.entity.EventUpdate;
-import me.kix.uzi.management.event.input.packet.EventPacket;
+import me.kix.uzi.api.event.events.entity.EventUpdate;
+import me.kix.uzi.api.event.events.input.packet.EventPacket;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.network.play.client.CPacketPlayer;
 

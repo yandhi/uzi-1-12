@@ -1,9 +1,9 @@
 package me.kix.uzi.api.game.impl.entity;
 
 import me.kix.uzi.Uzi;
-import me.kix.uzi.management.event.block.EventOpaqueBlock;
-import me.kix.uzi.management.event.entity.EventEntityPushedByWater;
-import me.kix.uzi.management.event.entity.EventPlayerDeath;
+import me.kix.uzi.api.event.events.block.EventOpaqueBlock;
+import me.kix.uzi.api.event.events.entity.EventEntityPushedByWater;
+import me.kix.uzi.api.event.events.entity.EventPlayerDeath;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.util.DamageSource;

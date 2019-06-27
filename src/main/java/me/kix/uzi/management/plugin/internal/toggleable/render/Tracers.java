@@ -7,13 +7,12 @@ import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.property.Property;
 import me.kix.uzi.api.property.properties.NumberProperty;
 import me.kix.uzi.api.util.render.RenderUtil;
-import me.kix.uzi.management.event.render.EventRender;
+import me.kix.uzi.api.event.events.render.EventRender;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
-import org.lwjgl.opengl.GL11;
 
 /**
  * hvze designed these.

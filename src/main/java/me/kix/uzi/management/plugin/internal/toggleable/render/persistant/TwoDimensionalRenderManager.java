@@ -9,7 +9,7 @@ import javax.vecmath.Vector3d;
 import javax.vecmath.Vector4f;
 
 import me.kix.uzi.api.util.render.GLUProjection;
-import me.kix.uzi.management.event.render.EventRender;
+import me.kix.uzi.api.event.events.render.EventRender;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;

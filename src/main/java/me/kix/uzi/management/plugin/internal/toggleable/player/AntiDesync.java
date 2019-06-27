@@ -4,7 +4,7 @@ import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.util.network.TPSTracker;
-import me.kix.uzi.management.event.block.EventRelativeBlockHardness;
+import me.kix.uzi.api.event.events.block.EventRelativeBlockHardness;
 
 /**
  * Prevents players from desyncing blocks.

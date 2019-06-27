@@ -2,10 +2,10 @@ package me.kix.uzi.api.game.impl.client.multiplayer;
 
 import me.kix.uzi.Uzi;
 import me.kix.uzi.api.game.accessors.client.multiplayer.PlayerController;
-import me.kix.uzi.management.event.block.EventClickBlock;
-import me.kix.uzi.management.event.block.EventDamageBlock;
-import me.kix.uzi.management.event.block.EventRelativeBlockHardness;
-import me.kix.uzi.management.event.entity.EventPostAttack;
+import me.kix.uzi.api.event.events.block.EventClickBlock;
+import me.kix.uzi.api.event.events.block.EventDamageBlock;
+import me.kix.uzi.api.event.events.block.EventRelativeBlockHardness;
+import me.kix.uzi.api.event.events.entity.EventPostAttack;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.entity.Entity;

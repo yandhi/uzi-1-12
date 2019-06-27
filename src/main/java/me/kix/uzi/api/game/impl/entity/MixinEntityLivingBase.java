@@ -2,7 +2,7 @@ package me.kix.uzi.api.game.impl.entity;
 
 import me.kix.uzi.Uzi;
 import me.kix.uzi.api.game.accessors.entity.LivingEntity;
-import me.kix.uzi.management.event.entity.EventEntityCanBePushed;
+import me.kix.uzi.api.event.events.entity.EventEntityCanBePushed;
 import net.minecraft.entity.EntityLivingBase;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;

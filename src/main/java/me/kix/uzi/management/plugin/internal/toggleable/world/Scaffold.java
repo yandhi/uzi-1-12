@@ -3,7 +3,7 @@ package me.kix.uzi.management.plugin.internal.toggleable.world;
 import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
-import me.kix.uzi.management.event.entity.EventMotion;
+import me.kix.uzi.api.event.events.entity.EventMotion;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

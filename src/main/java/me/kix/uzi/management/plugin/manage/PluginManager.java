@@ -138,6 +138,7 @@ public class PluginManager extends ListManager<Plugin> {
         getContents().add(new NoPush());
         getContents().add(new Compass());
         getContents().add(new Clock());
+        getContents().add(new XCarry());
         load();
     }
 

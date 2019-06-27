@@ -1,15 +1,12 @@
 package me.kix.uzi.api.game.impl.client.world;
 
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
-import me.kix.uzi.Uzi;
-import me.kix.uzi.management.event.world.EventLoadChunk;
 import net.minecraft.client.multiplayer.ChunkProviderClient;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
 /**

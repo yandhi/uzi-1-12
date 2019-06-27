@@ -3,9 +3,9 @@ package me.kix.uzi.management.plugin.internal.toggleable.world;
 import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
-import me.kix.uzi.management.event.block.EventBoundingBox;
-import me.kix.uzi.management.event.block.EventOpaqueBlock;
-import me.kix.uzi.management.event.block.EventPushOutOfBlocks;
+import me.kix.uzi.api.event.events.block.EventBoundingBox;
+import me.kix.uzi.api.event.events.block.EventOpaqueBlock;
+import me.kix.uzi.api.event.events.block.EventPushOutOfBlocks;
 
 /**
  * No-clip for the player.

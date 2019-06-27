@@ -1,7 +1,7 @@
 package me.kix.uzi.api.game.impl.renderer;
 
 import me.kix.uzi.Uzi;
-import me.kix.uzi.management.event.render.EventRenderNameplate;
+import me.kix.uzi.api.event.events.render.EventRenderNameplate;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;

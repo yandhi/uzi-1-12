@@ -5,7 +5,7 @@ import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.game.accessors.block.DoublePlant;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
-import me.kix.uzi.management.event.entity.EventUpdate;
+import me.kix.uzi.api.event.events.entity.EventUpdate;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockTallGrass;

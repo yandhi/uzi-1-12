@@ -2,8 +2,8 @@ package me.kix.uzi.api.game.impl.renderer;
 
 import me.kix.uzi.Uzi;
 import me.kix.uzi.api.game.accessors.renderer.GameRenderManager;
-import me.kix.uzi.management.event.render.EventPostRenderEntity;
-import me.kix.uzi.management.event.render.EventPreRenderEntity;
+import me.kix.uzi.api.event.events.render.EventPostRenderEntity;
+import me.kix.uzi.api.event.events.render.EventPreRenderEntity;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;

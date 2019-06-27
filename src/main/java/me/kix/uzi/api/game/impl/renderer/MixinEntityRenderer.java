@@ -2,7 +2,7 @@ package me.kix.uzi.api.game.impl.renderer;
 
 import me.kix.uzi.Uzi;
 import me.kix.uzi.api.util.render.GLUProjection;
-import me.kix.uzi.management.event.render.EventRender;
+import me.kix.uzi.api.event.events.render.EventRender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.ScaledResolution;

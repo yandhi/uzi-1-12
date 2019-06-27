@@ -4,7 +4,7 @@ import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.property.Property;
-import me.kix.uzi.management.event.render.EventRenderString;
+import me.kix.uzi.api.event.events.render.EventRenderString;
 
 /**
  * @author Kix

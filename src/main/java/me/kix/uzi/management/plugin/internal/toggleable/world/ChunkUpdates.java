@@ -4,10 +4,9 @@ import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.util.render.RenderUtil;
-import me.kix.uzi.management.event.render.EventRender;
-import me.kix.uzi.management.event.world.EventLoadChunk;
+import me.kix.uzi.api.event.events.render.EventRender;
+import me.kix.uzi.api.event.events.world.EventLoadChunk;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.world.chunk.Chunk;
 
 import java.awt.*;
 import java.util.HashSet;

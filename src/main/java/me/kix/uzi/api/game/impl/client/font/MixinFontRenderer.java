@@ -2,7 +2,7 @@ package me.kix.uzi.api.game.impl.client.font;
 
 import me.kix.uzi.Uzi;
 import me.kix.uzi.api.game.accessors.client.font.TextRenderer;
-import me.kix.uzi.management.event.render.EventRenderString;
+import me.kix.uzi.api.event.events.render.EventRenderString;
 import net.minecraft.client.gui.FontRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;

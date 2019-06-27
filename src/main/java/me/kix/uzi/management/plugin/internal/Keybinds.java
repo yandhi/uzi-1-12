@@ -4,7 +4,7 @@ import me.kix.uzi.Uzi;
 import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.keybind.Keybind;
 import me.kix.uzi.api.plugin.*;
-import me.kix.uzi.management.event.input.key.EventKeyPressed;
+import me.kix.uzi.api.event.events.input.key.EventKeyPressed;
 import me.kix.uzi.management.ui.click.GuiClick;
 import org.lwjgl.input.Keyboard;
 

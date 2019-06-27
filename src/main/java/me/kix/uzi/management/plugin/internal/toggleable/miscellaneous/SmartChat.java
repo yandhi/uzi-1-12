@@ -7,7 +7,7 @@ import com.google.gson.JsonParser;
 import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
-import me.kix.uzi.management.event.input.packet.EventPacket;
+import me.kix.uzi.api.event.events.input.packet.EventPacket;
 import net.minecraft.network.play.server.SPacketChat;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.text.TextComponentString;

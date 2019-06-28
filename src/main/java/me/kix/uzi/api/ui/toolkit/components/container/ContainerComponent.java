@@ -9,7 +9,7 @@ import me.kix.uzi.api.ui.toolkit.util.MouseButton;
 import me.kix.uzi.api.ui.toolkit.util.MouseUtil;
 import me.kix.uzi.api.ui.toolkit.util.Rectangle;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -27,8 +27,12 @@ public class ContainerComponent extends AbstractComponent implements Container {
 
     /**
      * The collection of components for the container.
+     *
+     * <p>
+     * A linked hash set is used here to maintain insertion order.
+     * </p>
      */
-    private final Set<Component> components = new HashSet<>();
+    private final Set<Component> components = new LinkedHashSet<>();
 
     /**
      * Whether or not the container is open.

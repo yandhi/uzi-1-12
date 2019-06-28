@@ -6,6 +6,7 @@ import me.kix.uzi.api.command.commands.*;
 import me.kix.uzi.api.manager.ListManager;
 import me.kix.uzi.api.plugin.Plugin;
 import me.kix.uzi.management.command.commands.*;
+import me.kix.uzi.management.plugin.internal.toggleable.render.Search;
 
 public class CommandManager extends ListManager<Command> {
 
@@ -24,6 +25,7 @@ public class CommandManager extends ListManager<Command> {
         getContents().add(new WhomstveWolfCommand());
         getContents().add(new ClipCommand());
         getContents().add(new SmartChatCommand());
+        getContents().add(new SearchCommand());
 
         addPluginCommands();
         getContents().stream().filter(command -> command instanceof ArgumentativeCommand)
@@ -32,7 +34,7 @@ public class CommandManager extends ListManager<Command> {
 
     private void addPluginCommands() {
         for (Plugin plugin : Uzi.INSTANCE.getPluginManager().getContents()) {
-            if (!plugin.getProperties().isEmpty()) {
+            if (!plugin.getProperties().isEmpty() && !(plugin instanceof Search)) {
                 getContents().add(new PluginCommand(plugin));
             }
         }

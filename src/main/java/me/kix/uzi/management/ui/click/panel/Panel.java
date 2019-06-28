@@ -2,13 +2,10 @@ package me.kix.uzi.management.ui.click.panel;
 
 import me.kix.uzi.api.util.interfaces.Labeled;
 import me.kix.uzi.api.util.interfaces.MinecraftAccessor;
-import me.kix.uzi.api.util.math.mouse.MouseUtil;
+import me.kix.uzi.api.ui.toolkit.util.MouseUtil;
 import me.kix.uzi.api.util.render.RenderUtil;
-import me.kix.uzi.api.util.render.font.NahrFont;
 import me.kix.uzi.management.ui.click.element.Element;
-import net.minecraft.client.gui.Gui;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 

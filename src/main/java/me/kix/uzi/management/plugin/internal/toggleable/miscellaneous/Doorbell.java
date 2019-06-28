@@ -8,7 +8,7 @@ import me.kix.uzi.api.event.events.entity.EventEntityChunk;
 import net.minecraft.entity.player.EntityPlayer;
 
 /**
- * Warns the player when someone enters their render distance.
+ * Warns the player when someone enters their renderer distance.
  * 
  * @author Kix
  * @since April 2019

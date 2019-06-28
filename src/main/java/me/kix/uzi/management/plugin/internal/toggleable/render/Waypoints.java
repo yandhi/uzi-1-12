@@ -89,7 +89,7 @@ public class Waypoints extends ToggleablePlugin {
      */
     private void draw(Minecraft minecraft, Waypoint waypoint, double x, double y, double z) {
         double dist = minecraft.player.getDistance(waypoint.getX(), waypoint.getY(), waypoint.getZ());
-        // Far render distance.
+        // Far renderer distance.
         double away = minecraft.gameSettings.renderDistanceChunks * 12.8D;
         double sqrt = Math.sqrt(x * x + z * z + y * y);
         double newDist;

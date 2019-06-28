@@ -24,6 +24,7 @@
     "block.MixinBlock",
     "block.MixinBlockDoublePlant",
     "block.MixinBlockFarmland",
+    "block.MixinStateImplementation",
     "packet.MixinCPacketUseEntity",
     "packet.MixinCPacketPlayer",
     "screen.MixinGuiScreen",
@@ -32,6 +33,7 @@
     "screen.MixinGuiBossOverlay",
     "screen.MixinGuiIngame",
     "renderer.MixinRenderManager",
-    "renderer.MixinVisGraph"
+    "renderer.MixinVisGraph",
+    "forge.MixinModList"
   ]
 }

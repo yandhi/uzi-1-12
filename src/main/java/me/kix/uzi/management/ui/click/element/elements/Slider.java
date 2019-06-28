@@ -1,13 +1,11 @@
 package me.kix.uzi.management.ui.click.element.elements;
 
 import me.kix.uzi.api.property.properties.NumberProperty;
-import me.kix.uzi.api.util.math.mouse.MouseUtil;
+import me.kix.uzi.api.ui.toolkit.util.MouseUtil;
 import me.kix.uzi.api.util.render.RenderUtil;
-import me.kix.uzi.api.util.render.font.NahrFont;
 import me.kix.uzi.management.ui.click.element.Element;
 import me.kix.uzi.management.ui.click.element.elements.buttons.PluginButton;
 import me.kix.uzi.management.ui.click.panel.Panel;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.util.math.MathHelper;
 
 public class Slider extends Element {

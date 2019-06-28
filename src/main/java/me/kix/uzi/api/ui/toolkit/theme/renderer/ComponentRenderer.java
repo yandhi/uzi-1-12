@@ -1,4 +1,4 @@
-package me.kix.uzi.api.ui.toolkit.render;
+package me.kix.uzi.api.ui.toolkit.theme.renderer;
 
 import me.kix.uzi.api.ui.toolkit.Component;
 
@@ -18,10 +18,15 @@ public interface ComponentRenderer<C extends Component> {
     void renderComponent(C component);
 
     /**
-     * Tells whether or not the class can render the determined component.
+     * Tells whether or not the class can renderer the determined component.
      *
-     * @param component The component being questioned to render.
+     * @param component The component being questioned to renderer.
      * @return Whether or not said component can be rendered by this renderer.
      */
     boolean canRender(Component component);
+
+    /**
+     * @return The class of the component that this renderer handles.
+     */
+    Class<C> getComponent();
 }

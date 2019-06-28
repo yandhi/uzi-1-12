@@ -1,4 +1,4 @@
-package me.kix.uzi.api.util.math.mouse;
+package me.kix.uzi.api.ui.toolkit.util;
 
 /**
  * An enum class for handling the mouse buttons.

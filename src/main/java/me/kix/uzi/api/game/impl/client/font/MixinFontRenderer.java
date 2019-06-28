@@ -26,7 +26,7 @@ public abstract class MixinFontRenderer implements TextRenderer {
     protected abstract void resetStyles();
 
     /**
-     * Lets us do DashNames easier.
+     * Lets us do Names easier.
      *
      * @author Kix
      */

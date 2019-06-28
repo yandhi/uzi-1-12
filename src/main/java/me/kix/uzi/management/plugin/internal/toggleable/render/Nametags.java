@@ -77,8 +77,8 @@ public class Nametags extends ToggleablePlugin {
      * Draws armor onto the nametag.
      *
      * @param player The player being rendered.
-     * @param x      The render x position of the armor.
-     * @param y      The render y position of the armor.
+     * @param x      The renderer x position of the armor.
+     * @param y      The renderer y position of the armor.
      */
     private void drawArmor(EntityPlayer player, int x, int y) {
         if (!player.inventory.armorInventory.isEmpty()) {

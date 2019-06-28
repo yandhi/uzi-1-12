@@ -1,16 +1,8 @@
 package me.kix.uzi.management.ui.click.element.elements.buttons;
 
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
-import me.kix.uzi.api.util.math.mouse.MouseUtil;
 import me.kix.uzi.api.util.render.RenderUtil;
-import me.kix.uzi.api.util.render.font.NahrFont;
-import me.kix.uzi.management.ui.click.element.Element;
-import me.kix.uzi.management.ui.click.element.elements.Button;
 import me.kix.uzi.management.ui.click.panel.Panel;
-import net.minecraft.client.gui.Gui;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class ToggleablePluginButton extends PluginButton {
 

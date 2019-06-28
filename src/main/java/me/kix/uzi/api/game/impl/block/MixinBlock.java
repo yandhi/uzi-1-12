@@ -41,6 +41,8 @@ public abstract class MixinBlock {
         EventBoundingBox bbEvent = new EventBoundingBox(block, pos, bb, collidingBoxes, entityIn);
         Uzi.INSTANCE.getEventManager().dispatch(bbEvent);
 
-        addCollisionBoxToList(pos, entityBox, collidingBoxes, bbEvent.getBoundingBox());
+        if (!bbEvent.isCancelled()) {
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, bbEvent.getBoundingBox());
+        }
     }
 }

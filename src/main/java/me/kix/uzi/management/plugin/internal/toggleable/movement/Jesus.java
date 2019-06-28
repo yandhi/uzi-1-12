@@ -1,14 +1,17 @@
 package me.kix.uzi.management.plugin.internal.toggleable.movement;
 
 import me.kix.uzi.api.event.Register;
+import me.kix.uzi.api.event.events.block.EventBoundingBox;
 import me.kix.uzi.api.game.accessors.entity.Player;
 import me.kix.uzi.api.game.accessors.packet.PacketPlayer;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.event.events.entity.EventUpdate;
 import me.kix.uzi.api.event.events.input.packet.EventPacket;
+import net.minecraft.block.BlockLiquid;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.network.play.client.CPacketPlayer;
+import net.minecraft.util.math.AxisAlignedBB;
 
 /**
  * A simple jesus hack.
@@ -47,9 +50,8 @@ public class Jesus extends ToggleablePlugin {
 
             if (mixinPlayer.isOnLiquid() && !mixinPlayer.isInLiquid() && mc.player.fallDistance <= 3 && !mc.gameSettings.keyBindSneak.isPressed()) {
                 /* Offset our value in order to bypass NoCheatPlus. */
-                mixinPacketPlayer.setY(player.posY + (player.ticksExisted % 2 == 0 ? 0.1 : -0.1));
+                mixinPacketPlayer.setY(player.posY + (player.ticksExisted % 2 == 0 ? 0.01 : -0.1));
             }
         }
     }
-
 }

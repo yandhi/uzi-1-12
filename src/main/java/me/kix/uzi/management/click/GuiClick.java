@@ -6,6 +6,7 @@ import me.kix.uzi.api.plugin.Plugin;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.property.Property;
 import me.kix.uzi.api.property.properties.EnumProperty;
+import me.kix.uzi.api.property.properties.NumberProperty;
 import me.kix.uzi.api.ui.toolkit.components.container.layout.BasicLayoutStrategy;
 import me.kix.uzi.api.ui.toolkit.components.frame.FrameContainerComponent;
 import me.kix.uzi.api.ui.toolkit.theme.Theme;
@@ -13,6 +14,7 @@ import me.kix.uzi.api.ui.toolkit.util.MouseButton;
 import me.kix.uzi.api.ui.toolkit.util.Rectangle;
 import me.kix.uzi.management.click.component.buttons.PluginButtonContainerComponent;
 import me.kix.uzi.management.click.component.buttons.PropertyButtonComponent;
+import me.kix.uzi.management.click.component.sliders.NumberPropertySliderComponent;
 import me.kix.uzi.management.click.component.spinners.EnumPropertySpinnerComponent;
 import me.kix.uzi.management.click.themes.NoilTheme;
 import net.minecraft.client.gui.GuiScreen;
@@ -51,6 +53,7 @@ public final class GuiClick extends GuiScreen {
     /**
      * Initializes the click gui.
      */
+    @SuppressWarnings("unchecked")
     private void initUI() {
         int frameX = guiClickTheme.getValue().theme.getHorizontalPadding();
         for (Category category : Category.values()) {
@@ -68,6 +71,12 @@ public final class GuiClick extends GuiScreen {
                             pluginButton.getComponents().add(new PropertyButtonComponent(property.getLabel(), guiClickTheme.getValue().theme,
                                     new Rectangle(pluginButton.getRenderPosition().getX() + guiClickTheme.getValue().theme.getHorizontalPadding(), propertyY,
                                             pluginButton.getRenderPosition().getWidth() - (guiClickTheme.getValue().theme.getHorizontalPadding() * 2), guiClickTheme.getValue().theme.getComponentHeight()), property));
+                            propertyY += guiClickTheme.getValue().theme.getComponentHeight() + guiClickTheme.getValue().theme.getVerticalPadding();
+                        }
+                        if (property instanceof NumberProperty) {
+                            pluginButton.getComponents().add(new NumberPropertySliderComponent(property.getLabel(), guiClickTheme.getValue().theme,
+                                    new Rectangle(pluginButton.getRenderPosition().getX() + guiClickTheme.getValue().theme.getHorizontalPadding(), propertyY,
+                                            pluginButton.getRenderPosition().getWidth() - (guiClickTheme.getValue().theme.getHorizontalPadding() * 2), guiClickTheme.getValue().theme.getComponentHeight()), (NumberProperty) property));
                             propertyY += guiClickTheme.getValue().theme.getComponentHeight() + guiClickTheme.getValue().theme.getVerticalPadding();
                         }
                     }

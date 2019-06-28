@@ -34,6 +34,11 @@ public class Plugin implements Labeled, Configurable<JsonObject>, MinecraftAcces
         this.category = category;
     }
 
+    /**
+     * Initializes the plugin;
+     */
+    public void initPlugin(){}
+
     @Override
     public void save(JsonObject destination) {
         if (!properties.isEmpty())

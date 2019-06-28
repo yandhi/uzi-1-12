@@ -14,7 +14,7 @@ public class BasicLayoutStrategy implements LayoutStrategy {
 
     @Override
     public void layout(ContainerComponent container, Theme theme) {
-        if (container.isExtended()) {
+        if (!container.getComponents().isEmpty()) {
             int componentY = container.getRenderPosition().getHeight() + theme.getVerticalPadding();
             for (Component component : container.getComponents()) {
                 if (component instanceof ContainerComponent) {
@@ -28,7 +28,7 @@ public class BasicLayoutStrategy implements LayoutStrategy {
 
 
                 if (component instanceof ContainerComponent) {
-                    if (!((ContainerComponent) component).isExtended()) {
+                    if (!((ContainerComponent) component).isExtended() || ((ContainerComponent) component).getComponents().isEmpty()) {
                         componentY += component.getFunctionalPosition().getHeight() + theme.getVerticalPadding();
                     } else {
                         componentY += component.getFunctionalPosition().getHeight();

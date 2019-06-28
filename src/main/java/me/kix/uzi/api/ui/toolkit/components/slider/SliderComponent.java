@@ -3,6 +3,8 @@ package me.kix.uzi.api.ui.toolkit.components.slider;
 import me.kix.uzi.api.ui.toolkit.AbstractComponent;
 import me.kix.uzi.api.ui.toolkit.theme.Theme;
 import me.kix.uzi.api.ui.toolkit.theme.renderer.ComponentRenderer;
+import me.kix.uzi.api.ui.toolkit.util.MouseButton;
+import me.kix.uzi.api.ui.toolkit.util.MouseUtil;
 import me.kix.uzi.api.ui.toolkit.util.Rectangle;
 import net.minecraft.util.math.MathHelper;
 
@@ -37,7 +39,23 @@ public abstract class SliderComponent extends AbstractComponent {
     @Override
     public void drawComponent(ComponentRenderer renderer, int mouseX, int mouseY, float partialTicks) {
         super.drawComponent(renderer, mouseX, mouseY, partialTicks);
-        setValue(((mouseX - getRenderPosition().getX()) * (maximum().floatValue() - minimum().floatValue()) / getRenderPosition().getWidth() + minimum().floatValue()));
+        if (dragging) {
+            setValue(((mouseX - getRenderPosition().getX()) * (maximum().floatValue() - minimum().floatValue()) / getRenderPosition().getWidth() + minimum().floatValue()));
+        }
+    }
+
+    @Override
+    public void mousePressed(int mouseX, int mouseY, MouseButton mouseButton) {
+        super.mousePressed(mouseX, mouseY, mouseButton);
+        if (MouseUtil.mouseWithinRectangle(mouseX, mouseY, getRenderPosition())) {
+            this.dragging = true;
+        }
+    }
+
+    @Override
+    public void mouseReleased(int mouseX, int mouseY, MouseButton mouseButton) {
+        super.mouseReleased(mouseX, mouseY, mouseButton);
+        this.dragging = false;
     }
 
     /**

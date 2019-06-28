@@ -84,6 +84,11 @@ public class KillAura extends ToggleablePlugin {
         super("KillAura", Category.COMBAT);
         setDisplay("Kill Aura");
         setColor(-55552);
+    }
+
+    @Override
+    public void initPlugin() {
+        super.initPlugin();
         getProperties().add(aps);
         getProperties().add(range);
         getProperties().add(cooldown);

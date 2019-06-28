@@ -67,16 +67,16 @@ public final class GuiClick extends GuiScreen {
                             new Rectangle(frame.getRenderPosition().getX() + guiClickTheme.getValue().theme.getHorizontalPadding(), pluginY, guiClickTheme.getValue().theme.getWidth() - (guiClickTheme.getValue().theme.getHorizontalPadding() * 2), guiClickTheme.getValue().theme.getComponentHeight()), new BasicLayoutStrategy(), toggleablePlugin);
                     int propertyY = pluginButton.getRenderPosition().getY() + guiClickTheme.getValue().theme.getVerticalPadding();
                     for (Property property : toggleablePlugin.getProperties()) {
-                        if (property.getValue() instanceof Boolean) {
-                            pluginButton.getComponents().add(new PropertyButtonComponent(property.getLabel(), guiClickTheme.getValue().theme,
-                                    new Rectangle(pluginButton.getRenderPosition().getX() + guiClickTheme.getValue().theme.getHorizontalPadding(), propertyY,
-                                            pluginButton.getRenderPosition().getWidth() - (guiClickTheme.getValue().theme.getHorizontalPadding() * 2), guiClickTheme.getValue().theme.getComponentHeight()), property));
-                            propertyY += guiClickTheme.getValue().theme.getComponentHeight() + guiClickTheme.getValue().theme.getVerticalPadding();
-                        }
                         if (property instanceof NumberProperty) {
                             pluginButton.getComponents().add(new NumberPropertySliderComponent(property.getLabel(), guiClickTheme.getValue().theme,
                                     new Rectangle(pluginButton.getRenderPosition().getX() + guiClickTheme.getValue().theme.getHorizontalPadding(), propertyY,
                                             pluginButton.getRenderPosition().getWidth() - (guiClickTheme.getValue().theme.getHorizontalPadding() * 2), guiClickTheme.getValue().theme.getComponentHeight()), (NumberProperty) property));
+                            propertyY += guiClickTheme.getValue().theme.getComponentHeight() + guiClickTheme.getValue().theme.getVerticalPadding();
+                        }
+                        if (property.getValue() instanceof Boolean) {
+                            pluginButton.getComponents().add(new PropertyButtonComponent(property.getLabel(), guiClickTheme.getValue().theme,
+                                    new Rectangle(pluginButton.getRenderPosition().getX() + guiClickTheme.getValue().theme.getHorizontalPadding(), propertyY,
+                                            pluginButton.getRenderPosition().getWidth() - (guiClickTheme.getValue().theme.getHorizontalPadding() * 2), guiClickTheme.getValue().theme.getComponentHeight()), property));
                             propertyY += guiClickTheme.getValue().theme.getComponentHeight() + guiClickTheme.getValue().theme.getVerticalPadding();
                         }
                     }

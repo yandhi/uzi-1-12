@@ -23,11 +23,16 @@ public class Triggerbot extends ToggleablePlugin {
 
     public Triggerbot() {
         super("Triggerbot", Category.COMBAT);
-        getProperties().add(aps);
-        getProperties().add(range);
         setColor(0xE66745);
         timer = new Timer();
         random = new Random();
+    }
+
+    @Override
+    public void initPlugin() {
+        super.initPlugin();
+        getProperties().add(aps);
+        getProperties().add(range);
     }
 
     @Register

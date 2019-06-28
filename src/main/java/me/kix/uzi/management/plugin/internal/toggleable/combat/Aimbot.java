@@ -25,9 +25,14 @@ public class Aimbot extends ToggleablePlugin {
 
     public Aimbot() {
         super("Aimbot", Category.COMBAT);
+        setColor(0xFFE693AA);
+    }
+
+    @Override
+    public void initPlugin() {
+        super.initPlugin();
         getProperties().add(range);
         getProperties().add(smoothing);
-        setColor(0xFFE693AA);
     }
 
     @Register

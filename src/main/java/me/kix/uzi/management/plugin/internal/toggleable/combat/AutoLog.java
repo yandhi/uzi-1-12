@@ -20,9 +20,14 @@ public class AutoLog extends ToggleablePlugin {
 
     public AutoLog() {
         super("AutoLog", Category.COMBAT);
-        getProperties().add(health);
         setDisplay("Auto Log");
         setColor(0xE6D782);
+    }
+
+    @Override
+    public void initPlugin() {
+        super.initPlugin();
+        getProperties().add(health);
     }
 
     @Register

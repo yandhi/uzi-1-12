@@ -141,6 +141,8 @@ public class PluginManager extends ListManager<Plugin> {
         getContents().add(new XCarry());
         getContents().add(new NoHandshake());
         getContents().add(new Names());
+
+        getContents().forEach(Plugin::initPlugin);
         load();
     }
 

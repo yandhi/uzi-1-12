@@ -37,7 +37,11 @@ public class BedAura extends ToggleablePlugin {
     public BedAura() {
         super("BedAura", Category.COMBAT);
         setDisplay("Bed Aura");
+    }
 
+    @Override
+    public void initPlugin() {
+        super.initPlugin();
         getProperties().add(range);
     }
 

@@ -5,12 +5,10 @@ public class Property<T> {
     private final String label;
     protected T value;
 
-
     public Property(String label, T value) {
         this.label = label;
         this.value = value;
     }
-
 
     public String getLabel() {
         return label;

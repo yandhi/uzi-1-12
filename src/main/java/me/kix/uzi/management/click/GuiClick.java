@@ -4,12 +4,16 @@ import me.kix.uzi.Uzi;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.Plugin;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
+import me.kix.uzi.api.property.Property;
+import me.kix.uzi.api.property.properties.EnumProperty;
 import me.kix.uzi.api.ui.toolkit.components.container.layout.BasicLayoutStrategy;
 import me.kix.uzi.api.ui.toolkit.components.frame.FrameContainerComponent;
 import me.kix.uzi.api.ui.toolkit.theme.Theme;
 import me.kix.uzi.api.ui.toolkit.util.MouseButton;
 import me.kix.uzi.api.ui.toolkit.util.Rectangle;
 import me.kix.uzi.management.click.component.buttons.PluginButtonContainerComponent;
+import me.kix.uzi.management.click.component.buttons.PropertyButtonComponent;
+import me.kix.uzi.management.click.component.spinners.EnumPropertySpinnerComponent;
 import me.kix.uzi.management.click.themes.NoilTheme;
 import net.minecraft.client.gui.GuiScreen;
 
@@ -36,9 +40,9 @@ public final class GuiClick extends GuiScreen {
     private final Set<FrameContainerComponent> frames = new HashSet<>();
 
     /**
-     * The theme for the click ui.
+     * The current theme for the gui system.
      */
-    private Theme theme = new NoilTheme();
+    private final EnumProperty<GuiClickTheme> guiClickTheme = new EnumProperty<>("Theme", GuiClickTheme.NOIL);
 
     private GuiClick() {
         initUI();
@@ -48,29 +52,45 @@ public final class GuiClick extends GuiScreen {
      * Initializes the click gui.
      */
     private void initUI() {
-        int frameX = theme.getHorizontalPadding();
+        int frameX = guiClickTheme.getValue().theme.getHorizontalPadding();
         for (Category category : Category.values()) {
-            FrameContainerComponent frame = new FrameContainerComponent(category.name().toLowerCase(), theme, new Rectangle(frameX, 2, theme.getWidth(), theme.getHeight()), new BasicLayoutStrategy());
+            FrameContainerComponent frame = new FrameContainerComponent(category.name().toLowerCase(), guiClickTheme.getValue().theme, new Rectangle(frameX, 2, guiClickTheme.getValue().theme.getWidth(), guiClickTheme.getValue().theme.getHeight()), new BasicLayoutStrategy());
 
-            int pluginY = frame.getRenderPosition().getY() + theme.getVerticalPadding();
+            int pluginY = frame.getRenderPosition().getY() + guiClickTheme.getValue().theme.getVerticalPadding();
             for (Plugin plugin : Uzi.INSTANCE.getPluginManager().getContents()) {
                 if (plugin instanceof ToggleablePlugin && plugin.getCategory() == category) {
                     ToggleablePlugin toggleablePlugin = (ToggleablePlugin) plugin;
-                    frame.getComponents().add(new PluginButtonContainerComponent(plugin.getLabel(), theme,
-                            new Rectangle(frame.getRenderPosition().getX() + theme.getHorizontalPadding(), pluginY, theme.getWidth() - (theme.getHorizontalPadding() * 2), theme.getComponentHeight()), new BasicLayoutStrategy(), toggleablePlugin));
-                    pluginY += theme.getComponentHeight() + theme.getVerticalPadding();
+                    PluginButtonContainerComponent pluginButton = new PluginButtonContainerComponent(plugin.getLabel(), guiClickTheme.getValue().theme,
+                            new Rectangle(frame.getRenderPosition().getX() + guiClickTheme.getValue().theme.getHorizontalPadding(), pluginY, guiClickTheme.getValue().theme.getWidth() - (guiClickTheme.getValue().theme.getHorizontalPadding() * 2), guiClickTheme.getValue().theme.getComponentHeight()), new BasicLayoutStrategy(), toggleablePlugin);
+                    int propertyY = pluginButton.getRenderPosition().getY() + guiClickTheme.getValue().theme.getVerticalPadding();
+                    for (Property property : toggleablePlugin.getProperties()) {
+                        if (property.getValue() instanceof Boolean) {
+                            pluginButton.getComponents().add(new PropertyButtonComponent(property.getLabel(), guiClickTheme.getValue().theme,
+                                    new Rectangle(pluginButton.getRenderPosition().getX() + guiClickTheme.getValue().theme.getHorizontalPadding(), propertyY,
+                                            pluginButton.getRenderPosition().getWidth() - (guiClickTheme.getValue().theme.getHorizontalPadding() * 2), guiClickTheme.getValue().theme.getComponentHeight()), property));
+                            propertyY += guiClickTheme.getValue().theme.getComponentHeight() + guiClickTheme.getValue().theme.getVerticalPadding();
+                        }
+                    }
+                    frame.getComponents().add(pluginButton);
+                    pluginY += guiClickTheme.getValue().theme.getComponentHeight() + guiClickTheme.getValue().theme.getVerticalPadding();
                 }
             }
 
             frames.add(frame);
-            frameX += theme.getWidth() + theme.getHorizontalPadding();
+            frameX += guiClickTheme.getValue().theme.getWidth() + guiClickTheme.getValue().theme.getHorizontalPadding();
         }
+
+        FrameContainerComponent themeFrame = new FrameContainerComponent("Theme", guiClickTheme.getValue().theme, new Rectangle(frameX, 2, guiClickTheme.getValue().theme.getWidth(), guiClickTheme.getValue().theme.getHeight()), new BasicLayoutStrategy());
+        themeFrame.getComponents().add(new EnumPropertySpinnerComponent("Theme", guiClickTheme.getValue().theme,
+                new Rectangle(themeFrame.getRenderPosition().getX() + guiClickTheme.getValue().theme.getHorizontalPadding(), themeFrame.getRenderPosition().getY() + 2,
+                        guiClickTheme.getValue().theme.getWidth() - (guiClickTheme.getValue().theme.getHorizontalPadding() * 2), guiClickTheme.getValue().theme.getComponentHeight()), guiClickTheme));
+        frames.add(themeFrame);
     }
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
-        frames.forEach(frame -> frame.drawComponent(theme.getFactory().getComponentRenderer(frame), mouseX, mouseY, partialTicks));
+        frames.forEach(frame -> frame.drawComponent(guiClickTheme.getValue().theme.getFactory().getComponentRenderer(frame), mouseX, mouseY, partialTicks));
     }
 
     @Override
@@ -90,5 +110,21 @@ public final class GuiClick extends GuiScreen {
             screen = new GuiClick();
         }
         return screen;
+    }
+
+    /**
+     * The themes in the gui system.
+     */
+    private enum GuiClickTheme {
+        NOIL(new NoilTheme());
+
+        /**
+         * The theme that the type utilizes.
+         */
+        private final Theme theme;
+
+        GuiClickTheme(Theme theme) {
+            this.theme = theme;
+        }
     }
 }

@@ -14,12 +14,30 @@ public class BasicLayoutStrategy implements LayoutStrategy {
 
     @Override
     public void layout(ContainerComponent container, Theme theme) {
-        int componentY = container.getRenderPosition().getY() + container.getRenderPosition().getHeight() + theme.getVerticalPadding();
-        for (Component component : container.getComponents()) {
-            component.updateDimensions(theme.getWidth() - (theme.getHorizontalPadding() * 2), theme.getComponentHeight());
-            component.updatePosition(container.getRenderPosition().getX() + theme.getHorizontalPadding(), componentY);
-            componentY += component.getFunctionalPosition().getHeight() + theme.getVerticalPadding();
+        if (container.isExtended()) {
+            int componentY = container.getRenderPosition().getHeight() + theme.getVerticalPadding();
+            for (Component component : container.getComponents()) {
+                if (component instanceof ContainerComponent) {
+                    if (!((ContainerComponent) component).isExtended()) {
+                        component.updateDimensions(container.getRenderPosition().getWidth() - (theme.getHorizontalPadding() * 2), theme.getComponentHeight());
+                    }
+                } else {
+                    component.updateDimensions(container.getRenderPosition().getWidth() - (theme.getHorizontalPadding() * 2), theme.getComponentHeight());
+                }
+                component.updatePosition(container.getRenderPosition().getX() + theme.getHorizontalPadding(), container.getRenderPosition().getY() + componentY);
+
+
+                if (component instanceof ContainerComponent) {
+                    if (!((ContainerComponent) component).isExtended()) {
+                        componentY += component.getFunctionalPosition().getHeight() + theme.getVerticalPadding();
+                    } else {
+                        componentY += component.getFunctionalPosition().getHeight();
+                    }
+                } else {
+                    componentY += component.getFunctionalPosition().getHeight() + theme.getVerticalPadding();
+                }
+            }
+            container.getFunctionalPosition().setHeight(componentY);
         }
-        container.getFunctionalPosition().setHeight((theme.getComponentHeight() + theme.getVerticalPadding()) * container.getComponents().size() + theme.getVerticalPadding());
     }
 }

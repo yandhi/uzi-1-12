@@ -1,12 +1,12 @@
 package me.kix.uzi.management.click.component.spinners;
 
 import me.kix.uzi.api.property.properties.EnumProperty;
-import me.kix.uzi.api.ui.toolkit.components.spinner.SpinnerComponent;
-import me.kix.uzi.api.ui.toolkit.theme.Theme;
-import me.kix.uzi.api.ui.toolkit.util.Rectangle;
+import me.kix.sodapop.components.spinner.SpinnerComponent;
+import me.kix.sodapop.manage.GuiManager;
+import me.kix.sodapop.util.Rectangle;
 
 /**
- * The implementation of {@link me.kix.uzi.api.ui.toolkit.components.spinner.SpinnerComponent} for {@link me.kix.uzi.api.property.properties.EnumProperty}.
+ * The implementation of {@link SpinnerComponent} for {@link me.kix.uzi.api.property.properties.EnumProperty}.
  *
  * @author Kix
  * @since 6/28/2019
@@ -18,8 +18,8 @@ public class EnumPropertySpinnerComponent extends SpinnerComponent {
      */
     private final EnumProperty property;
 
-    public EnumPropertySpinnerComponent(String name, Theme theme, Rectangle renderPosition, EnumProperty property) {
-        super(name, theme, renderPosition);
+    public EnumPropertySpinnerComponent(String name, GuiManager guiManager, Rectangle renderPosition, EnumProperty property) {
+        super(name, guiManager, renderPosition);
         this.property = property;
     }
 

@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,6 +30,7 @@ public class Nametags extends ToggleablePlugin {
     private final Property<Boolean> players = new Property<>("Players", true);
     private final Property<Boolean> animals = new Property<>("Animals", false);
     private final Property<Boolean> mobs = new Property<>("Monsters", false);
+    private final Property<Boolean> items = new Property<>("Items", false);
 
     public Nametags() {
         super("Nametags", Category.RENDER);
@@ -37,15 +39,20 @@ public class Nametags extends ToggleablePlugin {
         getProperties().add(players);
         getProperties().add(animals);
         getProperties().add(mobs);
+        getProperties().add(items);
     }
 
     @Register
     public void onRender2D(EventRender.TwoDimensional event) {
         if (RenderUtil.isInViewFrustrum(event.getEntity())) {
-            if (event.getEntity() instanceof EntityPlayer && players.getValue() || event.getEntity() instanceof EntityAnimal && animals.getValue() || (event.getEntity() instanceof EntityMob && mobs.getValue())) {
+            if (event.getEntity() instanceof EntityPlayer && players.getValue() || event.getEntity() instanceof EntityAnimal && animals.getValue() || (event.getEntity() instanceof EntityMob && mobs.getValue()) || event.getEntity() instanceof EntityItem && items.getValue()) {
                 String name = event.getEntity().getDisplayName().getFormattedText();
                 if (Uzi.INSTANCE.getFriendManager().isFriend(event.getEntity().getName())) {
                     name = Uzi.INSTANCE.getFriendManager().getReplacedText(name);
+                }
+
+                if (event.getEntity() instanceof EntityItem) {
+                    name = ((EntityItem) event.getEntity()).getItem().getDisplayName();
                 }
 
                 if (event.getEntity() instanceof EntityPlayer) {
@@ -57,13 +64,21 @@ public class Nametags extends ToggleablePlugin {
                     GlStateManager.popMatrix();
                 }
 
-                String tag = String.format("%s %s", name, getHealthColor(event.getEntity()) + Math.round(event.getEntity().getHealth() / 2));
-                RenderUtil.drawRect(event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) - (mc.fontRenderer.getStringWidth(tag) / 2f) - 1.5f, event.getBox().y - 11,
-                        event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) + (mc.fontRenderer.getStringWidth(tag) / 2f) + 0.5f, event.getBox().y - 2f, 0x60000000);
-                mc.fontRenderer.drawStringWithShadow(tag,
-                        event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) - (mc.fontRenderer.getStringWidth(tag) / 2f),
-                        event.getBox().y - 10,
-                        0xFFFFFFFF);
+                if (event.getEntity() instanceof EntityLivingBase) {
+                    EntityLivingBase entityLivingBase = (EntityLivingBase) event.getEntity();
+                    String tag = String.format("%s %s", name, getHealthColor(entityLivingBase) + Math.round(entityLivingBase.getHealth() / 2));
+                    RenderUtil.drawRect(event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) - (mc.fontRenderer.getStringWidth(tag) / 2f) - 1.5f, event.getBox().y - 11,
+                            event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) + (mc.fontRenderer.getStringWidth(tag) / 2f) + 0.5f, event.getBox().y - 2f, 0x60000000);
+                    mc.fontRenderer.drawStringWithShadow(tag,
+                            event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) - (mc.fontRenderer.getStringWidth(tag) / 2f),
+                            event.getBox().y - 10,
+                            0xFFFFFFFF);
+                } else {
+                    mc.fontRenderer.drawStringWithShadow(name,
+                            event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) - (mc.fontRenderer.getStringWidth(name) / 2f),
+                            event.getBox().y - 10,
+                            0xFFFFFFFF);
+                }
             }
         }
     }
@@ -116,7 +131,6 @@ public class Nametags extends ToggleablePlugin {
                 if (stack.isItemEnchanted()) {
                     NBTTagList enchants = stack.getEnchantmentTagList();
                     int enchantY = y;
-
                     if (enchants.tagCount() >= 4) {
                         RenderUtil.drawTinyString("\2476God", armorX + 3, enchantY, 0xFFFFFFFF);
                     } else {
@@ -124,7 +138,7 @@ public class Nametags extends ToggleablePlugin {
                             short id = enchants.getCompoundTagAt(index).getShort("id");
                             short level = enchants.getCompoundTagAt(index).getShort("lvl");
                             Enchantment enchantment = Enchantment.getEnchantmentByID(id);
-                            RenderUtil.drawTinyString( "\247e" + I18n.format(enchantment.getName()).substring(0, 2) + ". " + level, armorX + 2.5f, enchantY, 0xFFD4D5F6);
+                            RenderUtil.drawTinyString("\247e" + I18n.format(enchantment.getName()).substring(0, 2) + ". " + level, armorX + 2.5f, enchantY, 0xFFD4D5F6);
                             enchantY += 5;
                         }
                     }

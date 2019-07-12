@@ -8,10 +8,13 @@ import me.kix.uzi.api.property.Property;
 import me.kix.uzi.api.util.render.RenderUtil;
 import me.kix.uzi.api.event.events.render.EventRender;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 
 import java.awt.*;
 
@@ -22,6 +25,7 @@ public class ESP extends ToggleablePlugin {
     private final Property<Boolean> players = new Property<>("Players", true);
     private final Property<Boolean> animals = new Property<>("Animals", false);
     private final Property<Boolean> mobs = new Property<>("Monsters", false);
+    private final Property<Boolean> items = new Property<>("Items", false);
 
     public ESP() {
         super("ESP", Category.RENDER);
@@ -31,12 +35,13 @@ public class ESP extends ToggleablePlugin {
         getProperties().add(players);
         getProperties().add(animals);
         getProperties().add(mobs);
+        getProperties().add(items);
     }
 
     @Register
     public void onRender2D(EventRender.TwoDimensional event) {
         if (RenderUtil.isInViewFrustrum(event.getEntity())) {
-            if (event.getEntity() instanceof EntityPlayer && players.getValue() || event.getEntity() instanceof EntityAnimal && animals.getValue() || (event.getEntity() instanceof EntityMob && mobs.getValue())) {
+            if (event.getEntity() instanceof EntityPlayer && players.getValue() || event.getEntity() instanceof EntityAnimal && animals.getValue() || (event.getEntity() instanceof EntityMob && mobs.getValue()) || event.getEntity() instanceof EntityItem && items.getValue()) {
                 GlStateManager.pushMatrix();
                 GlStateManager.enableBlend();
                 GlStateManager.scale(.5f, .5f, .5f);
@@ -46,16 +51,43 @@ public class ESP extends ToggleablePlugin {
                 float y2 = event.getBox().z * 2;
                 if (box.getValue()) {
                     RenderUtil.drawHollowBox(x, y, x2, y2, 3f, Color.BLACK.getRGB());
-                    RenderUtil.drawHollowBox(x + 1f, y + 1f, x2 - 1f, y2 + 1f, 1f, Uzi.INSTANCE.getFriendManager().isFriend(event.getEntity().getName()) ? 0xFF7FCDFF : (event.getEntity().getName().equalsIgnoreCase(mc.player.getName()) ? 0xFFB43EFF : 0xFFce8cc9));
+                    RenderUtil.drawHollowBox(x + 1f, y + 1f, x2 - 1f, y2 + 1f, 1f, getColorFromEntity(event.getEntity()));
                 }
-                if (health.getValue()) {
-                    float healthHeight = (y2 - y) * (event.getEntity().getHealth() / event.getEntity().getMaxHealth());
+                if (health.getValue() && event.getEntity() instanceof EntityLivingBase) {
+                    EntityLivingBase entityLivingBase = (EntityLivingBase) event.getEntity();
+                    float healthHeight = (y2 - y) * (entityLivingBase.getHealth() / entityLivingBase.getMaxHealth());
                     RenderUtil.drawRect(x - 4f, y, x - 1f, y2 + 3f, -0x1000000);
-                    RenderUtil.drawRect(x - 3f, y2 - healthHeight + 1f, x - 2f, y2 + 2f, getHealthColor(event.getEntity()));
+                    RenderUtil.drawRect(x - 3f, y2 - healthHeight + 1f, x - 2f, y2 + 2f, getHealthColor(entityLivingBase));
                 }
                 GlStateManager.popMatrix();
             }
         }
+    }
+
+    /**
+     * Gets the color based on the entity type.
+     *
+     * @param entity The entity being color checked.
+     * @return The color of the entity's esp box.
+     */
+    private int getColorFromEntity(Entity entity) {
+        if (entity.isInvisible()) {
+            return 0xFFCCC524;
+        }
+        if (entity instanceof EntityPlayer) {
+            if (Uzi.INSTANCE.getFriendManager().isFriend(entity.getName())) {
+                return 0xFF7FCDFF;
+            } else {
+                return 0xFF22CA00;
+            }
+        }
+        if (entity instanceof EntityAnimal) {
+            return 0xFFCA6EB0;
+        }
+        if (entity instanceof EntityMob) {
+            return 0xFFCC3C3A;
+        }
+        return 0xFF8642CC;
     }
 
     private int getHealthColor(EntityLivingBase player) {

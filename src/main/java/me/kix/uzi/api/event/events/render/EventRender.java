@@ -2,6 +2,7 @@ package me.kix.uzi.api.event.events.render;
 
 import me.kix.uzi.api.event.Event;
 import me.kix.uzi.api.event.cancellable.EventCancellable;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 
 import javax.vecmath.Vector4f;
@@ -34,9 +35,9 @@ public class EventRender {
 
     public static class TwoDimensional extends Event {
         private final Vector4f box;
-        private EntityLivingBase entity;
+        private Entity entity;
 
-        public TwoDimensional(Vector4f box, EntityLivingBase entity) {
+        public TwoDimensional(Vector4f box, Entity entity) {
             this.box = box;
             this.entity = entity;
         }
@@ -45,7 +46,7 @@ public class EventRender {
             return box;
         }
 
-        public EntityLivingBase getEntity() {
+        public Entity getEntity() {
             return entity;
         }
     }

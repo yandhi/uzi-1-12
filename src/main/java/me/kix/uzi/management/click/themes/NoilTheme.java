@@ -1,9 +1,9 @@
 package me.kix.uzi.management.click.themes;
 
-import me.kix.uzi.api.ui.toolkit.components.frame.FrameContainerComponent;
-import me.kix.uzi.api.ui.toolkit.theme.AbstractTheme;
-import me.kix.uzi.api.ui.toolkit.theme.renderer.AbstractComponentRenderer;
-import me.kix.uzi.api.ui.toolkit.util.Rectangle;
+import me.kix.sodapop.components.frame.FrameContainerComponent;
+import me.kix.sodapop.theme.AbstractTheme;
+import me.kix.sodapop.theme.renderer.AbstractComponentRenderer;
+import me.kix.sodapop.util.Rectangle;
 import me.kix.uzi.api.util.render.RenderUtil;
 import me.kix.uzi.api.util.render.font.NahrFont;
 import me.kix.uzi.management.click.component.buttons.PluginButtonContainerComponent;
@@ -46,7 +46,7 @@ public class NoilTheme extends AbstractTheme {
             Rectangle position = component.getRenderPosition();
             int frameHeight = position.getHeight();
             if (component.isExtended()) {
-                frameHeight = component.getFunctionalPosition().getHeight();
+                frameHeight += component.getMaxHeight() + 2;
             }
             RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + frameHeight, 0xFF101010);
             titleFont.drawString(component.getName().toLowerCase(), position.getX() + 2, position.getY() + 3.5f, NahrFont.FontType.NORMAL, 0xFF565656, -1);

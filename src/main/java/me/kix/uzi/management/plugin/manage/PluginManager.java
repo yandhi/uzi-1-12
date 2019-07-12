@@ -5,11 +5,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import me.kix.uzi.Uzi;
-import me.kix.uzi.api.event.EventManager;
 import me.kix.uzi.api.manager.ListManager;
 import me.kix.uzi.api.plugin.Plugin;
 import me.kix.uzi.api.util.network.TPSTracker;
-import me.kix.uzi.management.plugin.internal.*;
+import me.kix.uzi.management.plugin.internal.Commands;
+import me.kix.uzi.management.plugin.internal.Keybinds;
 import me.kix.uzi.management.plugin.internal.toggleable.combat.*;
 import me.kix.uzi.management.plugin.internal.toggleable.miscellaneous.*;
 import me.kix.uzi.management.plugin.internal.toggleable.movement.*;
@@ -31,10 +31,10 @@ public class PluginManager extends ListManager<Plugin> {
 
     public void init() {
         Uzi.INSTANCE.getEventManager().register(TPSTracker.getTracker());
-        getContents().add(new Overlay());
         getContents().add(new TwoDimensionalRenderManager());
         getContents().add(new Commands());
         getContents().add(new Keybinds());
+        getContents().add(new Overlay());
         getContents().add(new Fullbright());
         getContents().add(new KillAura());
         getContents().add(new AntiVelocity());
@@ -73,7 +73,7 @@ public class PluginManager extends ListManager<Plugin> {
         getContents().add(new FastUse());
         getContents().add(new FastBow());
         getContents().add(new ChatEmotes());
-        getContents().add(new Tiles());
+        getContents().add(new Storage());
         getContents().add(new FriendImmunity());
         getContents().add(new NameProtect());
         getContents().add(new BowAimbot());
@@ -110,7 +110,6 @@ public class PluginManager extends ListManager<Plugin> {
         getContents().add(new AutoMine());
         getContents().add(new BucketFall());
         getContents().add(new AntiBookBan());
-        getContents().add(new ItemESP());
         getContents().add(new Hurtcam());
         getContents().add(new Bossbar());
         getContents().add(new Portal());
@@ -142,6 +141,16 @@ public class PluginManager extends ListManager<Plugin> {
         getContents().add(new NoHandshake());
         getContents().add(new Names());
         getContents().add(new Search());
+        getContents().add(new BuildHelper());
+        getContents().add(new AntiLevitate());
+        getContents().add(new AutoTool());
+        getContents().add(new BlockOutline());
+        getContents().add(new PistonStems());
+        getContents().add(new AntiPhysics());
+        getContents().add(new NoReceiveParticles());
+        getContents().add(new TrueDura());
+        getContents().add(new LogoutLocation());
+        getContents().add(new Vanish());
 
         getContents().forEach(Plugin::initPlugin);
         load();

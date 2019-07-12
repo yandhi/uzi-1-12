@@ -25,8 +25,7 @@ public class PearlLogger extends ToggleablePlugin {
         if (read.getPacket() instanceof SPacketEntityTeleport) {
             SPacketEntityTeleport packetEntityTeleport = new SPacketEntityTeleport();
             if (packetEntityTeleport.getEntityId() != mc.player.getEntityId()) {
-                Logger.printMessage(mc.world.getEntityByID(packetEntityTeleport.getEntityId()).getDisplayName().getFormattedText() + " has teleported to: " +
-                        String.format("%s, %S, %s.", Math.round(packetEntityTeleport.getX()), Math.round(packetEntityTeleport.getY()), Math.round(packetEntityTeleport.getZ())));
+                Logger.printMessage(String.format("%s, %S, %s.", Math.round(packetEntityTeleport.getX()), Math.round(packetEntityTeleport.getY()), Math.round(packetEntityTeleport.getZ())));
             }
         }
     }

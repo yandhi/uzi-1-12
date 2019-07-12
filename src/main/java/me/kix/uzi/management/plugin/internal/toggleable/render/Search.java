@@ -86,7 +86,6 @@ public class Search extends ToggleablePlugin {
 
         if (blocks.contains(block)) {
             cache.add(renderBlockModel.getPos());
-            System.out.println("love boys");
         }
 
     }
@@ -100,7 +99,7 @@ public class Search extends ToggleablePlugin {
             double renderZ = pos.getZ() - renderManager.getRenderPosZ();
 
             AxisAlignedBB boundingBox = new AxisAlignedBB(0, 0, 0, 1, 1, 1).offset(renderX, renderY, renderZ);
-            RenderUtil.bb(boundingBox, 1f, getBlockColor(mc.world.getBlockState(pos).getBlock()));
+            RenderUtil.bb(boundingBox, 0.5f, getBlockColor(mc.world.getBlockState(pos).getBlock()));
         });
     }
 

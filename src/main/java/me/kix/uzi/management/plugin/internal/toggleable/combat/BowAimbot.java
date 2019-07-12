@@ -80,7 +80,6 @@ public class BowAimbot extends ToggleablePlugin {
         return theta(v, g, xCoord, yDif);
     }
 
-
     private float theta(double v, double g, double x, double y) {
         double yv = 2 * y * (v * v);
         double gx = g * (x * x);
@@ -93,6 +92,4 @@ public class BowAimbot extends ToggleablePlugin {
         double atan2 = Math.atan2(numerator2, g * x);
         return (float) Math.min(atan1, atan2);
     }
-
-
 }

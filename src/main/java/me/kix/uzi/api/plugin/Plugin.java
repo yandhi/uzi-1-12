@@ -3,6 +3,7 @@ package me.kix.uzi.api.plugin;
 import com.google.gson.JsonObject;
 import me.kix.uzi.api.command.parsing.parsers.BooleanParser;
 import me.kix.uzi.api.property.Property;
+import me.kix.uzi.api.property.properties.EnumProperty;
 import me.kix.uzi.api.property.properties.NumberProperty;
 import me.kix.uzi.api.util.config.Configurable;
 import me.kix.uzi.api.util.interfaces.Labeled;
@@ -37,7 +38,8 @@ public class Plugin implements Labeled, Configurable<JsonObject>, MinecraftAcces
     /**
      * Initializes the plugin;
      */
-    public void initPlugin(){}
+    public void initPlugin() {
+    }
 
     @Override
     public void save(JsonObject destination) {
@@ -55,6 +57,8 @@ public class Plugin implements Labeled, Configurable<JsonObject>, MinecraftAcces
                     property.setValue(parser.parse(entry.getValue().getAsString()));
                 } else if (property instanceof NumberProperty) {
                     ((NumberProperty) property).setValue(entry.getValue().getAsString());
+                } else if(property instanceof EnumProperty){
+                    ((EnumProperty) property).setValue(entry.getValue().getAsString());
                 }
             });
         }

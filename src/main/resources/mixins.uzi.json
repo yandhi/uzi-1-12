@@ -35,6 +35,6 @@
     "renderer.MixinRenderManager",
     "renderer.MixinVisGraph",
     "renderer.MixinBlockModelRenderer",
-    "forge.MixinModList"
+    "item.MixinItemStack"
   ]
 }

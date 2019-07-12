@@ -37,7 +37,7 @@ public class TwoDimensionalRenderManager extends Plugin {
         }
 
         for (Entity entity : mc.world.loadedEntityList) {
-            if (entity != mc.player && entity instanceof EntityLivingBase) {
+            if (entity != mc.player) {
                 double posX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * event.getPartialTicks();
                 double posY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * event.getPartialTicks();
                 double posZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * event.getPartialTicks();
@@ -62,7 +62,7 @@ public class TwoDimensionalRenderManager extends Plugin {
                     transformed.setZ((float) Math.max(transformed.getZ(), result.getY()));
                 }
                 GlStateManager.pushMatrix();
-                Uzi.INSTANCE.getEventManager().dispatch(new EventRender.TwoDimensional(transformed, (EntityLivingBase) entity));
+                Uzi.INSTANCE.getEventManager().dispatch(new EventRender.TwoDimensional(transformed, entity));
                 GlStateManager.popMatrix();
             }
         }

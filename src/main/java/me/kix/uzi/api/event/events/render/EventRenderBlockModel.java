@@ -1,6 +1,6 @@
 package me.kix.uzi.api.event.events.render;
 
-import me.kix.uzi.api.event.Event;
+import me.kix.uzi.api.event.cancellable.EventCancellable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 
@@ -10,7 +10,7 @@ import net.minecraft.util.math.BlockPos;
  * @author Kix
  * @since 6/28/2019
  */
-public class EventRenderBlockModel extends Event {
+public class EventRenderBlockModel extends EventCancellable {
 
     /**
      * The state of the block being rendered.

@@ -1,6 +1,5 @@
 package me.kix.uzi.api.property.properties;
 
-import com.sun.istack.internal.NotNull;
 import me.kix.uzi.api.property.Property;
 
 /**
@@ -90,7 +89,7 @@ public class EnumProperty<T extends Enum<T>> extends Property<T> {
      *
      * @param string The new value in string form.
      */
-    public void setValue(@NotNull String string) {
+    public void setValue(String string) {
         for (T constant : constants) {
             if (constant.name().equalsIgnoreCase(string)) {
                 setValue(constant);

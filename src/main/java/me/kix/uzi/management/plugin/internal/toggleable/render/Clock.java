@@ -6,7 +6,6 @@ import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.Plugin;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.event.events.render.EventRender;
-import me.kix.uzi.management.plugin.internal.Overlay;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.init.Items;
@@ -48,8 +47,14 @@ public class Clock extends ToggleablePlugin {
         int x = 4;
         if (foundOverlay.isPresent()) {
             Overlay overlay = (Overlay) foundOverlay.get();
-            if (overlay.getBranding().getValue()) {
-                x += mc.fontRenderer.getStringWidth("Uzi 1.12") + 4;
+            if (overlay.isEnabled()) {
+                if (overlay.getBranding().getValue()) {
+                    x += mc.fontRenderer.getStringWidth("Uzi") + 4;
+                }
+
+                if (overlay.getVersion().getValue()) {
+                    x += mc.fontRenderer.getStringWidth(Uzi.INSTANCE.getVersion());
+                }
             }
         }
 

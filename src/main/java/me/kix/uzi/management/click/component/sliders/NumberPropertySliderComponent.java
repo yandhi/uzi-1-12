@@ -1,12 +1,12 @@
 package me.kix.uzi.management.click.component.sliders;
 
 import me.kix.uzi.api.property.properties.NumberProperty;
-import me.kix.uzi.api.ui.toolkit.components.slider.SliderComponent;
-import me.kix.uzi.api.ui.toolkit.theme.Theme;
-import me.kix.uzi.api.ui.toolkit.util.Rectangle;
+import me.kix.sodapop.components.slider.SliderComponent;
+import me.kix.sodapop.manage.GuiManager;
+import me.kix.sodapop.util.Rectangle;
 
 /**
- * The implementation of {@link me.kix.uzi.api.ui.toolkit.components.slider.SliderComponent} for {@link me.kix.uzi.api.property.properties.NumberProperty}.
+ * The implementation of {@link SliderComponent} for {@link me.kix.uzi.api.property.properties.NumberProperty}.
  *
  * @author Kix
  * @since 6/28/2019
@@ -18,8 +18,8 @@ public class NumberPropertySliderComponent extends SliderComponent {
      */
     private final NumberProperty property;
 
-    public NumberPropertySliderComponent(String name, Theme theme, Rectangle renderPosition, NumberProperty property) {
-        super(name, theme, renderPosition);
+    public NumberPropertySliderComponent(String name, GuiManager guiManager, Rectangle renderPosition, NumberProperty property) {
+        super(name, guiManager, renderPosition);
         this.property = property;
     }
 

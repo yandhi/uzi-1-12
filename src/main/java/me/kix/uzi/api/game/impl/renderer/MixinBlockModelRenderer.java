@@ -20,8 +20,33 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BlockModelRenderer.class)
 public class MixinBlockModelRenderer {
 
-    @Inject(method = "renderModel(Lnet/minecraft/world/IBlockAccess;Lnet/minecraft/client/renderer/block/model/IBakedModel;Lnet/minecraft/block/state/IBlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/client/renderer/BufferBuilder;ZJ)Z", at = @At("HEAD"))
+    @Inject(method = "renderModel(Lnet/minecraft/world/IBlockAccess;Lnet/minecraft/client/renderer/block/model/IBakedModel;Lnet/minecraft/block/state/IBlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/client/renderer/BufferBuilder;ZJ)Z", at = @At("HEAD"), cancellable = true)
     private void renderModel(IBlockAccess worldIn, IBakedModel modelIn, IBlockState stateIn, BlockPos posIn, BufferBuilder buffer, boolean checkSides, long rand, CallbackInfoReturnable<Boolean> cir) {
-        Uzi.INSTANCE.getEventManager().dispatch(new EventRenderBlockModel(stateIn, posIn));
+        EventRenderBlockModel renderBlockModel = new EventRenderBlockModel(stateIn, posIn);
+        Uzi.INSTANCE.getEventManager().dispatch(renderBlockModel);
+
+        if(renderBlockModel.isCancelled()){
+            cir.cancel();
+        }
+    }
+
+    @Inject(method = "renderModelSmooth", at = @At("HEAD"))
+    private void renderModelSmooth(IBlockAccess worldIn, IBakedModel modelIn, IBlockState stateIn, BlockPos posIn, BufferBuilder buffer, boolean checkSides, long rand, CallbackInfoReturnable<Boolean> cir) {
+        EventRenderBlockModel renderBlockModel = new EventRenderBlockModel(stateIn, posIn);
+        Uzi.INSTANCE.getEventManager().dispatch(renderBlockModel);
+
+        if(renderBlockModel.isCancelled()){
+            cir.cancel();
+        }
+    }
+
+    @Inject(method = "renderModelFlat", at = @At("HEAD"))
+    private void renderModelFlat(IBlockAccess worldIn, IBakedModel modelIn, IBlockState stateIn, BlockPos posIn, BufferBuilder buffer, boolean checkSides, long rand, CallbackInfoReturnable<Boolean> cir) {
+        EventRenderBlockModel renderBlockModel = new EventRenderBlockModel(stateIn, posIn);
+        Uzi.INSTANCE.getEventManager().dispatch(renderBlockModel);
+
+        if(renderBlockModel.isCancelled()){
+            cir.cancel();
+        }
     }
 }

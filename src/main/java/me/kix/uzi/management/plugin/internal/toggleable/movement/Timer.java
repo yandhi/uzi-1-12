@@ -2,6 +2,7 @@ package me.kix.uzi.management.plugin.internal.toggleable.movement;
 
 import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.game.accessors.client.Game;
+import me.kix.uzi.api.game.accessors.client.math.GameTimer;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.property.properties.NumberProperty;
@@ -27,12 +28,18 @@ public class Timer extends ToggleablePlugin {
 
     @Register
     public void onPreUpdate(EventUpdate.Pre pre) {
-        ((Game) mc).getTimer().elapsedTicks = speed.getValue();
+        Game game = (Game) mc;
+        GameTimer timer = (GameTimer) game.getTimer();
+
+        timer.setTickLength(50f / speed.getValue());
     }
 
     @Override
     public void onDisable() {
         super.onDisable();
-        ((Game) mc).getTimer().elapsedTicks = 1;
+        Game game = (Game) mc;
+        GameTimer timer = (GameTimer) game.getTimer();
+
+        timer.setTickLength(50);
     }
 }

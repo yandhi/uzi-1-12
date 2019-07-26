@@ -41,7 +41,7 @@ public enum Uzi implements Client {
     /**
      * The keybinding system for the client.
      */
-    private final KeybindManager keybindManager = new KeybindManager();
+    private KeybindManager keybindManager;
 
     /**
      * The alt system for the client.
@@ -67,11 +67,13 @@ public enum Uzi implements Client {
     public void init() {
         directory = new File(System.getProperty("user.home"), "Uzi");
         friendManager = new FriendManager(directory);
+        keybindManager = new KeybindManager(directory);
         pluginManager = new PluginManager(new File(directory, "Plugins"));
         altManager = new AltManager(directory);
         altManager.init();
         friendManager.init();
         pluginManager.init();
+        keybindManager.init();
         commandManager.init();
         Runtime.getRuntime().addShutdownHook(new Thread("Uzi shutdown thread") {
             @Override
@@ -89,6 +91,7 @@ public enum Uzi implements Client {
         friendManager.save();
         pluginManager.save();
         altManager.save();
+        keybindManager.save();
     }
 
     @Override

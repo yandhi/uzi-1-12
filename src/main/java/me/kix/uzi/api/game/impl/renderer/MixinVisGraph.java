@@ -32,6 +32,7 @@ public abstract class MixinVisGraph {
 
     /**
      * @author Kix
+     * @reason To allow us to modify how the game is rendered.
      */
     @Overwrite
     public void setOpaqueCube(BlockPos pos) {

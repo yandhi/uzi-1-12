@@ -2,8 +2,10 @@ package me.kix.uzi.api.game.impl.entity;
 
 import me.kix.uzi.Uzi;
 import me.kix.uzi.api.event.events.block.EventOpaqueBlock;
+import me.kix.uzi.api.event.events.entity.EventApplyEntityCollision;
 import me.kix.uzi.api.event.events.entity.EventEntityPushedByWater;
 import me.kix.uzi.api.event.events.entity.EventPlayerDeath;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.util.DamageSource;
@@ -26,6 +28,7 @@ public abstract class MixinEntityPlayer extends MixinEntityLivingBase {
 
     /**
      * @author Kix
+     * @reason To prevent being pushed.
      */
     @Overwrite
     public boolean isPushedByWater() {
@@ -34,8 +37,19 @@ public abstract class MixinEntityPlayer extends MixinEntityLivingBase {
         return !pushedByWater.isCancelled() && !this.capabilities.isFlying;
     }
 
+    @Inject(method = "applyEntityCollision", at = @At("HEAD"), cancellable = true)
+    private void applyEntityCollision(Entity entityIn, CallbackInfo ci) {
+        EventApplyEntityCollision applyEntityCollision = new EventApplyEntityCollision();
+        Uzi.INSTANCE.getEventManager().dispatch(applyEntityCollision);
+
+        if (applyEntityCollision.isCancelled()) {
+            ci.cancel();
+        }
+    }
+
     /**
      * @author Kix
+     * @reason To allow us to phase.
      */
     @Overwrite
     public boolean isEntityInsideOpaqueBlock() {

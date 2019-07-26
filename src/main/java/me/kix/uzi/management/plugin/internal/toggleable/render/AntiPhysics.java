@@ -5,6 +5,7 @@ import me.kix.uzi.api.event.events.render.EventRenderBlockModel;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import net.minecraft.block.BlockFalling;
+import net.minecraft.block.BlockSign;
 
 /**
  * Prevents the player from seeing the physics engine taking effect and making blocks fall.

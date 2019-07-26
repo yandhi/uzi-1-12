@@ -1,6 +1,7 @@
 package me.kix.uzi.management.plugin.internal.toggleable.world;
 
 import me.kix.uzi.api.event.Register;
+import me.kix.uzi.api.event.events.entity.EventApplyEntityCollision;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.event.events.block.EventBoundingBox;
@@ -25,10 +26,8 @@ public class Phase extends ToggleablePlugin {
     }
 
     @Register
-    public void onBoundingBox(EventBoundingBox boundingBox) {
-        if (boundingBox.getBoundingBox() != null && mc.player.isSneaking()) {
-            boundingBox.setAabb(null);
-        }
+    public void onApplyEntityCollision(EventApplyEntityCollision applyEntityCollision){
+        applyEntityCollision.setCancelled(true);
     }
 
     @Register
@@ -36,4 +35,22 @@ public class Phase extends ToggleablePlugin {
         pushOutOfBlocks.setCancelled(true);
     }
 
+    @Register
+    public void onBoundingBox(EventBoundingBox boundingBox) {
+        if (mc.player.getRidingEntity() != null && boundingBox.getEntity() == mc.player.getRidingEntity()) {
+            if (mc.gameSettings.keyBindJump.isKeyDown() && boundingBox.getPos().getY() >= mc.player.getRidingEntity().posY) {
+                boundingBox.setCancelled(true);
+            }
+            if (boundingBox.getPos().getY() >= mc.player.getRidingEntity().posY) {
+                boundingBox.setCancelled(true);
+            }
+        } else if (boundingBox.getEntity() == mc.player) {
+            if (mc.gameSettings.keyBindJump.isKeyDown() && boundingBox.getPos().getY() >= mc.player.posY) {
+                boundingBox.setCancelled(true);
+            }
+            if (boundingBox.getPos().getY() >= mc.player.posY) {
+                boundingBox.setCancelled(true);
+            }
+        }
+    }
 }

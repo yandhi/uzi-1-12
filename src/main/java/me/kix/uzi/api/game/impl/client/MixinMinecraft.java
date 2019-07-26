@@ -103,7 +103,6 @@ public abstract class MixinMinecraft implements Game {
 
         boolean down = Keyboard.getEventKeyState();
         int key = Keyboard.getEventKey();
-        char ch = Keyboard.getEventCharacter();
 
         if (down) {
             Uzi.INSTANCE.getEventManager().dispatch(new EventKeyPressed(key));

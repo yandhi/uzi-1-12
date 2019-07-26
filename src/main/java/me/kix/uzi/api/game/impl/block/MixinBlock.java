@@ -31,6 +31,7 @@ public abstract class MixinBlock {
      * Adds a collision box to list.
      *
      * @author kix
+     * @reason To hook the bounding box event.
      */
     @Overwrite
     @Deprecated

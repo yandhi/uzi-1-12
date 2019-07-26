@@ -72,7 +72,6 @@ public class PluginManager extends ListManager<Plugin> {
         getContents().add(new Jesus());
         getContents().add(new FastUse());
         getContents().add(new FastBow());
-        getContents().add(new ChatEmotes());
         getContents().add(new Storage());
         getContents().add(new FriendImmunity());
         getContents().add(new NameProtect());
@@ -151,6 +150,8 @@ public class PluginManager extends ListManager<Plugin> {
         getContents().add(new TrueDura());
         getContents().add(new LogoutLocation());
         getContents().add(new Vanish());
+        getContents().add(new Signs());
+        getContents().add(new FakeLag());
 
         getContents().forEach(Plugin::initPlugin);
         load();

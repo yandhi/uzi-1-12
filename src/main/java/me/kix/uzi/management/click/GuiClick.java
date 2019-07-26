@@ -17,6 +17,7 @@ import me.kix.uzi.management.click.component.buttons.PluginButtonContainerCompon
 import me.kix.uzi.management.click.component.buttons.PropertyButtonComponent;
 import me.kix.uzi.management.click.component.sliders.NumberPropertySliderComponent;
 import me.kix.uzi.management.click.component.spinners.EnumPropertySpinnerComponent;
+import me.kix.uzi.management.click.themes.ModernesqueTheme;
 import me.kix.uzi.management.click.themes.NoilTheme;
 import me.kix.uzi.management.click.themes.SyncTheme;
 import me.kix.uzi.management.click.themes.UziTheme;
@@ -148,7 +149,8 @@ public final class GuiClick extends GuiScreen implements GuiManager {
     private enum GuiClickTheme {
         UZI(new UziTheme()),
         NOIL(new NoilTheme()),
-        SYNC(new SyncTheme());
+        SYNC(new SyncTheme()),
+        MODERNESQUE(new ModernesqueTheme());
 
         /**
          * The theme that the type utilizes.

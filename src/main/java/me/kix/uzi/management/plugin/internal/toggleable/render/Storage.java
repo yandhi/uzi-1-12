@@ -56,12 +56,16 @@ public class Storage extends ToggleablePlugin {
      * This is used strictly for aesthetics.
      * </p>
      */
-    private final Box leftBox = new Box(new AxisAlignedBB(0, 0, 0, 2, 1, 1));
+    private final AxisAlignedBB leftChest = new AxisAlignedBB(.0625, 0, .0625, 1.9375, .875, .937);
 
     /**
-     * The box normally rendered for 1x1 tiles.
+     * The normal size of the chest.
+     *
+     * <p>
+     * This used to make the bounding box appear to perfectly fit around the tile entity.
+     * </p>
      */
-    private final Box normalBox = new Box(new AxisAlignedBB(0, 0, 0, 1, 1, 1));
+    private final AxisAlignedBB normalChest = new AxisAlignedBB(.0625, 0, .0625, .937, .875, .937);
 
     /**
      * The right side of the chest.
@@ -69,7 +73,12 @@ public class Storage extends ToggleablePlugin {
      * This is used strictly for aesthetics.
      * </p>
      */
-    private final Box rightBox = new Box(new AxisAlignedBB(0, 0, 0, 1, 1, 2));
+    private final AxisAlignedBB rightChest = new AxisAlignedBB(.0625, 0, .0625, .937, .875, 1.9375);
+
+    /**
+     * The box normally rendered for 1x1 tiles.
+     */
+    private final AxisAlignedBB normalBox = new AxisAlignedBB(0, 0, 0, 1, 1, 1);
 
     /**
      * The color of the chest.
@@ -114,34 +123,35 @@ public class Storage extends ToggleablePlugin {
     @Register
     public void onRender(EventRender.Hand event) {
         for (TileEntity tile : mc.world.loadedTileEntityList) {
-            float posX = (float) tile.getPos().getX() - (float) ((GameRenderManager) mc.getRenderManager()).getRenderPosX();
-            float posY = (float) tile.getPos().getY() - (float) ((GameRenderManager) mc.getRenderManager()).getRenderPosY();
-            float posZ = (float) tile.getPos().getZ() - (float) ((GameRenderManager) mc.getRenderManager()).getRenderPosZ();
+            double posX = tile.getPos().getX() - ((GameRenderManager) mc.getRenderManager()).getRenderPosX();
+            double posY = tile.getPos().getY() - ((GameRenderManager) mc.getRenderManager()).getRenderPosY();
+            double posZ = tile.getPos().getZ() - ((GameRenderManager) mc.getRenderManager()).getRenderPosZ();
 
             GL11.glPushMatrix();
-            GL11.glTranslated(posX, posY, posZ);
             RenderUtil.enable3D();
+            GL11.glTranslated(posX, posY, posZ);
+
             if (tile instanceof TileEntityChest) {
                 if (chests.getValue()) {
                     TileEntityChest chest = (TileEntityChest) tile;
                     boolean trapped = chest.getChestType() == BlockChest.Type.TRAP;
                     if (chest.adjacentChestXPos != null) {
-                        drawBox(leftBox, trapped ? trappedChestColor : chestColor);
+                        drawBox(leftChest, trapped ? trappedChestColor : chestColor);
                     } else if (chest.adjacentChestZPos != null) {
-                        drawBox(rightBox, trapped ? trappedChestColor : chestColor);
+                        drawBox(rightChest, trapped ? trappedChestColor : chestColor);
                     } else if (chest.adjacentChestXNeg == null && chest.adjacentChestZNeg == null) {
-                        drawBox(normalBox, trapped ? trappedChestColor : chestColor);
+                        drawBox(normalChest, trapped ? trappedChestColor : chestColor);
                     }
                 }
             }
             if (tile instanceof TileEntityEnderChest) {
                 if (chests.getValue()) {
-                    drawBox(normalBox, enderChestColor);
+                    drawBox(normalChest, enderChestColor);
                 }
             }
             if (tile instanceof TileEntityBrewingStand) {
                 if (brewingStands.getValue()) {
-                    drawBox(normalBox, brewingStandColor);
+                    drawBox(normalChest, brewingStandColor);
                 }
             }
             if (tile instanceof TileEntityFurnace) {
@@ -166,10 +176,7 @@ public class Storage extends ToggleablePlugin {
      * @param box   The box being drawn.
      * @param color The color of the box.
      */
-    private void drawBox(Box box, Color color) {
-        RenderUtil.color(color.getRGB());
-        box.setOpaque(true);
-        box.render();
+    private void drawBox(AxisAlignedBB box, Color color) {
+        RenderUtil.renderFilledBox(box, color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha() / 255f);
     }
-
 }

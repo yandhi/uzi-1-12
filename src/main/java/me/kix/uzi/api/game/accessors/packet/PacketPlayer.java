@@ -1,12 +1,27 @@
 package me.kix.uzi.api.game.accessors.packet;
 
 /**
- * The pakcet that deals with player actions.
+ * The packet that deals with player actions.
  *
  * @author Kix
  * @since May 2018.
  */
 public interface PacketPlayer {
+
+    /**
+     * The x pos of the player.
+     */
+    void getX();
+
+    /**
+     * The y pos of the player.
+     */
+    void getY();
+
+    /**
+     * The z pos of the player.
+     */
+    void getZ();
 
     /**
      * Changes the server-side x position of the player.

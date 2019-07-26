@@ -11,7 +11,7 @@ import me.kix.uzi.management.plugin.internal.toggleable.render.Search;
 public class CommandManager extends ListManager<Command> {
 
     public void init() {
-        getContents().add(new MacroCommand());
+        getContents().add(new KeybindCommand());
         getContents().add(new ToggleCommand());
         getContents().add(new PluginsCommand());
         getContents().add(new FriendCommand());

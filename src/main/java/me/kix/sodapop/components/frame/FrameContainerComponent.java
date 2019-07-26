@@ -102,15 +102,15 @@ public class FrameContainerComponent extends ContainerComponent {
         if (canScroll) {
             if (Mouse.hasWheel()) {
                 if (Mouse.getEventDWheel() > 0) {
-                    if (scrollY < (getGuiManager().getTheme().getVerticalPadding() * 2)) {
-                        scrollY = (getGuiManager().getTheme().getVerticalPadding() * 2);
+                    if (scrollY < (getGuiManager().getTheme().getVerticalPadding() * 2) - getGuiManager().getTheme().getVerticalPadding() / 2) {
+                        scrollY = (getGuiManager().getTheme().getVerticalPadding() * 2) - getGuiManager().getTheme().getVerticalPadding() / 2;
                     }
                     scrollY -= 4;
                 }
 
                 if (Mouse.getEventDWheel() < 0) {
-                    if (scrollY > (getFunctionalPosition().getHeight() - getRenderPosition().getHeight()) - (6 * (getGuiManager().getTheme().getComponentHeight() + getGuiManager().getTheme().getVerticalPadding()))  - (getGuiManager().getTheme().getVerticalPadding() * 2) + 1) {
-                        scrollY = (getFunctionalPosition().getHeight() - getRenderPosition().getHeight()) - (6 * (getGuiManager().getTheme().getComponentHeight() + getGuiManager().getTheme().getVerticalPadding())) - (getGuiManager().getTheme().getVerticalPadding() * 2) + 1;
+                    if (scrollY > (getFunctionalPosition().getHeight() - getRenderPosition().getHeight()) - (6 * (getGuiManager().getTheme().getComponentHeight() + getGuiManager().getTheme().getVerticalPadding()))  - (getGuiManager().getTheme().getVerticalPadding() * 2) + getGuiManager().getTheme().getVerticalPadding() / 2) {
+                        scrollY = (getFunctionalPosition().getHeight() - getRenderPosition().getHeight()) - (6 * (getGuiManager().getTheme().getComponentHeight() + getGuiManager().getTheme().getVerticalPadding())) - (getGuiManager().getTheme().getVerticalPadding() * 2) + getGuiManager().getTheme().getVerticalPadding() / 2;
                     }
                     scrollY += 4;
                 }

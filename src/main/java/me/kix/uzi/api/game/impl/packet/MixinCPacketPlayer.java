@@ -10,6 +10,18 @@ public abstract class MixinCPacketPlayer implements PacketPlayer {
 
     @Override
     @Accessor
+    public abstract void getX();
+
+    @Override
+    @Accessor
+    public abstract void getY();
+
+    @Override
+    @Accessor
+    public abstract void getZ();
+
+    @Override
+    @Accessor
     public abstract void setX(double x);
 
     @Override

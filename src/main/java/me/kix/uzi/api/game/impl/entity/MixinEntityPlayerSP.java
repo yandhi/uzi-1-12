@@ -155,6 +155,7 @@ public abstract class MixinEntityPlayerSP extends MixinEntityPlayer implements P
      *
      * @param message The message needing to be sent.
      * @author Kix
+     * @reason To hook into chat functionality.
      */
     @Overwrite
     public void sendChatMessage(String message) {
@@ -205,31 +206,11 @@ public abstract class MixinEntityPlayerSP extends MixinEntityPlayer implements P
         return mc.player.movementInput.forwardKeyDown || mc.player.movementInput.backKeyDown || mc.player.movementInput.leftKeyDown || mc.player.movementInput.rightKeyDown;
     }
 
-    public float getDirection() {
-        float yaw = mc.player.rotationYaw;
-        if (mc.player.moveForward < 0) {
-            yaw += 180;
-        }
-        float forward = 1;
-        if (mc.player.moveForward < 0) {
-            forward = -0.5F;
-        } else if (mc.player.moveForward > 0) {
-            forward = 0.5F;
-        }
-        if (mc.player.moveStrafing > 0) {
-            yaw -= 90 * forward;
-        }
-        if (mc.player.moveStrafing < 0) {
-            yaw += 90 * forward;
-        }
-        yaw *= 0.017453292F;
-        return yaw;
-    }
 
     @Override
     public void setSpeed(double speed) {
-        this.motionX = -MathHelper.sin(this.getDirection()) * speed;
-        this.motionZ = MathHelper.cos(this.getDirection()) * speed;
+        this.motionX = -MathHelper.sin(MathUtil.getDirection(rotationYaw)) * speed;
+        this.motionZ = MathHelper.cos(MathUtil.getDirection(rotationYaw)) * speed;
     }
 
     @Override

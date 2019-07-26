@@ -16,8 +16,6 @@
     "client.key.MixinKeybinding",
     "client.font.MixinFontRenderer",
     "client.multiplayer.MixinPlayerControllerMP",
-    "client.world.ChunkProviderServerMixin",
-    "client.world.ChunkProviderClientMixin",
     "client.world.WorldClientMixin",
     "connection.MixinNetworkManager",
     "connection.MixinNetHandlerPlayClient",
@@ -35,6 +33,7 @@
     "renderer.MixinRenderManager",
     "renderer.MixinVisGraph",
     "renderer.MixinBlockModelRenderer",
-    "item.MixinItemStack"
+    "item.MixinItemStack",
+    "client.math.MixinTimer"
   ]
 }

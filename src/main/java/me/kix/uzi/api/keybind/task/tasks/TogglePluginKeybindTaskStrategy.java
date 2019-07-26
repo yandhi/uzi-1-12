@@ -36,4 +36,9 @@ public class TogglePluginKeybindTaskStrategy implements KeybindTaskStrategy {
     public ToggleablePlugin getPlugin() {
         return plugin;
     }
+
+    @Override
+    public String getStrategy() {
+        return "Toggle";
+    }
 }

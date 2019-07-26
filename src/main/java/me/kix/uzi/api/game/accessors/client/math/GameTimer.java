@@ -13,5 +13,13 @@ public interface GameTimer {
      *
      * @param speed The new speed of the timer.
      */
-    void setTimerSpeed(float speed);
+    void setTimerSpeed(int speed);
+
+    /**
+     * Allows us to modify the game's tick length.
+     *
+     * @param tickLength The new tick length of the timer.
+     */
+    void setTickLength(float tickLength);
+
 }

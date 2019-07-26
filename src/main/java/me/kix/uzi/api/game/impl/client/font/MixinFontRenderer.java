@@ -20,15 +20,15 @@ public abstract class MixinFontRenderer implements TextRenderer {
     protected abstract int renderString(String text, float x, float y, int color, boolean shadow);
 
     @Shadow
-    protected abstract void enableAlpha();
-
-    @Shadow
     protected abstract void resetStyles();
+
+    @Shadow protected abstract void enableAlpha();
 
     /**
      * Lets us do Names easier.
      *
      * @author Kix
+     * @reason To allow us to have friend names hidden.
      */
     @Overwrite
     public int drawString(String text, float x, float y, int color, boolean dropShadow) {

@@ -36,13 +36,6 @@ public class ToggleablePlugin extends Plugin implements Toggleable {
     @Override
     public void save(JsonObject destination) {
         super.save(destination);
-        String facet = "NONE";
-        for (Keybind keybind : Uzi.INSTANCE.getKeybindManager().getContents()) {
-            if (keybind.getTaskStrategy() instanceof TogglePluginKeybindTaskStrategy && ((TogglePluginKeybindTaskStrategy) keybind.getTaskStrategy()).getPlugin() == this) {
-                facet = keybind.getKey();
-            }
-        }
-        destination.addProperty("Keybind", facet);
         destination.addProperty("Hidden", hidden);
         destination.addProperty("Enabled", enabled);
     }
@@ -50,11 +43,6 @@ public class ToggleablePlugin extends Plugin implements Toggleable {
     @Override
     public void load(JsonObject source) {
         super.load(source);
-        source.entrySet()
-                .stream()
-                .filter(entry -> entry.getKey().equalsIgnoreCase("Keybind"))
-                .filter(entry -> !entry.getValue().getAsString().equalsIgnoreCase("NONE"))
-                .forEach(entry -> Uzi.INSTANCE.getKeybindManager().getContents().add(new Keybind(getLabel(), entry.getValue().getAsString().toUpperCase(), new TogglePluginKeybindTaskStrategy(this))));
         source.entrySet()
                 .stream()
                 .filter(entry -> entry.getKey().equalsIgnoreCase("Enabled"))

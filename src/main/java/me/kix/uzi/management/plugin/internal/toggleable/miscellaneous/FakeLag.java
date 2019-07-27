@@ -8,7 +8,9 @@ import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.property.properties.NumberProperty;
 import me.kix.uzi.api.util.math.timing.Timer;
 import net.minecraft.network.Packet;
+import net.minecraft.network.play.client.CPacketChatMessage;
 import net.minecraft.network.play.client.CPacketKeepAlive;
+import net.minecraft.network.play.client.CPacketTabComplete;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -78,8 +80,10 @@ public class FakeLag extends ToggleablePlugin {
     @Register
     public void onPacketSend(EventPacket.Send send) {
         if (mc.player != null && send.getPacket() != currentPacket) {
-            send.setCancelled(true);
-            chokedPackets.add(send.getPacket());
+            if (send.getPacket() instanceof CPacketKeepAlive || send.getPacket() instanceof CPacketChatMessage || send.getPacket() instanceof CPacketTabComplete) {
+                send.setCancelled(true);
+                chokedPackets.add(send.getPacket());
+            }
         }
     }
 }

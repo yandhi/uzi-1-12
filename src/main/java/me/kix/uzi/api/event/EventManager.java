@@ -30,6 +30,7 @@ public class EventManager {
                 .filter(m -> m.isAnnotationPresent(Register.class))
                 .forEach(m -> {
                     final Class<? extends Event> event = (Class<? extends Event>) m.getParameterTypes()[0];
+
                     if (!collection.containsKey(event)) {
                         collection.put(event, new CopyOnWriteArrayList<>());
                     }
@@ -75,7 +76,7 @@ public class EventManager {
      * @author Alerithe
      * @since December 2017.
      */
-    private class MethodData {
+    private static class MethodData {
 
         /**
          * A handler for a reflections method.

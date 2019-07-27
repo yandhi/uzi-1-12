@@ -19,7 +19,6 @@ public class ArgumentativeCommand extends Command {
 
     public void init() {
         factory.setupArgs(this);
-        System.out.println(arguments.size());
     }
 
     @Override

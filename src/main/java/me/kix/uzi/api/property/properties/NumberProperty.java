@@ -12,11 +12,13 @@ public class NumberProperty<T extends Number> extends Property<T> {
 
     private final T minimum;
     private final T maximum;
+    private final T increment;
 
-    public NumberProperty(String label, T value, T minimum, T maximum) {
+    public NumberProperty(String label, T value, T minimum, T maximum, T increment) {
         super(label, value);
         this.minimum = minimum;
         this.maximum = maximum;
+        this.increment = increment;
     }
 
     public T getMinimum() {
@@ -25,6 +27,10 @@ public class NumberProperty<T extends Number> extends Property<T> {
 
     public T getMaximum() {
         return maximum;
+    }
+
+    public T getIncrement() {
+        return increment;
     }
 
     @Override
@@ -40,7 +46,7 @@ public class NumberProperty<T extends Number> extends Property<T> {
         }
     }
 
-     private double roundToPlace(double value, int places) {
+    private double roundToPlace(double value, int places) {
         if (places < 0) {
             throw new IllegalArgumentException();
         }
@@ -48,5 +54,4 @@ public class NumberProperty<T extends Number> extends Property<T> {
         bd = bd.setScale(places, RoundingMode.UP);
         return bd.doubleValue();
     }
-
 }

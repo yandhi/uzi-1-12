@@ -19,7 +19,7 @@ public class Timer extends ToggleablePlugin {
     /**
      * The speed of the timer.
      */
-    private final NumberProperty<Integer> speed = new NumberProperty<>("Speed", 10, 2, 10);
+    private final NumberProperty<Integer> speed = new NumberProperty<>("Speed", 10, 2, 10, 1);
 
     public Timer() {
         super("Timer", Category.MOVEMENT);

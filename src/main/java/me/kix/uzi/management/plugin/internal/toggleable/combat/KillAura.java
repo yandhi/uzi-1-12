@@ -38,12 +38,12 @@ public class KillAura extends ToggleablePlugin {
     /**
      * The frequency of hits.
      */
-    private final NumberProperty<Integer> aps = new NumberProperty<>("APS", 15, 1, 20);
+    private final NumberProperty<Integer> aps = new NumberProperty<>("APS", 15, 1, 20, 1);
 
     /**
      * The highest possible distance the player can be from an entity.
      */
-    private final NumberProperty<Float> range = new NumberProperty<>("Range", 4f, 3f, 6f);
+    private final NumberProperty<Float> range = new NumberProperty<>("Range", 4f, 3f, 6f, .1f);
 
     /**
      * Whether or not to apply cooldown to hit times.

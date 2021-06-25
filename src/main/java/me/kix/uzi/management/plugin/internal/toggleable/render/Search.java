@@ -36,7 +36,7 @@ public class Search extends ToggleablePlugin {
     /**
      * The maximum distance to a block.
      */
-    private final NumberProperty<Float> distance = new NumberProperty<>("Distance", 50f, 5f, 200f);
+    private final NumberProperty<Float> distance = new NumberProperty<>("Distance", 50f, 5f, 200f, 10f);
 
     /**
      * The blocks to render.

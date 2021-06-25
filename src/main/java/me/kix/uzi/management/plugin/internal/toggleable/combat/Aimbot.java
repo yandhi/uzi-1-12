@@ -18,7 +18,7 @@ import java.util.List;
 
 public class Aimbot extends ToggleablePlugin {
 
-    private final NumberProperty<Float> range = new NumberProperty<>("Range", 4f, 3f, 6f);
+    private final NumberProperty<Float> range = new NumberProperty<>("Range", 4f, 3f, 6f, .1f);
     private final Property<Boolean> smoothing = new Property<Boolean>("Smoothing", true);
     private final List<EntityPlayer> entities = new ArrayList<>();
     private EntityLivingBase target;

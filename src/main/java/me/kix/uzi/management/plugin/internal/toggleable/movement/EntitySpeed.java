@@ -18,7 +18,7 @@ import net.minecraft.util.MovementInput;
  */
 public class EntitySpeed extends ToggleablePlugin {
 
-    private final NumberProperty<Double> speed = new NumberProperty<>("Speed", 4.0, 1.0, 10.0);
+    private final NumberProperty<Double> speed = new NumberProperty<>("Speed", 4.0, 1.0, 10.0, .1);
 
     public EntitySpeed() {
         super("EntitySpeed", Category.MOVEMENT);

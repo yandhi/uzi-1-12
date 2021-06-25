@@ -32,7 +32,7 @@ public class BedAura extends ToggleablePlugin {
     /**
      * The range that the entity can be before the bed is entered.
      */
-    private final NumberProperty<Float> range = new NumberProperty<>("Range", 4f, 3f, 6f);
+    private final NumberProperty<Float> range = new NumberProperty<>("Range", 4f, 3f, 6f, 0.1f);
 
     public BedAura() {
         super("BedAura", Category.COMBAT);

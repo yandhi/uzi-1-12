@@ -19,7 +19,7 @@ import net.minecraft.entity.player.EntityPlayer;
  */
 public class Tracers extends ToggleablePlugin {
 
-    private final NumberProperty<Float> width = new NumberProperty<>("Width", 1f, 0.1f, 10f);
+    private final NumberProperty<Float> width = new NumberProperty<>("Width", 1f, 0.1f, 10f, .1f);
     private final Property<Boolean> players = new Property<>("Players", true);
     private final Property<Boolean> animals = new Property<>("Animals", false);
     private final Property<Boolean> mobs = new Property<>("Monsters", false);

@@ -15,8 +15,8 @@ import java.util.Random;
 
 public class Triggerbot extends ToggleablePlugin {
 
-    private final NumberProperty<Integer> aps = new NumberProperty<>("APS", 5, 1, 15);
-    private final NumberProperty<Float> range = new NumberProperty<>("Range", 4f, 3f, 6f);
+    private final NumberProperty<Integer> aps = new NumberProperty<>("APS", 5, 1, 15, 1);
+    private final NumberProperty<Float> range = new NumberProperty<>("Range", 4f, 3f, 6f, .1f);
     private final Property<Boolean> mouse = new Property<>("Mouse", true);
     private final Timer timer;
     private final Random random;

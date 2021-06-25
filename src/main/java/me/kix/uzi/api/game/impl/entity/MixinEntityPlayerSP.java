@@ -17,6 +17,7 @@ import net.minecraft.entity.MoverType;
 import net.minecraft.network.play.client.CPacketChatMessage;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketPlayer;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Final;
@@ -25,6 +26,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -35,33 +37,15 @@ public abstract class MixinEntityPlayerSP extends MixinEntityPlayer implements P
     @Final
     public NetHandlerPlayClient connection;
     @Shadow
-    private double lastReportedPosX;
-    @Shadow
-    private double lastReportedPosY;
-    @Shadow
-    private double lastReportedPosZ;
-    @Shadow
-    private float lastReportedYaw;
-    @Shadow
-    private float lastReportedPitch;
-    @Shadow
-    private boolean serverSprintState;
-    @Shadow
-    private boolean serverSneakState;
-    @Shadow
-    private boolean prevOnGround;
-    @Shadow
-    private int positionUpdateTicks;
-    @Shadow
     protected Minecraft mc;
-    @Shadow
-    private boolean autoJumpEnabled;
 
     @Shadow
     public abstract boolean isSneaking();
 
-    @Shadow
-    protected abstract boolean isCurrentViewEntity();
+    /**
+     * Pre update event.
+     */
+    private EventUpdate.Pre updateWalkingPlayer;
 
     @Override
     public void move(MoverType type, double x, double y, double z) {
@@ -85,68 +69,34 @@ public abstract class MixinEntityPlayerSP extends MixinEntityPlayer implements P
         Uzi.INSTANCE.getEventManager().dispatch(new EventUpdate.Living());
     }
 
-    /**
-     * @author Kix
-     * @reason Overwrites the onUpdateWalkingPlayer function so we can have our EventUpdate here.
-     */
-    @Overwrite
-    public void onUpdateWalkingPlayer() {
-        EntityPlayerSP _this = (EntityPlayerSP) (Object) this;
-        EventUpdate.Pre preEvent = new EventUpdate.Pre(getRotations(), onGround, posY, lastReportedPosY);
-        Uzi.INSTANCE.getEventManager().dispatch(preEvent);
+    @Inject(method = "onUpdateWalkingPlayer", at = @At("HEAD"))
+    private void onUpdateWalkingPlayerHead(CallbackInfo ci) {
+        updateWalkingPlayer = new EventUpdate.Pre(getRotations(), onGround, posY, prevPosY);
+        Uzi.INSTANCE.getEventManager().dispatch(updateWalkingPlayer);
+    }
 
-        if (preEvent.isCancelled()) {
-            Uzi.INSTANCE.getEventManager().dispatch(new EventUpdate.Post());
-        }
+    @Redirect(method = "onUpdateWalkingPlayer", at = @At(value = "FIELD", target = "Lnet/minecraft/util/math/AxisAlignedBB;minY:D"))
+    private double onUpdateWalkingPlayerMinY(AxisAlignedBB boundingBox) {
+        return updateWalkingPlayer.getPosY();
+    }
 
-        boolean clientSprintState = this.isSprinting();
-        if (clientSprintState != this.serverSprintState) {
-            this.connection.sendPacket(new CPacketEntityAction(_this, clientSprintState ? CPacketEntityAction.Action.START_SPRINTING : CPacketEntityAction.Action.STOP_SPRINTING));
-            this.serverSprintState = clientSprintState;
-        }
+    @Redirect(method = "onUpdateWalkingPlayer", at = @At(value = "FIELD", target = "Lnet/minecraft/client/entity/EntityPlayerSP;onGround:Z"))
+    private boolean onUpdateWalkingPlayerOnGround(EntityPlayerSP player) {
+        return updateWalkingPlayer.isOnGround();
+    }
 
-        boolean clientSneakState = this.isSneaking();
-        if (clientSneakState != this.serverSneakState) {
-            this.connection.sendPacket(new CPacketEntityAction(_this, clientSneakState ? CPacketEntityAction.Action.START_SNEAKING : CPacketEntityAction.Action.STOP_SNEAKING));
-            this.serverSneakState = clientSneakState;
-        }
+    @Redirect(method = "onUpdateWalkingPlayer", at = @At(value = "FIELD", target = "Lnet/minecraft/client/entity/EntityPlayerSP;rotationYaw:F"))
+    private float onUpdateWalkingPlayerRotationYaw(EntityPlayerSP player) {
+        return updateWalkingPlayer.getViewAngles().getYaw();
+    }
 
-        if (this.isCurrentViewEntity()) {
-            double d0 = posX - lastReportedPosX;
-            double d1 = preEvent.getPosY() - lastReportedPosY;
-            double d2 = posZ - lastReportedPosZ;
-            double d3 = preEvent.getViewAngles().getYaw() - lastReportedYaw;
-            double d4 = preEvent.getViewAngles().getPitch() - lastReportedPitch;
-            boolean position = d0 * d0 + d1 * d1 + d2 * d2 > 9.0E-4D || ++this.positionUpdateTicks >= 20;
-            boolean rotation = d3 != 0.0D || d4 != 0.0D;
-            if (this.isRiding()) {
-                this.connection.sendPacket(new CPacketPlayer.PositionRotation(this.motionX, -999.0D, this.motionZ, this.rotationYaw, this.rotationPitch, this.onGround));
-                position = false;
-            } else if (position && rotation) {
-                this.connection.sendPacket(new CPacketPlayer.PositionRotation(posX, preEvent.getPosY(), posZ, preEvent.getViewAngles().getYaw(), preEvent.getViewAngles().getPitch(), preEvent.isOnGround()));
-            } else if (position) {
-                this.connection.sendPacket(new CPacketPlayer.Position(posX, preEvent.getPosY(), posZ, preEvent.isOnGround()));
-            } else if (rotation) {
-                this.connection.sendPacket(new CPacketPlayer.Rotation(preEvent.getViewAngles().getYaw(), preEvent.getViewAngles().getPitch(), preEvent.isOnGround()));
-            } else if (this.prevOnGround != preEvent.isOnGround()) {
-                this.connection.sendPacket(new CPacketPlayer(preEvent.isOnGround()));
-            }
+    @Redirect(method = "onUpdateWalkingPlayer", at = @At(value = "FIELD", target = "Lnet/minecraft/client/entity/EntityPlayerSP;rotationPitch:F"))
+    private float onUpdateWalkingPlayerRotationPitch(EntityPlayerSP player) {
+        return updateWalkingPlayer.getViewAngles().getPitch();
+    }
 
-            if (position) {
-                this.lastReportedPosX = posX;
-                this.lastReportedPosY = preEvent.getPosY();
-                this.lastReportedPosZ = posZ;
-                this.positionUpdateTicks = 0;
-            }
-
-            if (rotation) {
-                this.lastReportedYaw = preEvent.getViewAngles().getYaw();
-                this.lastReportedPitch = preEvent.getViewAngles().getPitch();
-            }
-
-            this.prevOnGround = preEvent.isOnGround();
-            this.autoJumpEnabled = this.mc.gameSettings.autoJump;
-        }
+    @Inject(method = "onUpdateWalkingPlayer", at = @At("RETURN"))
+    private void onUpdateWalkingPlayerReturn(CallbackInfo ci) {
         Uzi.INSTANCE.getEventManager().dispatch(new EventUpdate.Post());
     }
 

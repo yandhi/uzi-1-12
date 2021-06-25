@@ -10,8 +10,8 @@ import me.kix.uzi.api.event.events.entity.EventUpdate;
 
 public class AutoPayload extends ToggleablePlugin {
 
-    private final Property<String> payload = new Property<>("Payload", "Wanna Join Aphrodite? Apply Today! https://discord.gg/2wKYsgQ (2b2t Group)");
-    private final NumberProperty<Integer> delay = new NumberProperty<>("Delay", 2000, 100, 10000);
+    private final Property<String> payload = new Property<>("Payload", "[uzi]-=gang=-");
+    private final NumberProperty<Integer> delay = new NumberProperty<>("Delay", 2000, 100, 10000, 100);
     private final Timer timer = new Timer();
 
     public AutoPayload() {

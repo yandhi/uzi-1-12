@@ -23,7 +23,7 @@ public class SoundLag extends ToggleablePlugin {
     /**
      * The amount of swap packets to send.
      */
-    private final NumberProperty<Integer> packets = new NumberProperty<>("Packets", 20, 5, 10000);
+    private final NumberProperty<Integer> packets = new NumberProperty<>("Packets", 20, 5, 10000, 5);
 
     public SoundLag() {
         super("SoundLag", Category.MISCELLANEOUS);

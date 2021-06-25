@@ -39,7 +39,7 @@ public class FakeLag extends ToggleablePlugin {
     /**
      * The delay between choked packets being sent.
      */
-    private final NumberProperty<Integer> throttle = new NumberProperty<>("Throttle", 100, 0, 10000);
+    private final NumberProperty<Integer> throttle = new NumberProperty<>("Throttle", 100, 0, 10000, 100);
 
     /**
      * The packets currently being choked.

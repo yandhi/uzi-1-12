@@ -13,7 +13,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class Nuker extends ToggleablePlugin {
 
-    private final NumberProperty<Integer> radius = new NumberProperty<>("Radius", 2, 1, 6);
+    private final NumberProperty<Integer> radius = new NumberProperty<>("Radius", 2, 1, 6, 1);
 
     public Nuker() {
         super("Nuker", Category.WORLD);

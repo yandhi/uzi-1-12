@@ -2,6 +2,7 @@ package me.kix.uzi.management.plugin.internal.toggleable.render;
 
 import me.kix.uzi.Uzi;
 import me.kix.uzi.api.event.Register;
+import me.kix.uzi.api.event.events.input.key.EventKeyPressed;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.Plugin;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
@@ -9,6 +10,7 @@ import me.kix.uzi.api.property.Property;
 import me.kix.uzi.api.property.properties.EnumProperty;
 import me.kix.uzi.api.util.network.TPSTracker;
 import me.kix.uzi.api.event.events.render.EventRender;
+import me.kix.uzi.management.ui.tab.TabGui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 
@@ -24,6 +26,8 @@ public class Overlay extends ToggleablePlugin {
     private final Property<Boolean> tps = new Property<>("TPS", true);
     private final Property<Boolean> coords = new Property<>("Coords", true);
     private final Property<Boolean> toggleables = new Property<>("Toggleables", true);
+    private final Property<Boolean> tabGui = new Property<>("Tabgui", false);
+    private TabGui tab;
 
     public Overlay() {
         super("Overlay", Category.RENDER);
@@ -35,6 +39,7 @@ public class Overlay extends ToggleablePlugin {
         getProperties().add(tps);
         getProperties().add(coords);
         getProperties().add(toggleables);
+        getProperties().add(tabGui);
     }
 
     @Register
@@ -88,7 +93,26 @@ public class Overlay extends ToggleablePlugin {
                 y += mc.fontRenderer.FONT_HEIGHT;
             }
         }
+
+        if (tabGui.getValue()) {
+            if (tab == null) {
+                tab = TabGui.INSTANCE;
+                tab.setup();
+            }
+
+            tab.draw(2, 20, 8, 12, getBrand().getValue().accentColor, 0x80000000);
+        }
+
         GlStateManager.popMatrix();
+    }
+
+    @Register
+    public void onKeyPress(EventKeyPressed pressed) {
+        if (tabGui.getValue()) {
+            if (tab != null) {
+                tab.handleKeys(pressed.getKey());
+            }
+        }
     }
 
     /**

@@ -17,8 +17,8 @@ import net.minecraft.network.play.client.CPacketPlayerTryUseItem;
 
 public class AutoSoup extends ToggleablePlugin {
 
-    private NumberProperty<Float> health = new NumberProperty<>("Health", 18.0F, 0F, 20F);
-    private NumberProperty<Integer> delay = new NumberProperty<>("Delay", 500, 0, 1000);
+    private NumberProperty<Float> health = new NumberProperty<>("Health", 18.0F, 0F, 20F, .5f);
+    private NumberProperty<Integer> delay = new NumberProperty<>("Delay", 500, 0, 1000, 50);
     private final Timer timer;
 
     public AutoSoup() {

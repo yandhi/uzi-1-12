@@ -16,7 +16,7 @@ import net.minecraft.client.gui.GuiMainMenu;
  */
 public class AutoLog extends ToggleablePlugin {
 
-    private final NumberProperty<Float> health = new NumberProperty<>("Health", 6f, 2f, 20f);
+    private final NumberProperty<Float> health = new NumberProperty<>("Health", 6f, 2f, 20f, .5f);
 
     public AutoLog() {
         super("AutoLog", Category.COMBAT);

@@ -7,6 +7,7 @@ import me.kix.uzi.management.ui.tab.item.impl.ButtonItem;
 import me.kix.uzi.management.ui.tab.item.impl.FolderItem;
 import me.kix.uzi.management.ui.tab.item.impl.focus.SliderItem;
 import me.kix.uzi.management.ui.tab.item.impl.focus.SpinnerItem;
+import me.kix.uzi.management.ui.tab.item.impl.folders.ToggleablePluginFolderItem;
 import net.minecraft.client.Minecraft;
 
 /**
@@ -58,6 +59,10 @@ public enum TabUtil {
         int highestWidth = 0;
         for (Item item : folder.getContents()) {
             int width = Minecraft.getMinecraft().fontRenderer.getStringWidth(item.getLabel());
+
+            if (item instanceof ToggleablePluginFolderItem) {
+                width = width + 10;
+            }
 
             if (item instanceof ButtonItem) {
                 width = width + 10;

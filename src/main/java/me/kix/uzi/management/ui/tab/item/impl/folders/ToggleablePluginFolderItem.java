@@ -32,7 +32,7 @@ public class ToggleablePluginFolderItem extends FolderItem {
             RenderUtil.drawRect(x + width - 5, y, x + width, y + height, new Color(foreground).darker().getRGB());
         }
         super.draw(x, y, width, height, foreground, background);
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(">", x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth(">") - 2, y + ((height - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT) / 2f), 0xFFDEDEDE);
+        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(">", x + width - Minecraft.getMinecraft().fontRenderer.getStringWidth(">") - 5, y + ((height - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT) / 2f), 0xFFDEDEDE);
     }
 
     @Override

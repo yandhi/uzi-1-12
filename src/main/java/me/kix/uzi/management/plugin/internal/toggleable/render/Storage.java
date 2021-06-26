@@ -24,30 +24,39 @@ import java.awt.*;
  * I hate it.
  * </p>
  *
+ * <p>
+ * lol im gangsta <3.
+ * </p>
+ *
  * @author Kix
- * @since 7/12/2019
+ * @since 7/12/2019 (revised 6/26/2021)
  */
 public class Storage extends ToggleablePlugin {
 
     /**
      * Whether or not to render chests.
      */
-    private Property<Boolean> chests = new Property<>("Chests", true);
+    private final Property<Boolean> chests = new Property<>("Chests", true);
 
     /**
      * Whether or not to render furnaces.
      */
-    private Property<Boolean> furnaces = new Property<>("Furnaces", false);
+    private final Property<Boolean> furnaces = new Property<>("Furnaces", false);
 
     /**
      * Whether or not to render brewing stands.
      */
-    private Property<Boolean> brewingStands = new Property<>("BrewingStands", false);
+    private final Property<Boolean> brewingStands = new Property<>("BrewingStands", false);
 
     /**
      * Whether or not to render redstone equipment.
      */
-    private Property<Boolean> redstoneBlocks = new Property<>("RedstoneBlocks", false);
+    private final Property<Boolean> redstoneBlocks = new Property<>("RedstoneBlocks", false);
+
+    /**
+     * Whether or not to base chest alpha on distance.
+     */
+    private final Property<Boolean> fading = new Property<>("Fading", true);
 
     /**
      * The left side of the chest.
@@ -136,33 +145,33 @@ public class Storage extends ToggleablePlugin {
                     TileEntityChest chest = (TileEntityChest) tile;
                     boolean trapped = chest.getChestType() == BlockChest.Type.TRAP;
                     if (chest.adjacentChestXPos != null) {
-                        drawBox(leftChest, trapped ? trappedChestColor : chestColor);
+                        drawBox(leftChest, tile, trapped ? trappedChestColor : chestColor);
                     } else if (chest.adjacentChestZPos != null) {
-                        drawBox(rightChest, trapped ? trappedChestColor : chestColor);
+                        drawBox(rightChest, tile, trapped ? trappedChestColor : chestColor);
                     } else if (chest.adjacentChestXNeg == null && chest.adjacentChestZNeg == null) {
-                        drawBox(normalChest, trapped ? trappedChestColor : chestColor);
+                        drawBox(normalChest, tile, trapped ? trappedChestColor : chestColor);
                     }
                 }
             }
             if (tile instanceof TileEntityEnderChest) {
                 if (chests.getValue()) {
-                    drawBox(normalChest, enderChestColor);
+                    drawBox(normalChest, tile, enderChestColor);
                 }
             }
             if (tile instanceof TileEntityBrewingStand) {
                 if (brewingStands.getValue()) {
-                    drawBox(normalChest, brewingStandColor);
+                    drawBox(normalChest, tile, brewingStandColor);
                 }
             }
             if (tile instanceof TileEntityFurnace) {
                 if (furnaces.getValue()) {
-                    drawBox(normalBox, furnaceColor);
+                    drawBox(normalBox, tile, furnaceColor);
                 }
             }
 
             if (tile instanceof TileEntityHopper || tile instanceof TileEntityDispenser) {
                 if (redstoneBlocks.getValue()) {
-                    drawBox(normalBox, redstoneColor);
+                    drawBox(normalBox, tile, redstoneColor);
                 }
             }
             RenderUtil.disable3D();
@@ -173,10 +182,17 @@ public class Storage extends ToggleablePlugin {
     /**
      * Draws the box.
      *
-     * @param box   The box being drawn.
-     * @param color The color of the box.
+     * @param box    The box being drawn.
+     * @param entity The entity being drawn.
+     * @param color  The color of the box.
      */
-    private void drawBox(AxisAlignedBB box, Color color) {
-        RenderUtil.bb(box, 1f, color);
+    private void drawBox(AxisAlignedBB box, TileEntity entity, Color color) {
+        double distance = Math.sqrt(mc.player.getDistanceSq(entity.getPos()));
+        if (fading.getValue() && distance <= 80) {
+            /* Simple proportion based on distance for the opacity to make it fade. */
+            RenderUtil.bb(box, 1f, new Color(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, (float) distance / 255f));
+        } else {
+            RenderUtil.bb(box, 1f, color);
+        }
     }
 }

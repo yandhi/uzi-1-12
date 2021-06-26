@@ -189,7 +189,6 @@ public class Storage extends ToggleablePlugin {
     private void drawBox(AxisAlignedBB box, TileEntity entity, Color color) {
         double distance = Math.sqrt(mc.player.getDistanceSq(entity.getPos()));
         if (fading.getValue() && distance <= 80) {
-            /* Simple proportion based on distance for the opacity to make it fade. */
             RenderUtil.bb(box, 1f, new Color(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, (float) distance / 255f));
         } else {
             RenderUtil.bb(box, 1f, color);

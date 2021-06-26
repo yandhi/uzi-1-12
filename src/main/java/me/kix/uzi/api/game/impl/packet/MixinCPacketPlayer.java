@@ -9,27 +9,27 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public abstract class MixinCPacketPlayer implements PacketPlayer {
 
     @Override
-    @Accessor
-    public abstract void getX();
+    @Accessor("x")
+    public abstract double getX();
 
     @Override
-    @Accessor
-    public abstract void getY();
+    @Accessor("y")
+    public abstract double getY();
 
     @Override
-    @Accessor
-    public abstract void getZ();
+    @Accessor("z")
+    public abstract double getZ();
 
     @Override
-    @Accessor
+    @Accessor("x")
     public abstract void setX(double x);
 
     @Override
-    @Accessor
+    @Accessor("y")
     public abstract void setY(double y);
 
     @Override
-    @Accessor
+    @Accessor("z")
     public abstract void setZ(double z);
 
     @Override

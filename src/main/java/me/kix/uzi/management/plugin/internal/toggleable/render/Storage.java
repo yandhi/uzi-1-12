@@ -177,6 +177,6 @@ public class Storage extends ToggleablePlugin {
      * @param color The color of the box.
      */
     private void drawBox(AxisAlignedBB box, Color color) {
-        RenderUtil.renderFilledBox(box, color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, color.getAlpha() / 255f);
+        RenderUtil.bb(box, 1f, color);
     }
 }

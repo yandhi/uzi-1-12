@@ -11,17 +11,17 @@ public interface PacketPlayer {
     /**
      * The x pos of the player.
      */
-    void getX();
+    double getX();
 
     /**
      * The y pos of the player.
      */
-    void getY();
+    double getY();
 
     /**
      * The z pos of the player.
      */
-    void getZ();
+    double getZ();
 
     /**
      * Changes the server-side x position of the player.

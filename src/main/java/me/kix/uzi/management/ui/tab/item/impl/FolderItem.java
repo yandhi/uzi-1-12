@@ -100,7 +100,9 @@ public class FolderItem extends AbstractItem implements Folder {
                         }
                     }
                 }
-                selectedItem.handleKeys(keyCode);
+                if (selectedItem != null) {
+                    selectedItem.handleKeys(keyCode);
+                }
             }
         }
     }

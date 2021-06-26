@@ -3,7 +3,10 @@ package me.kix.uzi.management.ui.tab.util;
 import me.kix.uzi.management.ui.tab.focus.Focusable;
 import me.kix.uzi.management.ui.tab.folder.Folder;
 import me.kix.uzi.management.ui.tab.item.Item;
+import me.kix.uzi.management.ui.tab.item.impl.ButtonItem;
 import me.kix.uzi.management.ui.tab.item.impl.FolderItem;
+import me.kix.uzi.management.ui.tab.item.impl.focus.SliderItem;
+import me.kix.uzi.management.ui.tab.item.impl.focus.SpinnerItem;
 import net.minecraft.client.Minecraft;
 
 /**
@@ -56,10 +59,26 @@ public enum TabUtil {
         for (Item item : folder.getContents()) {
             int width = Minecraft.getMinecraft().fontRenderer.getStringWidth(item.getLabel());
 
+            if (item instanceof ButtonItem) {
+                width = width + 10;
+            }
+
+            if (item instanceof SliderItem) {
+                SliderItem sliderItem = (SliderItem) item;
+
+                width = Minecraft.getMinecraft().fontRenderer.getStringWidth(sliderItem.getRaw()) + 10;
+            }
+
+            if (item instanceof SpinnerItem) {
+                SpinnerItem spinnerItem = (SpinnerItem) item;
+
+                width = Minecraft.getMinecraft().fontRenderer.getStringWidth(spinnerItem.getRaw());
+            }
+
             if (width > highestWidth) {
                 highestWidth = width;
             }
         }
-        return highestWidth + 10;
+        return highestWidth + 6;
     }
 }

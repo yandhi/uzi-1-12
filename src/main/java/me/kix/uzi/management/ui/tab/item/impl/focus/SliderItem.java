@@ -39,6 +39,8 @@ public class SliderItem extends FocusItem {
 
     @Override
     public void handleKeys(int keyCode) {
+        super.handleKeys(keyCode);
+
         if (isFocused()) {
             if (keyCode == Keyboard.KEY_UP) {
                 property.setValue(((Number) property.getValue()).floatValue() + property.getIncrement().floatValue());
@@ -48,4 +50,12 @@ public class SliderItem extends FocusItem {
             }
         }
     }
+
+    /**
+     * @return The raw label and value together for width purposes.
+     */
+    public String getRaw() {
+        return getLabel() + " : " + Math.round(((Number) property.getValue()).doubleValue());
+    }
+
 }

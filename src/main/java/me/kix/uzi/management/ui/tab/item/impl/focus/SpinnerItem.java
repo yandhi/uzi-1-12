@@ -32,6 +32,8 @@ public class SpinnerItem extends FocusItem {
 
     @Override
     public void handleKeys(int keyCode) {
+        super.handleKeys(keyCode);
+
         if (isFocused()) {
             if (keyCode == Keyboard.KEY_UP) {
                 property.increment();
@@ -41,4 +43,12 @@ public class SpinnerItem extends FocusItem {
             }
         }
     }
+
+    /**
+     * @return The raw label and value together for width purposes.
+     */
+    public String getRaw() {
+        return getLabel() + " : " + property.getFixedValue();
+    }
+
 }

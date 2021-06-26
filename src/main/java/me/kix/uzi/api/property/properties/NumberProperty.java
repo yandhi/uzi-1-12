@@ -35,7 +35,7 @@ public class NumberProperty<T extends Number> extends Property<T> {
 
     @Override
     public void setValue(T value) {
-        this.value = NumberClamper.clamp(NumberCaster.cast((Class<T>) ((Number) (getValue())).getClass(), roundToPlace(value.doubleValue(), 1)), minimum, maximum);
+        this.value = NumberClamper.clamp(NumberCaster.cast((Class<T>) ((Number) (getValue())).getClass(), roundToPlace(value.doubleValue(), 2)), minimum, maximum);
     }
 
     public void setValue(String value) {

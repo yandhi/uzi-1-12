@@ -35,7 +35,7 @@ public class BlockOutline extends ToggleablePlugin {
             double renderY = rayTracePos.getY() - renderManager.getRenderPosY();
             double renderZ = rayTracePos.getZ() - renderManager.getRenderPosZ();
             AxisAlignedBB block = new AxisAlignedBB(0, 0, 0, 1, 1, 1).offset(renderX, renderY, renderZ);
-            RenderUtil.bb(block, 0.5f, Color.PINK);
+            RenderUtil.bb(block, 0.5f, new Color(0x1EFF4E00, true));
         }
     }
 

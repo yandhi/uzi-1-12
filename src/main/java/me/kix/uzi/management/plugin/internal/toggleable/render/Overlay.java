@@ -79,6 +79,11 @@ public class Overlay extends ToggleablePlugin {
 
         if (toggleables.getValue()) {
             int y = 2;
+
+            if(!mc.player.getActivePotionEffects().isEmpty()) {
+                y = 26;
+            }
+
             List<ToggleablePlugin> toggleables = Uzi.INSTANCE.getPluginManager().getContents().stream()
                     .filter(ToggleablePlugin.class::isInstance)
                     .map(ToggleablePlugin.class::cast)

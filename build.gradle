@@ -57,6 +57,7 @@ dependencies {
         exclude module: 'guava'
         exclude module: 'log4j-core'
     }
+    compile("se.michaelthelin.spotify:spotify-web-api-java:6.5.4")
 }
 
 processResources {
@@ -84,6 +85,7 @@ reobf {
 shadowJar {
     dependencies {
         include(dependency('org.spongepowered:mixin'))
+        include(dependency('se.michaelthelin.spotify:spotify-web-api-java'))
     }
     exclude 'dummyThing'
     exclude 'LICENSE.txt'

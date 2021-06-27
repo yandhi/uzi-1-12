@@ -26,6 +26,7 @@ public class CommandManager extends ListManager<Command> {
         getContents().add(new ClipCommand());
         getContents().add(new SmartChatCommand());
         getContents().add(new SearchCommand());
+        getContents().add(new UpdateSpotifyAuthCodeCommand());
 
         addPluginCommands();
         getContents().stream().filter(command -> command instanceof ArgumentativeCommand)

@@ -76,11 +76,11 @@ public class BuildHelper extends ToggleablePlugin {
             double renderY = currentClaim.getStartPos().getY() - mc.getRenderManager().viewerPosY;
             double renderZ = currentClaim.getStartPos().getZ() - mc.getRenderManager().viewerPosZ;
             AxisAlignedBB renderClaim = new AxisAlignedBB(0, 0, 0, xDiff, yDiff, zDiff).offset(renderX, renderY, renderZ);
-            RenderUtil.bb(renderClaim, 1f, Color.pink);
+            RenderUtil.bb(renderClaim, 1f, new Color(0x2CB247EC, true));
 
 
             AxisAlignedBB centerPoint = new AxisAlignedBB(0, 0, 0, 1, 1, 1).offset(renderX + Math.floor(xDiff / 2), renderY + Math.floor(yDiff / 2), renderZ + Math.floor(zDiff / 2));
-            RenderUtil.bb(centerPoint, 1f, Color.orange);
+            RenderUtil.bb(centerPoint, 1f, new Color(0xB5ECC847, true));
         }
     }
 }

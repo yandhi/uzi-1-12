@@ -127,6 +127,7 @@ public class Storage extends ToggleablePlugin {
         getProperties().add(furnaces);
         getProperties().add(brewingStands);
         getProperties().add(redstoneBlocks);
+        getProperties().add(fading);
     }
 
     @Register

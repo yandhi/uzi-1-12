@@ -85,7 +85,6 @@ reobf {
 shadowJar {
     dependencies {
         include(dependency('org.spongepowered:mixin'))
-        include(dependency('se.michaelthelin.spotify:spotify-web-api-java'))
     }
     exclude 'dummyThing'
     exclude 'LICENSE.txt'

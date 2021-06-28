@@ -102,7 +102,7 @@ public enum Uzi implements Client {
 
     @Override
     public String getVersion() {
-        return "1.10.1";
+        return "1.10.3";
     }
 
     @Override

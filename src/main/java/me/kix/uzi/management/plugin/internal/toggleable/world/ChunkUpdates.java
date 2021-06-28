@@ -53,7 +53,7 @@ public class ChunkUpdates extends ToggleablePlugin {
 		double y = -mc.getRenderManager().viewerPosY;
 		double z = chunk.z - mc.getRenderManager().viewerPosZ;
 		AxisAlignedBB chunkBB = new AxisAlignedBB(0d, 0d, 0d, 16d, 0, 16d).offset(x, y, z);
-		RenderUtil.bb(chunkBB, 2, new Color(255, 255, 0));
+		RenderUtil.bb(chunkBB, 2, new Color(255, 255, 0, 70));
 	}
 
 	@Override

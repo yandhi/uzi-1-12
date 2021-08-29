@@ -10,6 +10,7 @@ import me.kix.uzi.api.property.Property;
 import me.kix.uzi.api.property.properties.EnumProperty;
 import me.kix.uzi.api.util.network.TPSTracker;
 import me.kix.uzi.api.event.events.render.EventRender;
+import me.kix.uzi.management.plugin.internal.toggleable.render.ui.GuiHud;
 import me.kix.uzi.management.ui.tab.TabGui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
@@ -28,6 +29,7 @@ public class Overlay extends ToggleablePlugin {
     private final Property<Boolean> toggleables = new Property<>("Toggleables", true);
     private final Property<Boolean> tabGui = new Property<>("Tabgui", false);
     private TabGui tab;
+    private GuiHud hud = new GuiHud();
 
     public Overlay() {
         super("Overlay", Category.RENDER);

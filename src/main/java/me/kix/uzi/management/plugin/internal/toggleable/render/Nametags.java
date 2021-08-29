@@ -24,7 +24,16 @@ import net.minecraft.util.EnumHand;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @since Revised 9/26/21
+ * @author yandhi
+ */
 public class Nametags extends ToggleablePlugin {
+
+    /**
+     * Allows the user to determine whether the nametags should be rendered through walls.
+     */
+    private final Property<Boolean> raytracing = new Property<>("Raytracing", false);
 
     private final Property<Boolean> armor = new Property<>("Armor", true);
     private final Property<Boolean> players = new Property<>("Players", true);
@@ -35,6 +44,7 @@ public class Nametags extends ToggleablePlugin {
     public Nametags() {
         super("Nametags", Category.RENDER);
         setHidden(true);
+        getProperties().add(raytracing);
         getProperties().add(armor);
         getProperties().add(players);
         getProperties().add(animals);
@@ -45,39 +55,42 @@ public class Nametags extends ToggleablePlugin {
     @Register
     public void onRender2D(EventRender.TwoDimensional event) {
         if (RenderUtil.isInViewFrustrum(event.getEntity())) {
-            if (event.getEntity() instanceof EntityPlayer && players.getValue() || event.getEntity() instanceof EntityAnimal && animals.getValue() || (event.getEntity() instanceof EntityMob && mobs.getValue()) || event.getEntity() instanceof EntityItem && items.getValue()) {
-                String name = event.getEntity().getDisplayName().getFormattedText();
-                if (Uzi.INSTANCE.getFriendManager().isFriend(event.getEntity().getName())) {
-                    name = Uzi.INSTANCE.getFriendManager().getReplacedText(name);
-                }
+            /* raytracing check :) */
+            if(raytracing.getValue() || mc.player.canEntityBeSeen(event.getEntity())) {
+                if (event.getEntity() instanceof EntityPlayer && players.getValue() || event.getEntity() instanceof EntityAnimal && animals.getValue() || (event.getEntity() instanceof EntityMob && mobs.getValue()) || event.getEntity() instanceof EntityItem && items.getValue()) {
+                    String name = event.getEntity().getDisplayName().getFormattedText();
+                    if (Uzi.INSTANCE.getFriendManager().isFriend(event.getEntity().getName())) {
+                        name = Uzi.INSTANCE.getFriendManager().getReplacedText(name);
+                    }
 
-                if (event.getEntity() instanceof EntityItem) {
-                    name = ((EntityItem) event.getEntity()).getItem().getDisplayName();
-                }
+                    if (event.getEntity() instanceof EntityItem) {
+                        name = ((EntityItem) event.getEntity()).getItem().getDisplayName();
+                    }
 
-                if (event.getEntity() instanceof EntityPlayer) {
-                    GlStateManager.pushMatrix();
-                    EntityPlayer player = (EntityPlayer) event.getEntity();
-                    drawArmor(player, Math.round(event.getBox().x + ((event.getBox().w - event.getBox().x) / 2)), Math.round(event.getBox().y) - 30);
-                    GlStateManager.enableDepth();
-                    GlStateManager.depthMask(true);
-                    GlStateManager.popMatrix();
-                }
+                    if (event.getEntity() instanceof EntityPlayer) {
+                        GlStateManager.pushMatrix();
+                        EntityPlayer player = (EntityPlayer) event.getEntity();
+                        drawArmor(player, Math.round(event.getBox().x + ((event.getBox().w - event.getBox().x) / 2)), Math.round(event.getBox().y) - 30);
+                        GlStateManager.enableDepth();
+                        GlStateManager.depthMask(true);
+                        GlStateManager.popMatrix();
+                    }
 
-                if (event.getEntity() instanceof EntityLivingBase) {
-                    EntityLivingBase entityLivingBase = (EntityLivingBase) event.getEntity();
-                    String tag = String.format("%s %s", name, getHealthColor(entityLivingBase) + Math.round(entityLivingBase.getHealth() / 2));
-                    RenderUtil.drawRect(event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) - (mc.fontRenderer.getStringWidth(tag) / 2f) - 1.5f, event.getBox().y - 11,
-                            event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) + (mc.fontRenderer.getStringWidth(tag) / 2f) + 0.5f, event.getBox().y - 2f, 0x60000000);
-                    mc.fontRenderer.drawStringWithShadow(tag,
-                            event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) - (mc.fontRenderer.getStringWidth(tag) / 2f),
-                            event.getBox().y - 10,
-                            0xFFFFFFFF);
-                } else {
-                    mc.fontRenderer.drawStringWithShadow(name,
-                            event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) - (mc.fontRenderer.getStringWidth(name) / 2f),
-                            event.getBox().y - 10,
-                            0xFFFFFFFF);
+                    if (event.getEntity() instanceof EntityLivingBase) {
+                        EntityLivingBase entityLivingBase = (EntityLivingBase) event.getEntity();
+                        String tag = String.format("%s %s", name, getHealthColor(entityLivingBase) + Math.round(entityLivingBase.getHealth() / 2));
+                        RenderUtil.drawRect(event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) - (mc.fontRenderer.getStringWidth(tag) / 2f) - 1.5f, event.getBox().y - 11,
+                                event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) + (mc.fontRenderer.getStringWidth(tag) / 2f) + 0.5f, event.getBox().y - 2f, 0x60000000);
+                        mc.fontRenderer.drawStringWithShadow(tag,
+                                event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) - (mc.fontRenderer.getStringWidth(tag) / 2f),
+                                event.getBox().y - 10,
+                                0xFFFFFFFF);
+                    } else {
+                        mc.fontRenderer.drawStringWithShadow(name,
+                                event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) - (mc.fontRenderer.getStringWidth(name) / 2f),
+                                event.getBox().y - 10,
+                                0xFFFFFFFF);
+                    }
                 }
             }
         }

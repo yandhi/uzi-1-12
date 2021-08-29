@@ -8,8 +8,14 @@ import me.kix.uzi.api.event.events.entity.EventUpdate;
 import java.awt.*;
 
 /**
+ * Makes the player's server angles appear to be different than they actually are.
+ *
+ * <p>
+ * This plugin is from CSGO cheats.
+ * </p>
+ *
  * @author Kix
- * @since 9/1/18
+ * @since 9/1/18 (Updated 9/24/21)
  */
 public class AntiAim extends ToggleablePlugin {
 
@@ -22,8 +28,7 @@ public class AntiAim extends ToggleablePlugin {
 	@Register
 	public void onUpdate(EventUpdate.Pre event) {
 		event.getViewAngles().setPitch(180);
-		event.getViewAngles().setYaw(180);
-		mc.player.rotationYawHead = 180;
+		event.getViewAngles().setYaw(mc.player.ticksExisted % 2 == 0 ? 180 : 0);
+		mc.player.rotationYawHead = mc.player.ticksExisted % 2 == 0 ? 180 : 0;
 	}
-
 }

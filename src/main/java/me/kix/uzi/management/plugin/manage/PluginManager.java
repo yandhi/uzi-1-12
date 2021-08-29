@@ -7,6 +7,7 @@ import com.google.gson.JsonParser;
 import me.kix.uzi.Uzi;
 import me.kix.uzi.api.manager.ListManager;
 import me.kix.uzi.api.plugin.Plugin;
+import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.util.network.TPSTracker;
 import me.kix.uzi.management.plugin.internal.Commands;
 import me.kix.uzi.management.plugin.internal.Keybinds;
@@ -20,6 +21,7 @@ import me.kix.uzi.management.plugin.internal.toggleable.world.*;
 
 import java.io.*;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 public class PluginManager extends ListManager<Plugin> {
 
@@ -155,6 +157,16 @@ public class PluginManager extends ListManager<Plugin> {
 
         getContents().forEach(Plugin::initPlugin);
         load();
+
+        StringBuilder enabledPlugins = new StringBuilder();
+
+        getContents().stream()
+                .filter(ToggleablePlugin.class::isInstance)
+                .map(ToggleablePlugin.class::cast)
+                .filter(ToggleablePlugin::isEnabled)
+                .forEach(tPlugin -> enabledPlugins.append(tPlugin.getLabel()).append(", "));
+
+        Logger.getGlobal().info(enabledPlugins.toString());
     }
 
     public Optional<Plugin> getPlugin(String label) {

@@ -1,8 +1,9 @@
 package me.kix.uzi.management.ui.tab.item.impl;
 
+import me.kix.sodapop.manage.GuiManager;
+import me.kix.sodapop.util.Rectangle;
 import me.kix.uzi.management.ui.tab.focus.Focusable;
-import me.kix.uzi.management.ui.tab.item.AbstractItem;
-import me.kix.uzi.management.ui.tab.util.TabUtil;
+import me.kix.uzi.management.ui.tab.item.TabComponent;
 import org.lwjgl.input.Keyboard;
 
 /**
@@ -11,15 +12,15 @@ import org.lwjgl.input.Keyboard;
  * @author yandhi
  * @since 6/24/2021
  */
-public abstract class FocusItem extends AbstractItem implements Focusable {
+public abstract class FocusTabComponent extends TabComponent implements Focusable {
 
     /**
      * Whether or not the item is focused.
      */
     private boolean focused;
 
-    public FocusItem(String label) {
-        super(label);
+    public FocusTabComponent(String name, GuiManager guiManager, Rectangle renderPosition) {
+        super(name, guiManager, renderPosition);
     }
 
     @Override

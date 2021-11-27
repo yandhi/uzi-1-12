@@ -1,6 +1,7 @@
 package me.kix.uzi.management.ui.tab.folder;
 
 import me.kix.uzi.management.ui.tab.item.Item;
+import me.kix.uzi.management.ui.tab.item.TabComponent;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public interface Folder {
     /**
      * @return The contents of the folder.
      */
-    List<Item> getContents();
+    List<TabComponent> getContents();
 
     /**
      * @return Whether or not the folder is open.
@@ -25,5 +26,5 @@ public interface Folder {
     /**
      * @return The item that is currently selected.
      */
-    Item getSelectedItem();
+    TabComponent getSelectedComponent();
 }

@@ -1,23 +1,23 @@
 package me.kix.uzi.management.ui.tab.item.impl;
 
-import me.kix.uzi.api.util.render.RenderUtil;
+import me.kix.sodapop.manage.GuiManager;
+import me.kix.sodapop.theme.renderer.ComponentRenderer;
+import me.kix.sodapop.util.Rectangle;
 import me.kix.uzi.management.ui.tab.folder.Folder;
-import me.kix.uzi.management.ui.tab.item.AbstractItem;
-import me.kix.uzi.management.ui.tab.item.Item;
+import me.kix.uzi.management.ui.tab.item.TabComponent;
 import me.kix.uzi.management.ui.tab.util.TabUtil;
-import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * An implementation of {@link me.kix.uzi.management.ui.tab.item.AbstractItem} that is also an {@link me.kix.uzi.management.ui.tab.folder.Folder}.
+ * An implementation of {@link TabComponent} that is also an {@link me.kix.uzi.management.ui.tab.folder.Folder}.
  *
  * @author yandhi
  * @since 6/24/2021
  */
-public class FolderItem extends AbstractItem implements Folder {
+public class FolderTabComponent extends TabComponent implements Folder {
 
     /**
      * The contents of the item.
@@ -26,7 +26,7 @@ public class FolderItem extends AbstractItem implements Folder {
      * The child items.
      * </p>
      */
-    private final List<Item> contents = new ArrayList<>();
+    private final List<TabComponent> contents = new ArrayList<>();
 
     /**
      * Whether or not the folder is open.
@@ -36,37 +36,42 @@ public class FolderItem extends AbstractItem implements Folder {
     /**
      * The item currently selected.
      */
-    private Item selectedItem;
+    private TabComponent selectedItem;
 
     /**
      * The current index.
      */
     private int index;
 
-    public FolderItem(String label) {
-        super(label);
+    public FolderTabComponent(String name, GuiManager guiManager, Rectangle renderPosition) {
+        super(name, guiManager, renderPosition);
     }
 
     @Override
-    public void draw(int x, int y, int width, int height, int foreground, int background) {
-        RenderUtil.drawRect(x, y, x + width, y + height, isHovered() ? foreground : background);
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(getLabel(), x + 2, y + ((height - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT) / 2f), 0xFFFFFFFF);
+    public void drawComponent(ComponentRenderer renderer, int mouseX, int mouseY, float partialTicks) {
+        super.drawComponent(renderer, mouseX, mouseY, partialTicks);
 
-        if (!open) {
+        if(!open) {
             getContents().forEach(item -> item.setHovered(false));
         }
 
         if (open) {
             selectedItem = contents.get(index);
-            int childY = y;
+            int childY = getRenderPosition().getY();
 
-            for (Item item : contents) {
-                item.setHovered(item == selectedItem);
-                item.draw(x + width + 2, childY, TabUtil.INSTANCE.determineMaxWidth(this), height, foreground, background);
+            for (TabComponent component : contents) {
+                component.setHovered(component == selectedItem);
+                component.getRenderPosition().setX(getRenderPosition().getX() + getRenderPosition().getWidth() + 2);
+                component.getRenderPosition().setY(childY);
+                component.getRenderPosition().setWidth(TabUtil.INSTANCE.determineMaxWidth(this));
+                component.getRenderPosition().setHeight(getRenderPosition().getHeight());
 
-                childY += height;
+                component.drawComponent(getGuiManager().getTheme().getFactory().getComponentRenderer(component), mouseX, mouseY, partialTicks);
+
+                childY += getRenderPosition().getHeight();
             }
         }
+
     }
 
     @Override
@@ -108,7 +113,7 @@ public class FolderItem extends AbstractItem implements Folder {
     }
 
     @Override
-    public List<Item> getContents() {
+    public List<TabComponent> getContents() {
         return contents;
     }
 
@@ -118,7 +123,7 @@ public class FolderItem extends AbstractItem implements Folder {
     }
 
     @Override
-    public Item getSelectedItem() {
+    public TabComponent getSelectedComponent() {
         return selectedItem;
     }
 }

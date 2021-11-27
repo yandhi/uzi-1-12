@@ -51,11 +51,13 @@ public class AntiHunger extends ToggleablePlugin {
         if (mc.player.onGround == lastPacketOnGround) {
             return;
         }
-        if (event.getPacket() instanceof CPacketPlayerDigging) {
-            CPacketPlayerDigging playerDigging = ((CPacketPlayerDigging) event.getPacket());
-            if (playerDigging.getAction() == CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK) {
-                blockBreaks.add(playerDigging);
-                event.setCancelled(true);
+        if (event.getPacket() != null) {
+            if (event.getPacket() instanceof CPacketPlayerDigging) {
+                CPacketPlayerDigging playerDigging = ((CPacketPlayerDigging) event.getPacket());
+                if (playerDigging.getAction() == CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK) {
+                    blockBreaks.add(playerDigging);
+                    event.setCancelled(true);
+                }
             }
         }
     }

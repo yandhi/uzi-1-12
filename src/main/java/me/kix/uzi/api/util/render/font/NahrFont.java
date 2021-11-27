@@ -23,8 +23,8 @@ import java.util.regex.Pattern;
 
 public class NahrFont {
 
-    private final Pattern patternControlCode = Pattern.compile("(?i)\\u00A7[0-9A-FK-OG]");
-    private final Pattern patternUnsupported = Pattern.compile("(?i)\\u00A7[K-O]");
+    private final Pattern patternControlCode = Pattern.compile("(?i)\247[0-9A-FK-OG]");
+    private final Pattern patternUnsupported = Pattern.compile("(?i)\247[K-O]");
     private Font theFont;
     private boolean antiAlias = true;
     private Graphics2D theGraphics;
@@ -119,12 +119,10 @@ public class NahrFont {
 
     public void drawString(String text, float x, float y, FontType fontType, int color, int color2) {
         GlStateManager.pushMatrix();
-        try {
-            text = stripUnsupported(text);
-        } catch (Exception e) {
-            return;
-        }
-        GL11.glEnable(3042);
+        text = stripUnsupported(text);
+        GlStateManager.enableAlpha();
+        GlStateManager.enableBlend();
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GlStateManager.scale(0.5F, 0.5F, 0.5F);
         String text2 = stripControlCodes(text);
         switch (fontType.ordinal()) {
@@ -151,7 +149,6 @@ public class NahrFont {
         }
 
         drawer(text, x, y, color);
-        GlStateManager.scale(2.0F, 2.0F, 2.0F);
         GlStateManager.popMatrix();
     }
 

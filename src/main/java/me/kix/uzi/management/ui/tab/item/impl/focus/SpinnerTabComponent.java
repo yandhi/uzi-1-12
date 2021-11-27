@@ -1,8 +1,11 @@
 package me.kix.uzi.management.ui.tab.item.impl.focus;
 
+import me.kix.sodapop.manage.GuiManager;
+import me.kix.sodapop.theme.renderer.ComponentRenderer;
+import me.kix.sodapop.util.Rectangle;
 import me.kix.uzi.api.property.properties.EnumProperty;
 import me.kix.uzi.api.util.render.RenderUtil;
-import me.kix.uzi.management.ui.tab.item.impl.FocusItem;
+import me.kix.uzi.management.ui.tab.item.impl.FocusTabComponent;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 
@@ -12,22 +15,16 @@ import org.lwjgl.input.Keyboard;
  * @author yandhi
  * @since 6/24/2021
  */
-public class SpinnerItem extends FocusItem {
+public class SpinnerTabComponent extends FocusTabComponent {
 
     /**
      * The property that this item handles.
      */
     private final EnumProperty property;
 
-    public SpinnerItem(EnumProperty property) {
-        super(property.getLabel());
+    public SpinnerTabComponent(GuiManager guiManager, Rectangle renderPosition, EnumProperty property) {
+        super(property.getLabel(), guiManager, renderPosition);
         this.property = property;
-    }
-
-    @Override
-    public void draw(int x, int y, int width, int height, int foreground, int background) {
-        RenderUtil.drawRect(x, y, x + width, y + height, isHovered() ? foreground : background);
-        Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(getLabel() + " : " + property.getFixedValue(), x + 2, y + ((height - Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT) / 2f), 0xFFFFFFFF);
     }
 
     @Override
@@ -48,7 +45,7 @@ public class SpinnerItem extends FocusItem {
      * @return The raw label and value together for width purposes.
      */
     public String getRaw() {
-        return getLabel() + " : " + property.getFixedValue();
+        return getName() + " : " + property.getFixedValue();
     }
 
 }

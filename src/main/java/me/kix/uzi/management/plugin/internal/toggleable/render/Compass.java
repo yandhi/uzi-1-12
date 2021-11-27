@@ -43,19 +43,7 @@ public class Compass extends ToggleablePlugin {
         GlStateManager.depthMask(true);
         GlStateManager.enableDepth();
         RenderHelper.enableStandardItemLighting();
-        int x = 4;
-        if (foundOverlay.isPresent()) {
-            Overlay overlay = (Overlay) foundOverlay.get();
-            if (overlay.isEnabled()) {
-                if (overlay.getBranding().getValue()) {
-                    x += mc.fontRenderer.getStringWidth("Uzi") + 4;
-                }
-
-                if (overlay.getVersion().getValue()) {
-                    x += mc.fontRenderer.getStringWidth(Uzi.INSTANCE.getVersion());
-                }
-            }
-        }
+        int x = 20;
         mc.getRenderItem().renderItemIntoGUI(COMPASS_ITEM_STACK, mc.fontRenderer.getStringWidth("Uzi 1.12") + 4, -1);
         RenderHelper.disableStandardItemLighting();
         GlStateManager.enableAlpha();

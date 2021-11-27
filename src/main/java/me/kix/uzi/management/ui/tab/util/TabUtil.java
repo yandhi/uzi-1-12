@@ -1,13 +1,15 @@
 package me.kix.uzi.management.ui.tab.util;
 
+import me.kix.uzi.api.util.render.font.NahrFont;
 import me.kix.uzi.management.ui.tab.focus.Focusable;
 import me.kix.uzi.management.ui.tab.folder.Folder;
 import me.kix.uzi.management.ui.tab.item.Item;
-import me.kix.uzi.management.ui.tab.item.impl.ButtonItem;
-import me.kix.uzi.management.ui.tab.item.impl.FolderItem;
-import me.kix.uzi.management.ui.tab.item.impl.focus.SliderItem;
-import me.kix.uzi.management.ui.tab.item.impl.focus.SpinnerItem;
-import me.kix.uzi.management.ui.tab.item.impl.folders.ToggleablePluginFolderItem;
+import me.kix.uzi.management.ui.tab.item.TabComponent;
+import me.kix.uzi.management.ui.tab.item.impl.ButtonTabComponent;
+import me.kix.uzi.management.ui.tab.item.impl.FolderTabComponent;
+import me.kix.uzi.management.ui.tab.item.impl.focus.SliderTabComponent;
+import me.kix.uzi.management.ui.tab.item.impl.focus.SpinnerTabComponent;
+import me.kix.uzi.management.ui.tab.item.impl.folders.ToggleablePluginFolderTabComponent;
 import net.minecraft.client.Minecraft;
 
 /**
@@ -20,70 +22,75 @@ public enum TabUtil {
     INSTANCE;
 
     /**
+     * The font renderer for the UI.
+     */
+    private final NahrFont consolas = new NahrFont("Consolas", 16);
+
+    /**
      * Handles the issue of "oh what if a folder has an open folder inside of it."
      *
      * @param folder The folder being checked.
      * @return Whether or not that folder contains an open folder.
      */
     public boolean hasFocusedItem(Folder folder) {
-        for (Item item : folder.getContents()) {
-            return isFocused(item);
+        for (TabComponent component : folder.getContents()) {
+            return isFocused(component);
         }
         return false;
     }
 
     /**
-     * Tells whether or not the item is a focused item.
+     * Tells whether or not the component is a focused component.
      *
-     * @param item The item being checked.
-     * @return Whether or not that item is focused.
+     * @param component The component being checked.
+     * @return Whether or not that component is focused.
      */
-    public boolean isFocused(Item item) {
-        if (item instanceof FolderItem) {
-            FolderItem folderItem = (FolderItem) item;
+    public boolean isFocused(TabComponent component) {
+        if (component instanceof FolderTabComponent) {
+            FolderTabComponent folderItem = (FolderTabComponent) component;
             return folderItem.isOpen();
-        } else if (item instanceof Focusable) {
-            Focusable focusable = (Focusable) item;
+        } else if (component instanceof Focusable) {
+            Focusable focusable = (Focusable) component;
             return focusable.isFocused();
         }
         return false;
     }
 
     /**
-     * Determines the max width necessary for the items in the folder.
+     * Determines the max width necessary for the components in the folder.
      *
      * @param folder The folder being searched through.
-     * @return The max length of the item name plus some padding.
+     * @return The max length of the component name plus some padding.
      */
     public int determineMaxWidth(Folder folder) {
-        int highestWidth = 0;
-        for (Item item : folder.getContents()) {
-            int width = Minecraft.getMinecraft().fontRenderer.getStringWidth(item.getLabel());
+        float highestWidth = 0;
+        for (TabComponent component : folder.getContents()) {
+            float width = consolas.getStringWidth(component.getName());
 
-            if (item instanceof ToggleablePluginFolderItem) {
+            if (component instanceof ToggleablePluginFolderTabComponent) {
                 width = width + 10;
             }
 
-            if (item instanceof ButtonItem) {
+            if (component instanceof ButtonTabComponent) {
                 width = width + 10;
             }
 
-            if (item instanceof SliderItem) {
-                SliderItem sliderItem = (SliderItem) item;
+            if (component instanceof SliderTabComponent) {
+                SliderTabComponent sliderItem = (SliderTabComponent) component;
 
-                width = Minecraft.getMinecraft().fontRenderer.getStringWidth(sliderItem.getRaw()) + 10;
+                width = consolas.getStringWidth(sliderItem.getRaw()) + 10;
             }
 
-            if (item instanceof SpinnerItem) {
-                SpinnerItem spinnerItem = (SpinnerItem) item;
+            if (component instanceof SpinnerTabComponent) {
+                SpinnerTabComponent spinnerItem = (SpinnerTabComponent) component;
 
-                width = Minecraft.getMinecraft().fontRenderer.getStringWidth(spinnerItem.getRaw());
+                width = consolas.getStringWidth(spinnerItem.getRaw());
             }
 
             if (width > highestWidth) {
                 highestWidth = width;
             }
         }
-        return highestWidth + 6;
+        return (int) highestWidth + 4;
     }
 }

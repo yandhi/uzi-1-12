@@ -44,20 +44,7 @@ public class Clock extends ToggleablePlugin {
         GlStateManager.depthMask(true);
         GlStateManager.enableDepth();
         RenderHelper.enableStandardItemLighting();
-        int x = 4;
-        if (foundOverlay.isPresent()) {
-            Overlay overlay = (Overlay) foundOverlay.get();
-            if (overlay.isEnabled()) {
-                if (overlay.getBranding().getValue()) {
-                    x += mc.fontRenderer.getStringWidth("Uzi") + 4;
-                }
-
-                if (overlay.getVersion().getValue()) {
-                    x += mc.fontRenderer.getStringWidth(Uzi.INSTANCE.getVersion());
-                }
-            }
-        }
-
+        int x = 20;
         if (foundCompass.isPresent()) {
             Compass compass = (Compass) foundCompass.get();
             if (compass.isEnabled()) {

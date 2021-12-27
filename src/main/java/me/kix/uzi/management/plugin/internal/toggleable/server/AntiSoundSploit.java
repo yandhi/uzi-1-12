@@ -1,4 +1,4 @@
-package me.kix.uzi.management.plugin.internal.toggleable.miscellaneous;
+package me.kix.uzi.management.plugin.internal.toggleable.server;
 
 import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.plugin.Category;
@@ -21,7 +21,7 @@ import net.minecraft.util.SoundCategory;
 public class AntiSoundSploit extends ToggleablePlugin {
 
     public AntiSoundSploit() {
-        super("AntiSoundSploit", Category.MISCELLANEOUS);
+        super("AntiSoundSploit", Category.SERVER);
         setDisplay("Anti Soundsploit");
     }
 

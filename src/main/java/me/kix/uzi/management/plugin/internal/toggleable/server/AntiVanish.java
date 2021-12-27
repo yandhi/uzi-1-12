@@ -1,4 +1,4 @@
-package me.kix.uzi.management.plugin.internal.toggleable.miscellaneous;
+package me.kix.uzi.management.plugin.internal.toggleable.server;
 
 import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.plugin.Category;
@@ -16,7 +16,7 @@ import net.minecraft.network.play.server.SPacketPlayerListItem;
 public class AntiVanish extends ToggleablePlugin {
 
     public AntiVanish() {
-        super("AntiVanish", Category.MISCELLANEOUS);
+        super("AntiVanish", Category.SERVER);
         setDisplay("Anti Vanish");
     }
 

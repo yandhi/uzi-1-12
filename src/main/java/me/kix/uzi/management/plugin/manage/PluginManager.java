@@ -17,6 +17,7 @@ import me.kix.uzi.management.plugin.internal.toggleable.movement.*;
 import me.kix.uzi.management.plugin.internal.toggleable.player.*;
 import me.kix.uzi.management.plugin.internal.toggleable.render.*;
 import me.kix.uzi.management.plugin.internal.toggleable.render.persistant.*;
+import me.kix.uzi.management.plugin.internal.toggleable.server.*;
 import me.kix.uzi.management.plugin.internal.toggleable.world.*;
 
 import java.io.*;

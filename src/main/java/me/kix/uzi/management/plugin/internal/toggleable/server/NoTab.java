@@ -1,4 +1,4 @@
-package me.kix.uzi.management.plugin.internal.toggleable.miscellaneous;
+package me.kix.uzi.management.plugin.internal.toggleable.server;
 
 import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.plugin.Category;
@@ -15,7 +15,7 @@ import java.awt.*;
 public class NoTab extends ToggleablePlugin {
 
 	public NoTab() {
-		super("NoTab", Category.MISCELLANEOUS);
+		super("NoTab", Category.SERVER);
 		setColor(new Color(0x814662).getRGB());
 		setDisplay("No Tab");
 	}

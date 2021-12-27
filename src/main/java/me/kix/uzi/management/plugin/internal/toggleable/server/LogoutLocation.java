@@ -1,4 +1,4 @@
-package me.kix.uzi.management.plugin.internal.toggleable.miscellaneous;
+package me.kix.uzi.management.plugin.internal.toggleable.server;
 
 import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.event.events.input.packet.EventPacket;
@@ -32,7 +32,7 @@ public class LogoutLocation extends ToggleablePlugin {
     private final Set<Vector3<Double>> logouts = new HashSet<>();
 
     public LogoutLocation() {
-        super("LogoutLocation", Category.MISCELLANEOUS);
+        super("LogoutLocation", Category.SERVER);
         setDisplay("Logout Location");
     }
 

@@ -1,4 +1,4 @@
-package me.kix.uzi.management.plugin.internal.toggleable.miscellaneous;
+package me.kix.uzi.management.plugin.internal.toggleable.server;
 
 import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.plugin.Category;
@@ -16,7 +16,7 @@ import net.minecraft.util.StringUtils;
 public class Greeter extends ToggleablePlugin {
 
     public Greeter() {
-        super("Greeter", Category.MISCELLANEOUS);
+        super("Greeter", Category.SERVER);
     }
 
     @Register

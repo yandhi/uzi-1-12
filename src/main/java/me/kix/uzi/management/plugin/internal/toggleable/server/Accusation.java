@@ -1,4 +1,4 @@
-package me.kix.uzi.management.plugin.internal.toggleable.miscellaneous;
+package me.kix.uzi.management.plugin.internal.toggleable.server;
 
 import java.util.Optional;
 
@@ -30,7 +30,7 @@ public class Accusation extends ToggleablePlugin {
             "is using killaura!" };
 
     public Accusation() {
-        super("Accusation", Category.MISCELLANEOUS);
+        super("Accusation", Category.SERVER);
     }
 
     @Register

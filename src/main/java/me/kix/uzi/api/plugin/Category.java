@@ -7,6 +7,7 @@ public enum Category {
     MOVEMENT,
     PLAYER,
     RENDER,
-    WORLD
+    WORLD,
+    SERVER
 
 }

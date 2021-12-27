@@ -1,4 +1,4 @@
-package me.kix.uzi.management.plugin.internal.toggleable.miscellaneous;
+package me.kix.uzi.management.plugin.internal.toggleable.server;
 
 import me.kix.uzi.Uzi;
 import me.kix.uzi.api.event.Register;
@@ -15,7 +15,7 @@ import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 public class Names extends ToggleablePlugin {
 
     public Names() {
-        super("Names", Category.MISCELLANEOUS);
+        super("Names", Category.SERVER);
     }
 
     @Register

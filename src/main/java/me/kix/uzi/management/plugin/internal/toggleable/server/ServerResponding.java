@@ -1,4 +1,4 @@
-package me.kix.uzi.management.plugin.internal.toggleable.miscellaneous;
+package me.kix.uzi.management.plugin.internal.toggleable.server;
 
 import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.plugin.Category;
@@ -22,7 +22,7 @@ public class ServerResponding extends ToggleablePlugin {
     private final Timer timer = new Timer();
 
     public ServerResponding() {
-        super("ServerResponding", Category.MISCELLANEOUS);
+        super("ServerResponding", Category.SERVER);
         setDisplay("Server Responding");
     }
 

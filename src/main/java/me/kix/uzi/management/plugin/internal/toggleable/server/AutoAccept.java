@@ -1,4 +1,4 @@
-package me.kix.uzi.management.plugin.internal.toggleable.miscellaneous;
+package me.kix.uzi.management.plugin.internal.toggleable.server;
 
 import me.kix.uzi.Uzi;
 import me.kix.uzi.api.event.Register;
@@ -19,7 +19,7 @@ import java.awt.*;
 public class AutoAccept extends ToggleablePlugin {
 
 	public AutoAccept() {
-		super("AutoAccept", Category.MISCELLANEOUS);
+		super("AutoAccept", Category.SERVER);
 		setColor(new Color(0xDFC15B).getRGB());
 		setDisplay("Auto Accept");
 	}

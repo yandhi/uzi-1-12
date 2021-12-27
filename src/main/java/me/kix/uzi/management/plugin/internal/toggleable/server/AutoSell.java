@@ -1,4 +1,4 @@
-package me.kix.uzi.management.plugin.internal.toggleable.miscellaneous;
+package me.kix.uzi.management.plugin.internal.toggleable.server;
 
 import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.event.events.misc.EventTick;
@@ -16,7 +16,7 @@ import net.minecraft.item.ItemStack;
 public class AutoSell extends ToggleablePlugin {
 
     public AutoSell() {
-        super("AutoSell", Category.MISCELLANEOUS);
+        super("AutoSell", Category.SERVER);
         setDisplay("Auto Sell");
     }
 

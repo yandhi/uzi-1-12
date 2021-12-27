@@ -67,7 +67,7 @@ public class Nametags extends ToggleablePlugin {
                         name = ((EntityItem) event.getEntity()).getItem().getDisplayName();
                     }
 
-                    if (event.getEntity() instanceof EntityPlayer) {
+                    if (event.getEntity() instanceof EntityPlayer && items.getValue()) {
                         GlStateManager.pushMatrix();
                         EntityPlayer player = (EntityPlayer) event.getEntity();
                         drawArmor(player, Math.round(event.getBox().x + ((event.getBox().w - event.getBox().x) / 2)), Math.round(event.getBox().y) - 30);

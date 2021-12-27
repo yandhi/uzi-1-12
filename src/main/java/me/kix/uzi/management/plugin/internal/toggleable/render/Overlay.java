@@ -73,7 +73,7 @@ public class Overlay extends ToggleablePlugin {
             renderChatLine.setCancelled(true);
             RenderUtil.drawRect(2, renderChatLine.getHeight() - 9, renderChatLine.getWidth() + 4, renderChatLine.getHeight(), Color.BLACK.getRGB());
             GlStateManager.enableBlend();
-            font.drawStringWithShadow(renderChatLine.getMessage(), 4f, (float) (renderChatLine.getHeight() - 6), Color.WHITE.getRGB());
+            font.drawStringWithShadow(font.stripUnsupported(renderChatLine.getMessage()), 4f, (float) (renderChatLine.getHeight() - 6), Color.WHITE.getRGB());
             GlStateManager.disableAlpha();
             GlStateManager.disableBlend();
         }

@@ -48,6 +48,7 @@ public class Overlay extends ToggleablePlugin {
         super("Overlay", Category.RENDER);
         setHidden(true);
         getProperties().add(tabGui);
+        getProperties().add(chat);
     }
 
     @Register
@@ -80,17 +81,21 @@ public class Overlay extends ToggleablePlugin {
 
     @Register
     public void onRenderTextBoxText(EventRenderTextBox.Text text) {
-        text.setCancelled(true);
-        text.setCallbackReturn((int) font.getStringWidth(text.getText()) + 4);
-        if(!text.getText().equalsIgnoreCase("_")) {
-            RenderUtil.drawRect(text.getX(), text.getY() - 1, text.getX() + font.getStringWidth(text.getText()) + 4, text.getY() + font.getStringHeight(text.getText()) - 1, Color.BLACK.getRGB());
+        if (chat.getValue()) {
+            text.setCancelled(true);
+            text.setCallbackReturn((int) font.getStringWidth(text.getText()) + 4);
+            if (!text.getText().equalsIgnoreCase("_")) {
+                RenderUtil.drawRect(text.getX(), text.getY() - 1, text.getX() + font.getStringWidth(text.getText()) + 4, text.getY() + font.getStringHeight(text.getText()) - 1, Color.BLACK.getRGB());
+            }
+            font.drawStringWithShadow(text.getText(), text.getX() + 2, text.getY() + 3, Color.WHITE.getRGB());
         }
-        font.drawStringWithShadow(text.getText(), text.getX() + 2, text.getY() + 3, Color.WHITE.getRGB());
     }
 
     @Register
     public void onRenderTextBoxRectangle(EventRenderTextBox.Rectangle rectangle) {
-        rectangle.setCancelled(true);
+        if (chat.getValue()) {
+            rectangle.setCancelled(true);
+        }
     }
 
     @Register

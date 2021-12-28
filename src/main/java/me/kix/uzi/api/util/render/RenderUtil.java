@@ -303,6 +303,21 @@ public class RenderUtil implements MinecraftAccessor {
         GL11.glShadeModel(GL11.GL_FLAT);
     }
 
+    /**
+     * Draws an outline around a bounding box with setup and coloring as well as width.
+     *
+     * @param bb    The bounding box that will be outlined.
+     * @param width The width of the outline.
+     * @param color The color of the outline.
+     */
+    public static void bb(AxisAlignedBB bb, float width, int color) {
+        enable3D();
+        GL11.glLineWidth(width);
+        color(color);
+        drawFilledBox(bb, new Color(color));
+        drawOutlinedBox(bb);
+        disable3D();
+    }
 
     /**
      * Draws an outline around a bounding box with setup and coloring as well as width.

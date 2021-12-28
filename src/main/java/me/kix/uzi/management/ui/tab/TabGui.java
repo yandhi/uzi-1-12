@@ -10,6 +10,7 @@ import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.property.Property;
 import me.kix.uzi.api.property.properties.EnumProperty;
 import me.kix.uzi.api.property.properties.NumberProperty;
+import me.kix.uzi.management.click.GuiClick;
 import me.kix.uzi.management.click.themes.UziTheme;
 import me.kix.uzi.management.ui.tab.item.impl.FolderTabComponent;
 import me.kix.uzi.management.ui.tab.item.impl.buttons.PropertyButtonTabComponent;
@@ -36,7 +37,7 @@ public enum TabGui implements GuiManager {
     /**
      * The theme for the tabgui.
      */
-    private final Theme theme = new UziTheme();
+    private Theme theme = new UziTheme();
 
     /**
      * Sets up the tab-gui.
@@ -79,6 +80,7 @@ public enum TabGui implements GuiManager {
      * Draws the tab-gui at the given position.
      */
     public void draw() {
+        theme = GuiClick.getScreen().getTheme();
         mainTab.drawComponent(theme.getFactory().getComponentRenderer(mainTab), 0, 0, 0);
     }
 

@@ -17,10 +17,7 @@ import me.kix.uzi.management.click.component.buttons.PluginButtonContainerCompon
 import me.kix.uzi.management.click.component.buttons.PropertyButtonComponent;
 import me.kix.uzi.management.click.component.sliders.NumberPropertySliderComponent;
 import me.kix.uzi.management.click.component.spinners.EnumPropertySpinnerComponent;
-import me.kix.uzi.management.click.themes.ModernesqueTheme;
-import me.kix.uzi.management.click.themes.NoilTheme;
-import me.kix.uzi.management.click.themes.SyncTheme;
-import me.kix.uzi.management.click.themes.UziTheme;
+import me.kix.uzi.management.click.themes.*;
 import net.minecraft.client.gui.GuiScreen;
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -150,7 +147,8 @@ public final class GuiClick extends GuiScreen implements GuiManager {
         UZI(new UziTheme()),
         NOIL(new NoilTheme()),
         SYNC(new SyncTheme()),
-        MODERNESQUE(new ModernesqueTheme());
+        MODERNESQUE(new ModernesqueTheme()),
+        SOLSTICE(new SolsticeTheme());
 
         /**
          * The theme that the type utilizes.

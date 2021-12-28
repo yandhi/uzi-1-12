@@ -4,10 +4,12 @@ import me.kix.sodapop.Component;
 import me.kix.sodapop.manage.GuiManager;
 import me.kix.sodapop.theme.Theme;
 import me.kix.sodapop.util.Rectangle;
+import me.kix.uzi.management.click.GuiClick;
 import me.kix.uzi.management.click.themes.UziTheme;
 import me.kix.uzi.management.plugin.internal.toggleable.render.ui.components.CoordinatesBlockComponent;
 import me.kix.uzi.management.plugin.internal.toggleable.render.ui.components.StringBlockComponent;
 import me.kix.uzi.management.plugin.internal.toggleable.render.ui.components.ToggleablesBlockComponent;
+import me.kix.uzi.management.plugin.internal.toggleable.render.ui.components.WatermarkComponent;
 import me.kix.uzi.management.ui.tab.TabGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -26,7 +28,7 @@ public class GuiHud implements GuiManager {
     /**
      * The current theme.
      */
-    private final Theme theme = new UziTheme();
+    private Theme theme = new UziTheme();
 
     /**
      * The components for the hud.
@@ -35,7 +37,7 @@ public class GuiHud implements GuiManager {
 
     public GuiHud() {
         ScaledResolution scaledResolution = new ScaledResolution(Minecraft.getMinecraft());
-        components.add(new StringBlockComponent("Uzi", this, new Rectangle(2, 2, 25, 25)));
+        components.add(new WatermarkComponent(this, new Rectangle(2, 2, 25, 25)));
         components.add(new ToggleablesBlockComponent(this, new Rectangle(scaledResolution.getScaledWidth(), 2, 50, 20)));
         components.add(new CoordinatesBlockComponent(this, new Rectangle(2, scaledResolution.getScaledHeight() - 20, 50, 30)));
     }
@@ -48,6 +50,7 @@ public class GuiHud implements GuiManager {
      */
     public void render(boolean tabGui, TabGui tab) {
         ScaledResolution scaledResolution = new ScaledResolution(Minecraft.getMinecraft());
+        theme = GuiClick.getScreen().getTheme();
         components.forEach(component -> {
             if (component instanceof ToggleablesBlockComponent) {
                 component.getRenderPosition().setX(scaledResolution.getScaledWidth());

@@ -17,6 +17,7 @@ import me.kix.uzi.management.plugin.internal.toggleable.render.Overlay;
 import me.kix.uzi.management.plugin.internal.toggleable.render.ui.components.CoordinatesBlockComponent;
 import me.kix.uzi.management.plugin.internal.toggleable.render.ui.components.StringBlockComponent;
 import me.kix.uzi.management.plugin.internal.toggleable.render.ui.components.ToggleablesBlockComponent;
+import me.kix.uzi.management.plugin.internal.toggleable.render.ui.components.WatermarkComponent;
 import me.kix.uzi.management.ui.tab.item.impl.FolderTabComponent;
 import me.kix.uzi.management.ui.tab.item.impl.buttons.PropertyButtonTabComponent;
 import me.kix.uzi.management.ui.tab.item.impl.buttons.ToggleablePluginButtonTabComponent;
@@ -54,7 +55,7 @@ public class UziTheme extends AbstractTheme {
     private final Color uziColor = new Color(0x993940);
 
     public UziTheme() {
-        super("Uzi", 100, 9, 10, 2, 2);
+        super("Uzi", 115, 14, 15, 0, 2);
     }
 
     @Override
@@ -64,7 +65,7 @@ public class UziTheme extends AbstractTheme {
         getComponentRenderers().add(new PropertyButtonComponentRenderer());
         getComponentRenderers().add(new EnumPropertySpinnerComponentRenderer());
         getComponentRenderers().add(new NumberPropertySliderComponentRenderer());
-        getComponentRenderers().add(new StringBlockComponentRenderer());
+        getComponentRenderers().add(new WatermarkComponentRenderer());
         getComponentRenderers().add(new ToggleablesBlockComponentRenderer());
         getComponentRenderers().add(new CoordinatesBlockComponentRenderer());
         getComponentRenderers().add(new FolderTabComponentRenderer());
@@ -78,11 +79,11 @@ public class UziTheme extends AbstractTheme {
     /**
      * Renders blocks of strings :).
      */
-    private class StringBlockComponentRenderer extends AbstractComponentRenderer<StringBlockComponent> {
+    private class WatermarkComponentRenderer extends AbstractComponentRenderer<WatermarkComponent> {
 
         @Override
-        public void renderComponent(StringBlockComponent component) {
-            font.drawStringWithShadow(component.getName(), component.getRenderPosition().getX(), component.getRenderPosition().getY() + 2, Color.WHITE.getRGB());
+        public void renderComponent(WatermarkComponent component) {
+            font.drawStringWithShadow("Uzi", component.getRenderPosition().getX(), component.getRenderPosition().getY() + 2, Color.WHITE.getRGB());
         }
     }
 
@@ -217,9 +218,9 @@ public class UziTheme extends AbstractTheme {
             font.drawStringWithShadow(component.getName(), component.getRenderPosition().getX() + 2, (component.getRenderPosition().getY()
                     + (component.getRenderPosition().getHeight() / 2f) - (font.getStringHeight(component.getName()) / 2f)) + 3f, Color.WHITE.getRGB());
 
-            if(component.isState()) {
+            if (component.isState()) {
                 RenderUtil.drawRect(component.getRenderPosition().getX() + component.getRenderPosition().getWidth() - 10,
-                        component.getRenderPosition().getY(),component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
+                        component.getRenderPosition().getY(), component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
                         component.getRenderPosition().getY() + component.getRenderPosition().getHeight(), uziColor.darker().getRGB());
             }
         }
@@ -235,9 +236,9 @@ public class UziTheme extends AbstractTheme {
             font.drawStringWithShadow(component.getName(), component.getRenderPosition().getX() + 2, (component.getRenderPosition().getY()
                     + (component.getRenderPosition().getHeight() / 2f) - (font.getStringHeight(component.getName()) / 2f)) + 3f, Color.WHITE.getRGB());
 
-            if(component.isState()) {
+            if (component.isState()) {
                 RenderUtil.drawRect(component.getRenderPosition().getX() + component.getRenderPosition().getWidth() - 10,
-                        component.getRenderPosition().getY(),component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
+                        component.getRenderPosition().getY(), component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
                         component.getRenderPosition().getY() + component.getRenderPosition().getHeight(), uziColor.darker().getRGB());
             }
         }
@@ -252,13 +253,13 @@ public class UziTheme extends AbstractTheme {
         public void renderComponent(FrameContainerComponent component) {
             Rectangle position = component.getRenderPosition();
 
-            Optional<Plugin> foundOverlay = Uzi.INSTANCE.getPluginManager().getPlugin("Overlay");
             int frameHeight = position.getHeight();
             if (component.isExtended()) {
                 frameHeight += component.getMaxHeight() + 2;
             }
             RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + frameHeight, 0xFF101010);
-            titleFont.drawString(component.getName(), position.getX() + 2, position.getY() + 3.5f, NahrFont.FontType.NORMAL, 0xFF565656, -1);
+            RenderUtil.drawRect(position.getX() + position.getWidth() - 14, position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), component.isExtended() ? uziColor.getRGB() : 0xFF1F1F1F);
+            titleFont.drawString(component.getName(), position.getX() + 2, position.getY() + 6f, NahrFont.FontType.NORMAL, 0xFF565656, -1);
         }
     }
 
@@ -269,12 +270,11 @@ public class UziTheme extends AbstractTheme {
         @Override
         public void renderComponent(PluginButtonContainerComponent component) {
             Rectangle position = component.getRenderPosition();
-            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), 0xFF1F1F1F);
-            RenderUtil.drawRect(position.getX() + 1, position.getY() + 1, position.getX() + 9, position.getY() + position.getHeight() - 1, component.getPlugin().isEnabled() ? uziColor.getRGB() : 0xFF101010);
-            titleFont.drawString(component.getName(), position.getX() + 11, position.getY() + 4f, NahrFont.FontType.SHADOW_THICK, 0xFF838383, 0xFF121212);
+            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), component.getPlugin().isEnabled() ? uziColor.getRGB() : 0xFF1F1F1F);
+            titleFont.drawString(component.getName(), position.getX() + 2, position.getY() + 7f, NahrFont.FontType.SHADOW_THIN, 0xFF838383, 0xFF121212);
 
             if (!component.getComponents().isEmpty()) {
-                titleFont.drawString("..", position.getX() + position.getWidth() - titleFont.getStringWidth("..") - 2, position.getY() + 4f, NahrFont.FontType.SHADOW_THICK, component.isExtended() ? uziColor.getRGB() : 0xFF838383, 0xFF121212);
+                titleFont.drawString("...", position.getX() + position.getWidth() - titleFont.getStringWidth("...") - 2, position.getY() + 7f, NahrFont.FontType.SHADOW_THICK, component.isExtended() ? uziColor.getRGB() : 0xFF838383, 0xFF121212);
             }
         }
     }
@@ -287,8 +287,8 @@ public class UziTheme extends AbstractTheme {
         public void renderComponent(PropertyButtonComponent component) {
             Rectangle position = component.getRenderPosition();
             RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), component.getProperty().getValue() ? uziColor.getRGB() : 0xFF1F1F1F);
-            RenderUtil.drawRect(position.getX() + 10, position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight() - 1, 0xFF1F1F1F);
-            titleFont.drawString(component.getName(), position.getX() + 12, position.getY() + 4f, NahrFont.FontType.SHADOW_THICK, 0xFF838383, 0xFF121212);
+            RenderUtil.drawRect(position.getX() + 14, position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight() - 1, 0xFF1F1F1F);
+            titleFont.drawString(component.getName(), position.getX() + 16, position.getY() + 7f, NahrFont.FontType.SHADOW_THIN, 0xFF838383, 0xFF121212);
         }
     }
 
@@ -300,10 +300,10 @@ public class UziTheme extends AbstractTheme {
         public void renderComponent(EnumPropertySpinnerComponent component) {
             Rectangle position = component.getRenderPosition();
             RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), 0xFF1F1F1F);
-            titleFont.drawString(component.getName(), position.getX() + 2, position.getY() + 4f, NahrFont.FontType.SHADOW_THIN, 0xFF565656, 0xFF131313);
+            titleFont.drawString(component.getName(), position.getX() + 2, position.getY() + 7f, NahrFont.FontType.SHADOW_THIN, 0xFF565656, 0xFF131313);
             titleFont.drawString(component.getProperty().getFixedValue(),
                     position.getX() + position.getWidth() - titleFont.getStringWidth(component.getProperty().getFixedValue()) - 2,
-                    position.getY() + 4f, NahrFont.FontType.SHADOW_THIN, 0xFF565656, 0xFF131313);
+                    position.getY() + 7f, NahrFont.FontType.SHADOW_THIN, 0xFF565656, 0xFF131313);
         }
     }
 
@@ -315,11 +315,12 @@ public class UziTheme extends AbstractTheme {
         public void renderComponent(NumberPropertySliderComponent component) {
             Rectangle position = component.getRenderPosition();
             RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), 0xFF1F1F1F);
-            RenderUtil.drawRect(position.getX() + component.getLength() - 5, position.getY(), position.getX() + component.getLength(), position.getY() + position.getHeight(), uziColor.getRGB());
-            titleFont.drawString(component.getName(), position.getX() + 2, position.getY() + 4f, NahrFont.FontType.SHADOW_THICK, 0xFF838383, 0xFF121212);
+            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + component.getLength(), position.getY() + position.getHeight(), uziColor.getRGB());
+            RenderUtil.drawRect(position.getX() + component.getLength() - 2, position.getY(), position.getX() + component.getLength(), position.getY() + position.getHeight(), uziColor.darker().getRGB());
+            titleFont.drawString(component.getName(), position.getX() + 2, position.getY() + 7f, NahrFont.FontType.SHADOW_THIN, 0xFF838383, 0xFF121212);
             titleFont.drawString(component.getProperty().getValue().toString(),
                     position.getX() + position.getWidth() - titleFont.getStringWidth(component.getProperty().getValue().toString()) - 2,
-                    position.getY() + 4f, NahrFont.FontType.SHADOW_THICK, 0xFF838383, 0xFF121212);
+                    position.getY() + 7f, NahrFont.FontType.SHADOW_THIN, 0xFF838383, 0xFF121212);
         }
     }
 }

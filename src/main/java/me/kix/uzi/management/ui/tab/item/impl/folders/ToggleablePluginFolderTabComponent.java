@@ -36,4 +36,8 @@ public class ToggleablePluginFolderTabComponent extends FolderTabComponent {
 
         super.handleKeys(keyCode);
     }
+
+    public ToggleablePlugin getPlugin() {
+        return plugin;
+    }
 }

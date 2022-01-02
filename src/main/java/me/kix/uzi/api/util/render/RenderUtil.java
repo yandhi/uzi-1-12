@@ -186,6 +186,17 @@ public class RenderUtil implements MinecraftAccessor {
     }
 
     /**
+     * @author dustin
+     */
+    public static Color getColorViaHue(float hue) {
+        float v = 100.0F;
+        if (hue > 270.0F) {
+            hue = 0.0F;
+        }
+        return Color.getHSBColor(hue / 270.0F, 1, v / 100.0F);
+    }
+
+    /**
      * Ends the drawing for 3D.
      */
     public static void disable3D() {

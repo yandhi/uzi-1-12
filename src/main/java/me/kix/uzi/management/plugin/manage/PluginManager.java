@@ -156,6 +156,8 @@ public class PluginManager extends ListManager<Plugin> {
         getContents().add(new Signs());
         getContents().add(new FakeLag());
         getContents().add(new AutoSell());
+        getContents().add(new Chinahat());
+        getContents().add(new Sombrero());
 
         getContents().forEach(Plugin::initPlugin);
         load();

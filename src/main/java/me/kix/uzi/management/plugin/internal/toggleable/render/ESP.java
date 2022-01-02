@@ -22,6 +22,14 @@ import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
+/**
+ * Originally written a really long time ago? 2018 I'm guessing.
+ *
+ * I added a 3D mode and revised in 2021.
+ *
+ * @author Jackson
+ * @since 2018
+ */
 public class ESP extends ToggleablePlugin {
 
     /**

@@ -23,6 +23,7 @@ import java.io.File;
  * @since April 2018 (Revised June 2019).
  */
 public enum Uzi implements Client {
+
     /**
      * The singleton instance of the client.
      */
@@ -102,7 +103,7 @@ public enum Uzi implements Client {
 
     @Override
     public String getVersion() {
-        return "1.10.3";
+        return "1.12.0";
     }
 
     @Override

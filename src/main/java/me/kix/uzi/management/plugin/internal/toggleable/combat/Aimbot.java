@@ -16,7 +16,18 @@ import net.minecraft.entity.player.EntityPlayer;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Aims at nearby entities.
+ *
+ * @author jackson
+ * @since idk (rewrote in 2022).
+ */
 public class Aimbot extends ToggleablePlugin {
+
+    /**
+     * the fov for the entities.
+     */
+    private final NumberProperty<Float> fov = new NumberProperty<>("FOV", 100f, 1f, 360f, 1f);
 
     private final NumberProperty<Float> range = new NumberProperty<>("Range", 4f, 3f, 6f, .1f);
     private final Property<Boolean> smoothing = new Property<Boolean>("Smoothing", true);
@@ -31,6 +42,7 @@ public class Aimbot extends ToggleablePlugin {
     @Override
     public void initPlugin() {
         super.initPlugin();
+        getProperties().add(fov);
         getProperties().add(range);
         getProperties().add(smoothing);
     }
@@ -38,11 +50,31 @@ public class Aimbot extends ToggleablePlugin {
     @Register
     public void onUpdate(EventUpdate.Pre event) {
         target = getBestTarget();
+        Angle myViewAngles = new Angle(mc.player.rotationYaw, mc.player.rotationPitch);
         if (target != null) {
             Angle angle = AngleUtil.getAngle(target);
-            Angle smoothed = AngleUtil.smoothAngle(new Angle(mc.player.rotationYaw, mc.player.rotationPitch), angle, 0.1f);
-            mc.player.rotationYaw = (smoothing.getValue() ? smoothed.getYaw() : angle.getYaw());
-            mc.player.rotationPitch = (smoothing.getValue() ? smoothed.getPitch() : angle.getPitch());
+
+            if (smoothing.getValue()) {
+                double randomBone = Math.min(1 + (Math.random() * 1.5), 1.5);
+                Angle difference = AngleUtil.difference(AngleUtil.getAngle(target, randomBone), myViewAngles);
+
+                if (difference.getYaw() > 180) {
+                    difference.setYaw(difference.getYaw() - 360);
+                }
+
+                if (difference.getYaw() < -180) {
+                    difference.setYaw(difference.getYaw() + 360);
+                }
+
+                double smoothFactor = 5 + (Math.random() * 10);
+
+                mc.player.rotationYaw += difference.getYaw() / smoothFactor;
+                mc.player.rotationPitch += difference.getPitch() / smoothFactor;
+
+            } else {
+                mc.player.rotationYaw = angle.getYaw();
+                mc.player.rotationPitch = angle.getPitch();
+            }
         }
     }
 
@@ -66,7 +98,7 @@ public class Aimbot extends ToggleablePlugin {
         boolean existedLongEnough = entity.ticksExisted >= 10;
         boolean alive = entity.isEntityAlive();
         boolean player = entity instanceof EntityPlayer;
-        return notMe && withinRange && existedLongEnough && alive && player && !Uzi.INSTANCE.getFriendManager().isFriend(entity.getName());
+        return notMe && withinRange && existedLongEnough && alive && player && !Uzi.INSTANCE.getFriendManager().isFriend(entity.getName()) && AngleUtil.isEntityInFov((EntityPlayer) entity, fov.getValue());
     }
 
 }

@@ -63,5 +63,14 @@ public class EventUpdate {
      * End of walking player.
      */
     public static class Post extends Event {
+        private final Angle viewAngles;
+
+        public Post(Angle viewAngles) {
+            this.viewAngles = viewAngles;
+        }
+
+        public Angle getViewAngles() {
+            return viewAngles;
+        }
     }
 }

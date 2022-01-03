@@ -14,7 +14,7 @@ public class MixinRender {
 
     @Inject(method = "renderLivingLabel", at = @At("HEAD"), cancellable = true)
     private void renderLivingLabel(Entity entityIn, String str, double x, double y, double z, int maxDistance, CallbackInfo ci) {
-        EventRenderNameplate event = new EventRenderNameplate();
+        EventRenderNameplate event = new EventRenderNameplate(entityIn);
         Uzi.INSTANCE.getEventManager().dispatch(event);
         if (event.isCancelled())
             ci.cancel();

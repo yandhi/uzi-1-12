@@ -33,6 +33,14 @@ public interface Component {
     void mousePressed(int mouseX, int mouseY, MouseButton mouseButton);
 
     /**
+     * Handles key presses.
+     *
+     * @param c        The char typed.
+     * @param keyIndex The index of the key.
+     */
+    void keyTyped(char c, int keyIndex);
+
+    /**
      * Handles mouse release interaction for the component.
      *
      * @param mouseX      The x position of the mouse.

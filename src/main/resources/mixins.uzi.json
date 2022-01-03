@@ -28,6 +28,8 @@
     "block.MixinStateImplementation",
     "packet.MixinCPacketUseEntity",
     "packet.MixinCPacketPlayer",
+    "packet.AccessorSPacketEntityVelocity",
+    "packet.AccessorSPacketExplosion",
     "screen.MixinGuiScreen",
     "screen.MixinGuiMultiplayer",
     "screen.MixinGuiEditSign",

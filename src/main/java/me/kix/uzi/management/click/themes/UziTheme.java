@@ -11,6 +11,7 @@ import me.kix.uzi.api.util.render.RenderUtil;
 import me.kix.uzi.api.util.render.font.NahrFont;
 import me.kix.uzi.management.click.component.buttons.PluginButtonContainerComponent;
 import me.kix.uzi.management.click.component.buttons.PropertyButtonComponent;
+import me.kix.uzi.management.click.component.console.ConsoleComponent;
 import me.kix.uzi.management.click.component.sliders.NumberPropertySliderComponent;
 import me.kix.uzi.management.click.component.spinners.EnumPropertySpinnerComponent;
 import me.kix.uzi.management.plugin.internal.toggleable.render.Overlay;
@@ -61,6 +62,7 @@ public class UziTheme extends AbstractTheme {
     @Override
     public void initTheme() {
         getComponentRenderers().add(new FrameComponentRenderer());
+        getComponentRenderers().add(new ConsoleComponentRenderer());
         getComponentRenderers().add(new PluginButtonComponentRenderer());
         getComponentRenderers().add(new PropertyButtonComponentRenderer());
         getComponentRenderers().add(new EnumPropertySpinnerComponentRenderer());
@@ -260,6 +262,30 @@ public class UziTheme extends AbstractTheme {
             RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + frameHeight, 0xFF101010);
             RenderUtil.drawRect(position.getX() + position.getWidth() - 14, position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), component.isExtended() ? uziColor.getRGB() : 0xFF1F1F1F);
             titleFont.drawString(component.getName(), position.getX() + 2, position.getY() + 6f, NahrFont.FontType.NORMAL, 0xFF565656, -1);
+        }
+    }
+
+    /**
+     * The component renderer for the console.
+     */
+    private class ConsoleComponentRenderer extends AbstractComponentRenderer<ConsoleComponent> {
+        @Override
+        public void renderComponent(ConsoleComponent component) {
+            Rectangle position = component.getRenderPosition();
+
+            // Input box first ofc :)
+            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + 12, 0xFF000000);
+            String username = Minecraft.getMinecraft().getSession().getUsername();
+            titleFont.drawStringWithShadow("\2477[\2476" + username + "@\247cuzi\2477]\2478:\247f" + component.getText(), position.getX() + 2, position.getY(), 0xFFFFFFFF);
+
+            // History box
+            RenderUtil.drawRect(position.getX(), position.getY() + 12, position.getX() + position.getWidth(), position.getY() + getHeight(), 0xFF000000);
+            int y = position.getY() + 12;
+
+            for (String line : component.getPreviousInput()) {
+                titleFont.drawStringWithShadow(line, position.getX() + 2, y, 0xFFFFFFFF);
+                y += 12;
+            }
         }
     }
 

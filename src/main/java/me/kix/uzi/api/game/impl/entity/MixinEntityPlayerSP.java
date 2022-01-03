@@ -97,7 +97,7 @@ public abstract class MixinEntityPlayerSP extends MixinEntityPlayer implements P
 
     @Inject(method = "onUpdateWalkingPlayer", at = @At("RETURN"))
     private void onUpdateWalkingPlayerReturn(CallbackInfo ci) {
-        Uzi.INSTANCE.getEventManager().dispatch(new EventUpdate.Post());
+        Uzi.INSTANCE.getEventManager().dispatch(new EventUpdate.Post(getRotations()));
     }
 
     /**

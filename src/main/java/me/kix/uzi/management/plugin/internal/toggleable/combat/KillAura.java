@@ -46,9 +46,24 @@ public class KillAura extends ToggleablePlugin {
     private final NumberProperty<Float> range = new NumberProperty<>("Range", 4f, 3f, 6f, .1f);
 
     /**
+     * The age of entities in ticks.
+     */
+    private final NumberProperty<Integer> age = new NumberProperty<>("Age", 100, 0, 1000, 1);
+
+    /**
+     * The field of view.
+     */
+    private final NumberProperty<Float> fov = new NumberProperty<>("FOV", 360f, 0f, 360f, 1f);
+
+    /**
      * Whether or not to apply cooldown to hit times.
      */
     private final Property<Boolean> cooldown = new Property<>("Cooldown", true);
+
+    /**
+     * Whether to smooth the aura when pvping.
+     */
+    private final Property<Boolean> smoothing = new Property<>("Smoothing", false);
 
     /**
      * Whether or not to attack players.
@@ -80,6 +95,11 @@ public class KillAura extends ToggleablePlugin {
      */
     private EntityLivingBase target;
 
+    /**
+     * The current yaw.
+     */
+    private float currYaw;
+
     public KillAura() {
         super("KillAura", Category.COMBAT);
         setDisplay("Kill Aura");
@@ -91,7 +111,10 @@ public class KillAura extends ToggleablePlugin {
         super.initPlugin();
         getProperties().add(aps);
         getProperties().add(range);
+        getProperties().add(age);
+        getProperties().add(fov);
         getProperties().add(cooldown);
+        getProperties().add(smoothing);
         getProperties().add(players);
         getProperties().add(animals);
         getProperties().add(monsters);
@@ -102,15 +125,43 @@ public class KillAura extends ToggleablePlugin {
         target = getBestTarget();
         if (target != null) {
             Angle angle = AngleUtil.getAngle(target);
-            event.getViewAngles()
-                    .setYaw(angle.getYaw())
-                    .setPitch(angle.getPitch());
+            if (smoothing.getValue()) {
+                Angle myViewAngles = new Angle(mc.player.rotationYaw, mc.player.rotationPitch);
+                Angle difference = AngleUtil.difference(angle, myViewAngles);
+
+                if (difference.getYaw() > 180) {
+                    difference.setYaw(difference.getYaw() - 360);
+                }
+
+                if (difference.getYaw() < -180) {
+                    difference.setYaw(difference.getYaw() + 360);
+                }
+
+                double smoothFactor = 2;
+
+                float yaw = (float) (event.getViewAngles().getYaw() + (difference.getYaw() / smoothFactor));
+
+                event.getViewAngles()
+                        .setYaw(yaw)
+                        .setPitch(event.getViewAngles().getPitch() + (float) (difference.getPitch() / smoothFactor));
+                currYaw = yaw;
+            } else {
+                event.getViewAngles()
+                        .setYaw(angle.getYaw())
+                        .setPitch(angle.getPitch());
+            }
         }
     }
 
     @Register
     public void onPostUpdate(EventUpdate.Post event) {
         if (target != null) {
+            if (smoothing.getValue()) {
+                if (AngleUtil.getAngleDifference(currYaw, AngleUtil.getAngle(target).getYaw()) > 30f) {
+                    return;
+                }
+            }
+
             if (cooldown.getValue()) {
                 if (mc.player.getCooledAttackStrength(0) >= 1f && timer.completed(250)) {
                     attack(mc.player, target);
@@ -200,7 +251,8 @@ public class KillAura extends ToggleablePlugin {
         boolean withinRange = mc.player.getDistanceToEntity(entity) <= range.getValue();
         boolean existedLongEnough = entity.ticksExisted >= 10;
         boolean alive = entity.isEntityAlive();
+        boolean old = entity.ticksExisted > age.getValue();
         boolean oneOfChosenEntities = entity instanceof EntityPlayer && players.getValue() || entity instanceof EntityAnimal && animals.getValue() || (entity instanceof EntityMob && monsters.getValue());
-        return notMe && withinRange && existedLongEnough && alive && oneOfChosenEntities && !Uzi.INSTANCE.getFriendManager().isFriend(entity.getName());
+        return notMe && withinRange && existedLongEnough && alive && old && oneOfChosenEntities && !Uzi.INSTANCE.getFriendManager().isFriend(entity.getName()) && AngleUtil.isEntityInFov((EntityLivingBase) entity, fov.getValue());
     }
 }

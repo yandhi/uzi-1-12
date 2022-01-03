@@ -55,6 +55,24 @@ public class MathUtil {
     }
 
     /**
+     * Produces a number where the likelihood of getting a higher choice is greater.
+     *
+     * @return The random number but laying upon a bell curve.
+     */
+    public static double inverseBellCurveRandom() {
+        return 1 - bellCurveRandom();
+    }
+
+    /**
+     * Produces a number where the likelihood of getting a lower choice is greater.
+     *
+     * @return The random number but laying upon a bell curve.
+     */
+    public static double bellCurveRandom() {
+        return Math.pow(2 * Math.random() - 1, 2);
+    }
+
+    /**
      * Gets the direction based on yaw.
      *
      * @param yaw The yaw to gain the direction from.

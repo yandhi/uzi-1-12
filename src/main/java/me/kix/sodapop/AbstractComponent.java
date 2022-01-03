@@ -64,6 +64,11 @@ public abstract class AbstractComponent implements Component {
     }
 
     @Override
+    public void keyTyped(char c, int keyIndex) {
+
+    }
+
+    @Override
     public void updatePosition(int x, int y) {
         this.renderPosition.setX(x);
         this.renderPosition.setY(y);

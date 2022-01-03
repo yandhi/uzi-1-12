@@ -66,7 +66,7 @@ public class FrameContainerComponent extends ContainerComponent {
 
         if (MouseUtil.mouseWithinRectangle(mouseX, mouseY, getRenderPosition())) {
             if (mouseButton == MouseButton.RIGHT) {
-               setExtended(!isExtended());
+                setExtended(!isExtended());
             }
         }
 
@@ -98,6 +98,15 @@ public class FrameContainerComponent extends ContainerComponent {
         GL11.glPopMatrix();
     }
 
+    @Override
+    public void keyTyped(char c, int keyIndex) {
+        super.keyTyped(c, keyIndex);
+
+        if (this.isExtended()) {
+            getComponents().forEach(component -> component.keyTyped(c, keyIndex));
+        }
+    }
+
     public void handleMouseInput() {
         if (canScroll) {
             if (Mouse.hasWheel()) {
@@ -109,7 +118,7 @@ public class FrameContainerComponent extends ContainerComponent {
                 }
 
                 if (Mouse.getEventDWheel() < 0) {
-                    if (scrollY > (getFunctionalPosition().getHeight() - getRenderPosition().getHeight()) - (6 * (getGuiManager().getTheme().getComponentHeight() + getGuiManager().getTheme().getVerticalPadding()))  - (getGuiManager().getTheme().getVerticalPadding() * 2) + getGuiManager().getTheme().getVerticalPadding() / 2) {
+                    if (scrollY > (getFunctionalPosition().getHeight() - getRenderPosition().getHeight()) - (6 * (getGuiManager().getTheme().getComponentHeight() + getGuiManager().getTheme().getVerticalPadding())) - (getGuiManager().getTheme().getVerticalPadding() * 2) + getGuiManager().getTheme().getVerticalPadding() / 2) {
                         scrollY = (getFunctionalPosition().getHeight() - getRenderPosition().getHeight()) - (6 * (getGuiManager().getTheme().getComponentHeight() + getGuiManager().getTheme().getVerticalPadding())) - (getGuiManager().getTheme().getVerticalPadding() * 2) + getGuiManager().getTheme().getVerticalPadding() / 2;
                     }
                     scrollY += 4;

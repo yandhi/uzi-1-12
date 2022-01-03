@@ -15,6 +15,7 @@ import me.kix.sodapop.util.MouseButton;
 import me.kix.sodapop.util.Rectangle;
 import me.kix.uzi.management.click.component.buttons.PluginButtonContainerComponent;
 import me.kix.uzi.management.click.component.buttons.PropertyButtonComponent;
+import me.kix.uzi.management.click.component.console.ConsoleComponent;
 import me.kix.uzi.management.click.component.sliders.NumberPropertySliderComponent;
 import me.kix.uzi.management.click.component.spinners.EnumPropertySpinnerComponent;
 import me.kix.uzi.management.click.themes.*;
@@ -102,6 +103,11 @@ public final class GuiClick extends GuiScreen implements GuiManager {
                 new Rectangle(themeFrame.getRenderPosition().getX() + guiClickTheme.getValue().theme.getHorizontalPadding(), themeFrame.getRenderPosition().getY() + 2,
                         guiClickTheme.getValue().theme.getWidth() - (guiClickTheme.getValue().theme.getHorizontalPadding() * 2), guiClickTheme.getValue().theme.getComponentHeight()), guiClickTheme));
         frames.add(themeFrame);
+
+//        FrameContainerComponent consoleFrame = new FrameContainerComponent("Console", this, new Rectangle(2, 200, 500, guiClickTheme.getValue().theme.getHeight()), new BasicLayoutStrategy());
+//        consoleFrame.getComponents().add(new ConsoleComponent(this, new Rectangle(themeFrame.getRenderPosition().getX() + guiClickTheme.getValue().theme.getHorizontalPadding(), themeFrame.getRenderPosition().getY() + 2,
+//                guiClickTheme.getValue().theme.getWidth() - (guiClickTheme.getValue().theme.getHorizontalPadding() * 2), guiClickTheme.getValue().theme.getComponentHeight()), 432));
+//        frames.add(consoleFrame);
     }
 
     @Override
@@ -120,6 +126,12 @@ public final class GuiClick extends GuiScreen implements GuiManager {
     protected void mouseReleased(int mouseX, int mouseY, int state) {
         super.mouseReleased(mouseX, mouseY, state);
         frames.forEach(frame -> frame.mouseReleased(mouseX, mouseY, MouseButton.getButton(state)));
+    }
+
+    @Override
+    protected void keyTyped(char typedChar, int keyCode) throws IOException {
+        super.keyTyped(typedChar, keyCode);
+
     }
 
     @Override

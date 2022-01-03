@@ -30,6 +30,7 @@ public class Angle {
     /**
      * Passed around the Counter-Strike cheating community.
      * Converted to Java by Tojatta.
+     *
      * @return Normalized Angle
      */
     public Angle normalizeAngle() {

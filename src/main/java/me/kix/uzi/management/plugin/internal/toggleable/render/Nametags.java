@@ -25,8 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @since Revised 9/26/21
  * @author yandhi
+ * @since Revised 9/26/21
  */
 public class Nametags extends ToggleablePlugin {
 
@@ -56,9 +56,10 @@ public class Nametags extends ToggleablePlugin {
     public void onRender2D(EventRender.TwoDimensional event) {
         if (RenderUtil.isInViewFrustrum(event.getEntity())) {
             /* raytracing check :) */
-            if(raytracing.getValue() || mc.player.canEntityBeSeen(event.getEntity())) {
+            if (raytracing.getValue() || mc.player.canEntityBeSeen(event.getEntity())) {
                 if (event.getEntity() instanceof EntityPlayer && players.getValue() || event.getEntity() instanceof EntityAnimal && animals.getValue() || (event.getEntity() instanceof EntityMob && mobs.getValue()) || event.getEntity() instanceof EntityItem && items.getValue()) {
                     String name = event.getEntity().getDisplayName().getFormattedText();
+
                     if (Uzi.INSTANCE.getFriendManager().isFriend(event.getEntity().getName())) {
                         name = Uzi.INSTANCE.getFriendManager().getReplacedText(name);
                     }
@@ -98,7 +99,9 @@ public class Nametags extends ToggleablePlugin {
 
     @Register
     public void onRenderNameplate(EventRenderNameplate event) {
-        event.setCancelled(true);
+        if (event.getEntity() instanceof EntityPlayer && players.getValue() || event.getEntity() instanceof EntityAnimal && animals.getValue() || (event.getEntity() instanceof EntityMob && mobs.getValue()) || event.getEntity() instanceof EntityItem && items.getValue()) {
+            event.setCancelled(true);
+        }
     }
 
     /**

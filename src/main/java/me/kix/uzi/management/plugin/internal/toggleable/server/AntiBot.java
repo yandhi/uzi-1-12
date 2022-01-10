@@ -24,7 +24,9 @@ public class AntiBot extends ToggleablePlugin {
     }
 
     private boolean isBot(EntityPlayer entity) {
-        return entity.getUniqueID().toString().startsWith(entity.getName()) || !StringUtils.stripControlCodes(entity.getGameProfile().getName()).equals(entity.getName()) || entity.getGameProfile().getId() != entity.getUniqueID();
+        return entity.getUniqueID().toString().startsWith(entity.getName()) ||
+                !StringUtils.stripControlCodes(entity.getGameProfile().getName()).equals(entity.getName()) ||
+                entity.getGameProfile().getId() != entity.getUniqueID();
     }
 
 }

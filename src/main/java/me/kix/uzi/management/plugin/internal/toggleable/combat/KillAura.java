@@ -2,10 +2,12 @@ package me.kix.uzi.management.plugin.internal.toggleable.combat;
 
 import me.kix.uzi.Uzi;
 import me.kix.uzi.api.event.Register;
+import me.kix.uzi.api.game.accessors.entity.LivingEntity;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.property.Property;
 import me.kix.uzi.api.property.properties.NumberProperty;
+import me.kix.uzi.api.util.entity.EntityTracker;
 import me.kix.uzi.api.util.math.angle.Angle;
 import me.kix.uzi.api.util.math.angle.AngleUtil;
 import me.kix.uzi.api.util.math.timing.Timer;
@@ -41,6 +43,11 @@ public class KillAura extends ToggleablePlugin {
     private final NumberProperty<Integer> aps = new NumberProperty<>("APS", 15, 1, 20, 1);
 
     /**
+     * The rotation rate.
+     */
+    private final NumberProperty<Float> rate = new NumberProperty<>("Rate", 5f, 1f, 180f, 1f);
+
+    /**
      * The highest possible distance the player can be from an entity.
      */
     private final NumberProperty<Float> range = new NumberProperty<>("Range", 4f, 3f, 6f, .1f);
@@ -61,9 +68,13 @@ public class KillAura extends ToggleablePlugin {
     private final Property<Boolean> cooldown = new Property<>("Cooldown", true);
 
     /**
-     * Whether to smooth the aura when pvping.
+     * Whether to only attack players on the ground
+     *
+     * <p>
+     * this should ideally stop us from targeting 55% of the bot's we could encounter.
+     * </p>
      */
-    private final Property<Boolean> smoothing = new Property<>("Smoothing", false);
+    private final Property<Boolean> grounded = new Property<>("Grounded", false);
 
     /**
      * Whether or not to attack players.
@@ -90,15 +101,12 @@ public class KillAura extends ToggleablePlugin {
      */
     private final List<EntityLivingBase> entities = new ArrayList<>();
 
+    private final EntityTracker entityTracker = new EntityTracker();
+
     /**
      * The current target.
      */
     private EntityLivingBase target;
-
-    /**
-     * The current yaw.
-     */
-    private float currYaw;
 
     public KillAura() {
         super("KillAura", Category.COMBAT);
@@ -110,11 +118,12 @@ public class KillAura extends ToggleablePlugin {
     public void initPlugin() {
         super.initPlugin();
         getProperties().add(aps);
+        getProperties().add(rate);
         getProperties().add(range);
         getProperties().add(age);
         getProperties().add(fov);
         getProperties().add(cooldown);
-        getProperties().add(smoothing);
+        getProperties().add(grounded);
         getProperties().add(players);
         getProperties().add(animals);
         getProperties().add(monsters);
@@ -124,56 +133,38 @@ public class KillAura extends ToggleablePlugin {
     public void onPreUpdate(EventUpdate.Pre event) {
         target = getBestTarget();
         if (target != null) {
-            Angle angle = AngleUtil.getAngle(target);
-            if (smoothing.getValue()) {
-                Angle myViewAngles = new Angle(mc.player.rotationYaw, mc.player.rotationPitch);
-                Angle difference = AngleUtil.difference(angle, myViewAngles);
+            entityTracker.setRotationRate(rate.getValue());
+            entityTracker.setEntity(target);
+            entityTracker.updateRotations();
+            event.getViewAngles().setYaw(entityTracker.getYaw()).setPitch(entityTracker.getPitch());
+            mc.player.rotationYawHead = entityTracker.getYaw();
 
-                if (difference.getYaw() > 180) {
-                    difference.setYaw(difference.getYaw() - 360);
+            if (entityTracker.hasReached()) {
+                if (cooldown.getValue()) {
+                    if (mc.player.getCooledAttackStrength(0) >= 1f && timer.completed(250)) {
+                        attack(mc.player, target);
+                        timer.reset();
+                    }
+                } else {
+                    if (timer.completed(1000 / aps.getValue())) {
+                        attack(mc.player, target);
+                        timer.reset();
+                    }
                 }
-
-                if (difference.getYaw() < -180) {
-                    difference.setYaw(difference.getYaw() + 360);
-                }
-
-                double smoothFactor = 2;
-
-                float yaw = (float) (event.getViewAngles().getYaw() + (difference.getYaw() / smoothFactor));
-
-                event.getViewAngles()
-                        .setYaw(yaw)
-                        .setPitch(event.getViewAngles().getPitch() + (float) (difference.getPitch() / smoothFactor));
-                currYaw = yaw;
-            } else {
-                event.getViewAngles()
-                        .setYaw(angle.getYaw())
-                        .setPitch(angle.getPitch());
             }
+
+        } else {
+            entityTracker.reset();
+            entityTracker.setEntity(null);
         }
     }
 
-    @Register
-    public void onPostUpdate(EventUpdate.Post event) {
-        if (target != null) {
-            if (smoothing.getValue()) {
-                if (AngleUtil.getAngleDifference(currYaw, AngleUtil.getAngle(target).getYaw()) > 30f) {
-                    return;
-                }
-            }
-
-            if (cooldown.getValue()) {
-                if (mc.player.getCooledAttackStrength(0) >= 1f && timer.completed(250)) {
-                    attack(mc.player, target);
-                    timer.reset();
-                }
-            } else {
-                if (timer.completed(1000 / aps.getValue())) {
-                    attack(mc.player, target);
-                    timer.reset();
-                }
-            }
-        }
+    @Override
+    public void onDisable() {
+        super.onDisable();
+        target = null;
+        entityTracker.reset();
+        entityTracker.setEntity(null);
     }
 
     /**
@@ -228,7 +219,7 @@ public class KillAura extends ToggleablePlugin {
         entities.clear();
         for (Entity ent : mc.world.loadedEntityList) {
             if (ent instanceof EntityLivingBase) {
-                if (isEntityApplicable(ent)) {
+                if (isEntityApplicable((EntityLivingBase) ent)) {
                     entities.add((EntityLivingBase) ent);
                 }
             }
@@ -246,13 +237,14 @@ public class KillAura extends ToggleablePlugin {
      * @param entity The entity being checked.
      * @return Whether or not the entity is able to be aura'd.
      */
-    private boolean isEntityApplicable(Entity entity) {
+    private boolean isEntityApplicable(EntityLivingBase entity) {
         boolean notMe = entity != mc.player;
         boolean withinRange = mc.player.getDistanceToEntity(entity) <= range.getValue();
         boolean existedLongEnough = entity.ticksExisted >= 10;
         boolean alive = entity.isEntityAlive();
         boolean old = entity.ticksExisted > age.getValue();
         boolean oneOfChosenEntities = entity instanceof EntityPlayer && players.getValue() || entity instanceof EntityAnimal && animals.getValue() || (entity instanceof EntityMob && monsters.getValue());
-        return notMe && withinRange && existedLongEnough && alive && old && oneOfChosenEntities && !Uzi.INSTANCE.getFriendManager().isFriend(entity.getName()) && AngleUtil.isEntityInFov((EntityLivingBase) entity, fov.getValue());
+        boolean grounded = (entity.onGround || ((LivingEntity) entity).getIsJumping()) && !((entity instanceof EntityPlayer) && ((EntityPlayer) entity).capabilities.isFlying) || !this.grounded.getValue();
+        return notMe && withinRange && existedLongEnough && alive && old && oneOfChosenEntities && grounded && !Uzi.INSTANCE.getFriendManager().isFriend(entity.getName()) && AngleUtil.isEntityInFov((EntityLivingBase) entity, fov.getValue());
     }
 }

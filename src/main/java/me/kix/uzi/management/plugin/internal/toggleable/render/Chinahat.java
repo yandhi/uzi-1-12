@@ -5,6 +5,7 @@ import me.kix.uzi.api.event.events.misc.EventTick;
 import me.kix.uzi.api.event.events.render.EventRender;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
+import me.kix.uzi.api.util.render.RainbowUtil;
 import me.kix.uzi.api.util.render.RenderUtil;
 import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.util.glu.Cylinder;
@@ -23,24 +24,10 @@ import java.awt.*;
  */
 public class Chinahat extends ToggleablePlugin {
 
-    /**
-     * The current hue of the hat.
-     */
-    private float colorHue = 0;
-
     public Chinahat() {
         super("Chinahat", Category.RENDER);
         setDisplay("China Hat");
         setHidden(true);
-    }
-
-    @Register
-    public void tick(EventTick tick) {
-        colorHue+= 1.5f;
-
-        if (colorHue > 270) {
-            colorHue -= 270;
-        }
     }
 
     @Register
@@ -59,7 +46,7 @@ public class Chinahat extends ToggleablePlugin {
         GlStateManager.scale(1, -1, 1);
 
 
-        Color color = RenderUtil.getColorViaHue(colorHue);
+        Color color = RainbowUtil.INSTANCE.getColor();
         GlStateManager.color(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f);
         new Cylinder().draw(0, 0.65f, 0.35f, 20, 20);
 

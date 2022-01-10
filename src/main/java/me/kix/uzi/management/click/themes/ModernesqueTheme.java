@@ -5,6 +5,7 @@ import me.kix.sodapop.theme.AbstractTheme;
 import me.kix.sodapop.theme.renderer.AbstractComponentRenderer;
 import me.kix.sodapop.util.Rectangle;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
+import me.kix.uzi.api.util.render.RainbowUtil;
 import me.kix.uzi.api.util.render.RenderUtil;
 import me.kix.uzi.api.util.render.font.NahrFont;
 import me.kix.uzi.management.click.component.buttons.PluginButtonContainerComponent;
@@ -44,14 +45,9 @@ public class ModernesqueTheme extends AbstractTheme {
      * The font for the components.
      */
     private final NahrFont componentFont = new NahrFont("Arial", 18);
-
-    /**
-     * The color we are using.
-     */
-    private final Color color = new Color(0x40B56F);
     
     public ModernesqueTheme() {
-        super("Modernesque", 95, 20, 16, 4, 4);
+        super("Modernesque", 125, 20, 16, 4, 4);
     }
 
     @Override
@@ -145,7 +141,7 @@ public class ModernesqueTheme extends AbstractTheme {
             RenderUtil.drawRect(component.getRenderPosition().getX(), component.getRenderPosition().getY(),
                     component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
                     component.getRenderPosition().getY() + component.getRenderPosition().getHeight(),
-                    (component.isHovered() ? (component.isOpen() ? color.darker().getRGB() : color.getRGB()) : Color.BLACK.getRGB()));
+                    (component.isHovered() ? (component.isOpen() ? RainbowUtil.INSTANCE.getColor().darker().darker().darker().getRGB() : RainbowUtil.INSTANCE.getColor().darker().darker().getRGB()) : Color.BLACK.getRGB()));
             componentFont.drawStringWithShadow(component.getName(), component.getRenderPosition().getX() + 2.5f, (component.getRenderPosition().getY()
                     + (component.getRenderPosition().getHeight() / 2f) - (componentFont.getStringHeight(component.getName()) / 2f)) + 3f, Color.WHITE.getRGB());
         }
@@ -157,7 +153,7 @@ public class ModernesqueTheme extends AbstractTheme {
             RenderUtil.drawRect(component.getRenderPosition().getX(), component.getRenderPosition().getY(),
                     component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
                     component.getRenderPosition().getY() + component.getRenderPosition().getHeight(),
-                    (component.isHovered() ? (component.isOpen() ? color.darker().getRGB() : color.getRGB()) : Color.BLACK.getRGB()));
+                    (component.isHovered() ? (component.isOpen() ? RainbowUtil.INSTANCE.getColor().darker().darker().darker().getRGB() : RainbowUtil.INSTANCE.getColor().darker().darker().getRGB()) : Color.BLACK.getRGB()));
             componentFont.drawStringWithShadow(component.getName(), component.getRenderPosition().getX() + 2, (component.getRenderPosition().getY()
                     + (component.getRenderPosition().getHeight() / 2f) - (componentFont.getStringHeight(component.getName()) / 2f)) + 3f, Color.WHITE.getRGB());
             componentFont.drawStringWithShadow("...", component.getRenderPosition().getX() +
@@ -191,7 +187,7 @@ public class ModernesqueTheme extends AbstractTheme {
             RenderUtil.drawRect(component.getRenderPosition().getX(), component.getRenderPosition().getY(),
                     component.getRenderPosition().getX() + component.getSliderLength(),
                     component.getRenderPosition().getY() + component.getRenderPosition().getHeight(),
-                    component.isHovered() ? 0xFF40B56F : Color.BLACK.getRGB());
+                    component.isHovered() ? RainbowUtil.INSTANCE.getColor().darker().darker().getRGB() : Color.BLACK.getRGB());
             componentFont.drawStringWithShadow(component.getName(), component.getRenderPosition().getX() + 2, (component.getRenderPosition().getY()
                     + (component.getRenderPosition().getHeight() / 2f) - (componentFont.getStringHeight(component.getName()) / 2f)) + 3f, 0xFFFFFFFF);
             componentFont.drawStringWithShadow(component.getProperty().getValue().toString(),
@@ -210,14 +206,14 @@ public class ModernesqueTheme extends AbstractTheme {
             RenderUtil.drawRect(component.getRenderPosition().getX(), component.getRenderPosition().getY(),
                     component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
                     component.getRenderPosition().getY() + component.getRenderPosition().getHeight(),
-                    (component.isHovered() ? 0xFF40B56F : Color.BLACK.getRGB()));
+                    (component.isHovered() ? RainbowUtil.INSTANCE.getColor().darker().getRGB() : Color.BLACK.getRGB()));
             componentFont.drawStringWithShadow(component.getName(), component.getRenderPosition().getX() + 2, (component.getRenderPosition().getY()
                     + (component.getRenderPosition().getHeight() / 2f) - (componentFont.getStringHeight(component.getName()) / 2f)) + 3f, Color.WHITE.getRGB());
 
             if (component.isState()) {
                 RenderUtil.drawRect(component.getRenderPosition().getX() + component.getRenderPosition().getWidth() - 10,
                         component.getRenderPosition().getY(), component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
-                        component.getRenderPosition().getY() + component.getRenderPosition().getHeight(), color.darker().getRGB());
+                        component.getRenderPosition().getY() + component.getRenderPosition().getHeight(), RainbowUtil.INSTANCE.getColor().darker().darker().darker().getRGB());
             }
         }
     }
@@ -228,14 +224,14 @@ public class ModernesqueTheme extends AbstractTheme {
             RenderUtil.drawRect(component.getRenderPosition().getX(), component.getRenderPosition().getY(),
                     component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
                     component.getRenderPosition().getY() + component.getRenderPosition().getHeight(),
-                    (component.isHovered() ? 0xFF40B56F : Color.BLACK.getRGB()));
+                    (component.isHovered() ? RainbowUtil.INSTANCE.getColor().darker().getRGB() : Color.BLACK.getRGB()));
             componentFont.drawStringWithShadow(component.getName(), component.getRenderPosition().getX() + 2, (component.getRenderPosition().getY()
                     + (component.getRenderPosition().getHeight() / 2f) - (componentFont.getStringHeight(component.getName()) / 2f)) + 3f, Color.WHITE.getRGB());
 
             if (component.isState()) {
                 RenderUtil.drawRect(component.getRenderPosition().getX() + component.getRenderPosition().getWidth() - 10,
                         component.getRenderPosition().getY(), component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
-                        component.getRenderPosition().getY() + component.getRenderPosition().getHeight(), color.darker().getRGB());
+                        component.getRenderPosition().getY() + component.getRenderPosition().getHeight(), RainbowUtil.INSTANCE.getColor().darker().darker().darker().getRGB());
             }
         }
     }
@@ -251,10 +247,10 @@ public class ModernesqueTheme extends AbstractTheme {
             if (component.isExtended()) {
                 frameHeight += component.getMaxHeight() + 2;
             }
-            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), component.isExtended() ? 0xFF40B56F : 0xFF2B2C31);
+            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), component.isExtended() ? RainbowUtil.INSTANCE.getColor().darker().darker().getRGB() : 0xFF2B2C31);
             RenderUtil.drawRect(position.getX(), position.getY() + 3, position.getX() + position.getWidth(), position.getY() + frameHeight, 0xFF18191C);
 
-            titleFont.drawStringWithShadow(component.getName(), position.getX() + 2, position.getY() + 7, 0xFFFAFAFB);
+            titleFont.drawStringWithShadow(component.getName(), position.getX() + (position.getWidth() / 2f) - (titleFont.getStringWidth(component.getName()) / 2f), position.getY() + 8, 0xFFFAFAFB);
         }
     }
 
@@ -266,7 +262,7 @@ public class ModernesqueTheme extends AbstractTheme {
         public void renderComponent(PluginButtonContainerComponent component) {
             Rectangle position = component.getRenderPosition();
 
-            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), component.getPlugin().isEnabled() ? 0xFF40B56F : 0xFF2B2C31);
+            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), component.getPlugin().isEnabled() ? RainbowUtil.INSTANCE.getColor().darker().darker().getRGB() : 0xFF2B2C31);
             componentFont.drawStringWithShadow(component.getName(), position.getX() + (position.getWidth() / 2f) - (componentFont.getStringWidth(component.getName()) / 2), position.getY() + 5, 0xFFFAFAFB);
         }
     }
@@ -279,7 +275,7 @@ public class ModernesqueTheme extends AbstractTheme {
         public void renderComponent(PropertyButtonComponent component) {
             Rectangle position = component.getRenderPosition();
 
-            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), component.getProperty().getValue() ? 0xFF40B56F : 0xFF2B2C31);
+            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), component.getProperty().getValue() ? RainbowUtil.INSTANCE.getColor().darker().darker().getRGB() : 0xFF2B2C31);
             componentFont.drawStringWithShadow(component.getName(), position.getX() + (position.getWidth() / 2f) - (componentFont.getStringWidth(component.getName()) / 2), position.getY() + 5, 0xFFFAFAFB);
         }
     }
@@ -292,7 +288,7 @@ public class ModernesqueTheme extends AbstractTheme {
         public void renderComponent(EnumPropertySpinnerComponent component) {
             Rectangle position = component.getRenderPosition();
 
-            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), 0xFF40B56F);
+            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), RainbowUtil.INSTANCE.getColor().darker().darker().getRGB());
             componentFont.drawStringWithShadow(WordUtils.capitalizeFully(component.getProperty().getFixedValue()), position.getX() + (position.getWidth() / 2f) - (componentFont.getStringWidth(WordUtils.capitalizeFully(component.getProperty().getFixedValue())) / 2), position.getY() + 5, 0xFFFAFAFB);
         }
     }
@@ -306,7 +302,7 @@ public class ModernesqueTheme extends AbstractTheme {
             Rectangle position = component.getRenderPosition();
 
             RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), 0xFF2B2C31);
-            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + component.getLength(), position.getY() + position.getHeight(), 0xFF40B56F);
+            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + component.getLength(), position.getY() + position.getHeight(), RainbowUtil.INSTANCE.getColor().darker().darker().getRGB());
             componentFont.drawStringWithShadow(component.getProperty().getLabel() + " " + component.getProperty().getValue().toString(), position.getX() + (position.getWidth() / 2f) - (componentFont.getStringWidth(component.getProperty().getLabel() + " " + component.getProperty().getValue().toString()) / 2), position.getY() + 5, 0xFFFAFAFB);
         }
     }

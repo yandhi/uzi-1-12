@@ -28,7 +28,7 @@ public class AngleUtil implements MinecraftAccessor {
         double calcedYaw = Math.atan2(delta.getZ(), delta.getX());
         double calcedPitch = Math.atan2(delta.getY(), hypot);
         double degrees = 180 / Math.PI;
-        return new Angle((float) (calcedYaw * degrees) - 90, (float) -(calcedPitch * degrees)).normalizeAngle();
+        return new Angle((float) (calcedYaw * degrees) - 90, (float) -(calcedPitch * degrees));
     }
 
     public static Angle getAngle(Entity entity, double height) {

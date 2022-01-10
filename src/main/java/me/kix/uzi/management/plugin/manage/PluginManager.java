@@ -12,6 +12,7 @@ import me.kix.uzi.api.util.network.TPSTracker;
 import me.kix.uzi.management.plugin.internal.Commands;
 import me.kix.uzi.management.plugin.internal.Keybinds;
 import me.kix.uzi.management.plugin.internal.toggleable.combat.*;
+import me.kix.uzi.management.plugin.internal.toggleable.combat.KillAura;
 import me.kix.uzi.management.plugin.internal.toggleable.miscellaneous.*;
 import me.kix.uzi.management.plugin.internal.toggleable.movement.*;
 import me.kix.uzi.management.plugin.internal.toggleable.player.*;

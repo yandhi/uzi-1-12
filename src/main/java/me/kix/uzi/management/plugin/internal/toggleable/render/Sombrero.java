@@ -7,6 +7,7 @@ import me.kix.uzi.api.event.events.render.EventRender;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.Plugin;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
+import me.kix.uzi.api.util.render.RainbowUtil;
 import me.kix.uzi.api.util.render.RenderUtil;
 import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.util.glu.Cylinder;
@@ -26,23 +27,9 @@ import java.util.Optional;
  */
 public class Sombrero extends ToggleablePlugin {
 
-    /**
-     * The current hue of the hat.
-     */
-    private float colorHue = 0;
-
     public Sombrero() {
         super("Sombrero", Category.RENDER);
         setHidden(true);
-    }
-
-    @Register
-    public void tick(EventTick tick) {
-        colorHue += 1.5f;
-
-        if (colorHue > 270) {
-            colorHue -= 270;
-        }
     }
 
     @Register
@@ -69,7 +56,7 @@ public class Sombrero extends ToggleablePlugin {
             }
         }
 
-        Color color = RenderUtil.getColorViaHue(colorHue);
+        Color color = RainbowUtil.INSTANCE.getColor();
 
         // the base
         GlStateManager.color(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f);

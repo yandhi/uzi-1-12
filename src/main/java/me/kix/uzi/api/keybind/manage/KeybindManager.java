@@ -9,10 +9,8 @@ import me.kix.uzi.api.keybind.task.tasks.TogglePluginKeybindTaskStrategy;
 import me.kix.uzi.api.manager.ListManager;
 import me.kix.uzi.api.plugin.Plugin;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
-import me.kix.uzi.management.ui.alt.Alt;
 
 import java.io.*;
-import java.nio.file.Path;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;

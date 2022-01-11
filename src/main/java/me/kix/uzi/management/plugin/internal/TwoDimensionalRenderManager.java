@@ -1,19 +1,19 @@
-package me.kix.uzi.management.plugin.internal.toggleable.render.persistant;
+package me.kix.uzi.management.plugin.internal;
 
 import me.kix.uzi.Uzi;
 import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.plugin.Category;
-import me.kix.uzi.api.plugin.Plugin;
+import me.kix.uzi.api.plugin.AbstractPlugin;
 
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector4f;
 
+import me.kix.uzi.api.plugin.service.Service;
 import me.kix.uzi.api.util.render.GLUProjection;
 import me.kix.uzi.api.event.events.render.EventRender;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.AxisAlignedBB;
 
 /**
@@ -21,11 +21,10 @@ import net.minecraft.util.math.AxisAlignedBB;
  *
  * @author Kix
  */
-public class TwoDimensionalRenderManager extends Plugin {
+public class TwoDimensionalRenderManager extends Service {
 
     public TwoDimensionalRenderManager() {
         super("2DManager", Category.RENDER);
-        Uzi.INSTANCE.getEventManager().register(this);
     }
 
     @Register

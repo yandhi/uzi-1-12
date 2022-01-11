@@ -4,8 +4,6 @@ import me.kix.sodapop.components.frame.FrameContainerComponent;
 import me.kix.sodapop.theme.AbstractTheme;
 import me.kix.sodapop.theme.renderer.AbstractComponentRenderer;
 import me.kix.sodapop.util.Rectangle;
-import me.kix.uzi.Uzi;
-import me.kix.uzi.api.plugin.Plugin;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.util.render.RenderUtil;
 import me.kix.uzi.api.util.render.font.NahrFont;
@@ -14,9 +12,7 @@ import me.kix.uzi.management.click.component.buttons.PropertyButtonComponent;
 import me.kix.uzi.management.click.component.console.ConsoleComponent;
 import me.kix.uzi.management.click.component.sliders.NumberPropertySliderComponent;
 import me.kix.uzi.management.click.component.spinners.EnumPropertySpinnerComponent;
-import me.kix.uzi.management.plugin.internal.toggleable.render.Overlay;
 import me.kix.uzi.management.plugin.internal.toggleable.render.ui.components.CoordinatesBlockComponent;
-import me.kix.uzi.management.plugin.internal.toggleable.render.ui.components.StringBlockComponent;
 import me.kix.uzi.management.plugin.internal.toggleable.render.ui.components.ToggleablesBlockComponent;
 import me.kix.uzi.management.plugin.internal.toggleable.render.ui.components.WatermarkComponent;
 import me.kix.uzi.management.ui.tab.item.impl.FolderTabComponent;
@@ -30,7 +26,6 @@ import net.minecraft.client.gui.ScaledResolution;
 
 import java.awt.*;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * The uzi version of the noil styled ui.

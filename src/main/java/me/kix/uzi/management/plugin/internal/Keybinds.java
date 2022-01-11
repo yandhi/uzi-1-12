@@ -5,14 +5,14 @@ import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.keybind.Keybind;
 import me.kix.uzi.api.plugin.*;
 import me.kix.uzi.api.event.events.input.key.EventKeyPressed;
+import me.kix.uzi.api.plugin.service.Service;
 import me.kix.uzi.management.click.GuiClick;
 import org.lwjgl.input.Keyboard;
 
-public class Keybinds extends Plugin {
+public class Keybinds extends Service {
 
     public Keybinds() {
         super("Keybinds", Category.MISCELLANEOUS);
-        Uzi.INSTANCE.getEventManager().register(this);
     }
 
     @Register

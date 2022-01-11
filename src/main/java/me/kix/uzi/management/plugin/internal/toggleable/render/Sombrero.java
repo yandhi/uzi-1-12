@@ -2,9 +2,9 @@ package me.kix.uzi.management.plugin.internal.toggleable.render;
 
 import me.kix.uzi.Uzi;
 import me.kix.uzi.api.event.Register;
-import me.kix.uzi.api.event.events.misc.EventTick;
 import me.kix.uzi.api.event.events.render.EventRender;
 import me.kix.uzi.api.plugin.Category;
+import me.kix.uzi.api.plugin.AbstractPlugin;
 import me.kix.uzi.api.plugin.Plugin;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.util.render.RainbowUtil;

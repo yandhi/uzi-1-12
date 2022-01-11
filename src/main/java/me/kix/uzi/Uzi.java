@@ -4,7 +4,6 @@ import me.kix.uzi.api.event.EventManager;
 import me.kix.uzi.api.friend.manager.FriendManager;
 import me.kix.uzi.api.keybind.manage.KeybindManager;
 import me.kix.uzi.api.util.interfaces.Client;
-import me.kix.uzi.api.util.render.RainbowUtil;
 import me.kix.uzi.management.command.manage.CommandManager;
 import me.kix.uzi.management.plugin.manage.PluginManager;
 import me.kix.uzi.management.ui.alt.manage.AltManager;
@@ -77,7 +76,6 @@ public enum Uzi implements Client {
         pluginManager.init();
         keybindManager.init();
         commandManager.init();
-        RainbowUtil.INSTANCE.registerRainbowListener();
 
         Runtime.getRuntime().addShutdownHook(new Thread("Uzi shutdown thread") {
             @Override
@@ -105,7 +103,7 @@ public enum Uzi implements Client {
 
     @Override
     public String getVersion() {
-        return "1.13.0";
+        return "2.0.1";
     }
 
     @Override

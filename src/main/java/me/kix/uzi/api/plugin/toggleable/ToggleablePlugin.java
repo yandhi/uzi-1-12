@@ -2,19 +2,43 @@ package me.kix.uzi.api.plugin.toggleable;
 
 import com.google.gson.JsonObject;
 import me.kix.uzi.Uzi;
-import me.kix.uzi.api.keybind.task.tasks.TogglePluginKeybindTaskStrategy;
-import me.kix.uzi.api.keybind.Keybind;
 import me.kix.uzi.api.plugin.Category;
-import me.kix.uzi.api.plugin.Plugin;
+import me.kix.uzi.api.plugin.AbstractPlugin;
 
 import java.awt.*;
 import java.util.Random;
 
-public class ToggleablePlugin extends Plugin implements Toggleable {
+/**
+ * An implementation of {@link me.kix.uzi.api.plugin.Plugin} that features the ability to be toggled from {@link Toggleable}.
+ *
+ * @author jackson
+ * @since 2018 (revised/docs wrote 2022)
+ */
+public class ToggleablePlugin extends AbstractPlugin implements Toggleable {
 
-    private boolean enabled, hidden;
+    /**
+     * The state of the plugin.
+     */
+    private boolean enabled;
+
+    /**
+     * Whether the plugin is to be shown in the array list.
+     */
+    private boolean hidden;
+
+    /**
+     * The color of the plugin.
+     */
     private int color;
+
+    /**
+     * An instance of random for random color generation on class creation.
+     */
     protected final Random random = new Random();
+
+    /**
+     * The display name of the plugin in the array list.
+     */
     private String display;
 
     public ToggleablePlugin(String label, Category category) {
@@ -28,7 +52,7 @@ public class ToggleablePlugin extends Plugin implements Toggleable {
         enabled = !enabled;
         if (enabled) {
             onEnable();
-        }else {
+        } else {
             onDisable();
         }
     }

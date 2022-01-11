@@ -4,17 +4,16 @@ import me.kix.uzi.Uzi;
 import me.kix.uzi.api.command.Command;
 import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.plugin.Category;
-import me.kix.uzi.api.plugin.Plugin;
+import me.kix.uzi.api.plugin.service.Service;
 import me.kix.uzi.api.util.logging.Logger;
 import me.kix.uzi.api.event.events.input.chat.EventSendOffChatMessage;
 
-public class Commands extends Plugin {
+public class Commands extends Service {
 
     private final String catalyst = ".";
 
     public Commands() {
         super("Commands", Category.MISCELLANEOUS);
-        Uzi.INSTANCE.getEventManager().register(this);
     }
 
     @Register

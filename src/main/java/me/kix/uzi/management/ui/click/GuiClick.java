@@ -1,4 +1,4 @@
-package me.kix.uzi.management.click;
+package me.kix.uzi.management.ui.click;
 
 import me.kix.uzi.Uzi;
 import me.kix.uzi.api.plugin.Category;
@@ -13,11 +13,11 @@ import me.kix.sodapop.manage.GuiManager;
 import me.kix.sodapop.theme.Theme;
 import me.kix.sodapop.util.MouseButton;
 import me.kix.sodapop.util.Rectangle;
-import me.kix.uzi.management.click.component.buttons.PluginButtonContainerComponent;
-import me.kix.uzi.management.click.component.buttons.PropertyButtonComponent;
-import me.kix.uzi.management.click.component.sliders.NumberPropertySliderComponent;
-import me.kix.uzi.management.click.component.spinners.EnumPropertySpinnerComponent;
-import me.kix.uzi.management.click.themes.*;
+import me.kix.uzi.management.ui.click.component.buttons.PluginButtonContainerComponent;
+import me.kix.uzi.management.ui.click.component.buttons.PropertyButtonComponent;
+import me.kix.uzi.management.ui.click.component.sliders.NumberPropertySliderComponent;
+import me.kix.uzi.management.ui.click.component.spinners.EnumPropertySpinnerComponent;
+import me.kix.uzi.management.ui.themes.*;
 import net.minecraft.client.gui.GuiScreen;
 import org.apache.commons.lang3.text.WordUtils;
 

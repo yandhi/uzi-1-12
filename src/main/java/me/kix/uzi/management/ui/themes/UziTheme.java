@@ -1,19 +1,18 @@
-package me.kix.uzi.management.click.themes;
+package me.kix.uzi.management.ui.themes;
 
 import me.kix.sodapop.components.frame.FrameContainerComponent;
 import me.kix.sodapop.theme.AbstractTheme;
 import me.kix.sodapop.theme.renderer.AbstractComponentRenderer;
 import me.kix.sodapop.util.Rectangle;
-import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.util.render.RenderUtil;
 import me.kix.uzi.api.util.render.font.NahrFont;
-import me.kix.uzi.management.click.component.buttons.PluginButtonContainerComponent;
-import me.kix.uzi.management.click.component.buttons.PropertyButtonComponent;
-import me.kix.uzi.management.click.component.sliders.NumberPropertySliderComponent;
-import me.kix.uzi.management.click.component.spinners.EnumPropertySpinnerComponent;
+import me.kix.uzi.management.ui.click.component.buttons.PluginButtonContainerComponent;
+import me.kix.uzi.management.ui.click.component.buttons.PropertyButtonComponent;
+import me.kix.uzi.management.ui.click.component.console.ConsoleComponent;
+import me.kix.uzi.management.ui.click.component.sliders.NumberPropertySliderComponent;
+import me.kix.uzi.management.ui.click.component.spinners.EnumPropertySpinnerComponent;
 import me.kix.uzi.management.plugin.internal.toggleable.render.ui.components.CoordinatesBlockComponent;
-import me.kix.uzi.management.plugin.internal.toggleable.render.ui.components.StringBlockComponent;
 import me.kix.uzi.management.plugin.internal.toggleable.render.ui.components.ToggleablesBlockComponent;
 import me.kix.uzi.management.plugin.internal.toggleable.render.ui.components.WatermarkComponent;
 import me.kix.uzi.management.ui.tab.item.impl.FolderTabComponent;
@@ -24,12 +23,6 @@ import me.kix.uzi.management.ui.tab.item.impl.focus.SpinnerTabComponent;
 import me.kix.uzi.management.ui.tab.item.impl.folders.ToggleablePluginFolderTabComponent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.util.List;
@@ -40,35 +33,31 @@ import java.util.List;
  * @author Kix
  * @since 6/27/2019
  */
-public class SolsticeTheme extends AbstractTheme {
+public class UziTheme extends AbstractTheme {
 
     /**
      * The font for title panels.
      */
-    private final NahrFont titleFont = new NahrFont("Selawik", 12);
+    private final NahrFont titleFont = new NahrFont("Verdana", 12);
 
     /**
      * The font renderer for the UI.
      */
-    private final NahrFont font = new NahrFont("Selawik", 16);
+    private final NahrFont font = new NahrFont("Consolas", 16);
 
     /**
      * The current accent color of the theme.
      */
-    private final Color color = new Color(0x2ECC71);
+    private final Color uziColor = new Color(0x993940);
 
-    /**
-     * The settings icon.
-     */
-    private final ResourceLocation settingsIcon = new ResourceLocation("settings.png");
-
-    public SolsticeTheme() {
-        super("Solstice", 115, 14, 15, 0, 2);
+    public UziTheme() {
+        super("Uzi", 115, 14, 15, 0, 2);
     }
 
     @Override
     public void initTheme() {
         getComponentRenderers().add(new FrameComponentRenderer());
+        getComponentRenderers().add(new ConsoleComponentRenderer());
         getComponentRenderers().add(new PluginButtonComponentRenderer());
         getComponentRenderers().add(new PropertyButtonComponentRenderer());
         getComponentRenderers().add(new EnumPropertySpinnerComponentRenderer());
@@ -91,8 +80,7 @@ public class SolsticeTheme extends AbstractTheme {
 
         @Override
         public void renderComponent(WatermarkComponent component) {
-            font.drawStringWithShadow("Solstice", component.getRenderPosition().getX(), component.getRenderPosition().getY() + 2, Color.WHITE.getRGB());
-            titleFont.drawStringWithShadow("1.12.2", component.getRenderPosition().getX() + font.getStringWidth("Solstice") + 1, component.getRenderPosition().getY() + 2, Color.RED.getRGB());
+            font.drawStringWithShadow("Uzi", component.getRenderPosition().getX(), component.getRenderPosition().getY() + 2, Color.WHITE.getRGB());
         }
     }
 
@@ -158,7 +146,7 @@ public class SolsticeTheme extends AbstractTheme {
             RenderUtil.drawRect(component.getRenderPosition().getX(), component.getRenderPosition().getY(),
                     component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
                     component.getRenderPosition().getY() + component.getRenderPosition().getHeight(),
-                    (component.isHovered() ? (component.isOpen() ? 0xFF476C9F : 0xFF4A96CC) : Color.BLACK.getRGB()));
+                    (component.isHovered() ? (component.isOpen() ? uziColor.darker().getRGB() : uziColor.getRGB()) : Color.BLACK.getRGB()));
             font.drawStringWithShadow(component.getName(), component.getRenderPosition().getX() + 2.5f, (component.getRenderPosition().getY()
                     + (component.getRenderPosition().getHeight() / 2f) - (font.getStringHeight(component.getName()) / 2f)) + 3f, Color.WHITE.getRGB());
         }
@@ -170,7 +158,7 @@ public class SolsticeTheme extends AbstractTheme {
             RenderUtil.drawRect(component.getRenderPosition().getX(), component.getRenderPosition().getY(),
                     component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
                     component.getRenderPosition().getY() + component.getRenderPosition().getHeight(),
-                    (component.isHovered() ? (component.isOpen() ? 0xFF476C9F : 0xFF4A96CC) : Color.BLACK.getRGB()));
+                    (component.isHovered() ? (component.isOpen() ? uziColor.darker().getRGB() : uziColor.getRGB()) : Color.BLACK.getRGB()));
             font.drawStringWithShadow(component.getName(), component.getRenderPosition().getX() + 2, (component.getRenderPosition().getY()
                     + (component.getRenderPosition().getHeight() / 2f) - (font.getStringHeight(component.getName()) / 2f)) + 3f, Color.WHITE.getRGB());
             font.drawStringWithShadow("...", component.getRenderPosition().getX() +
@@ -188,7 +176,7 @@ public class SolsticeTheme extends AbstractTheme {
             RenderUtil.drawRect(component.getRenderPosition().getX(), component.getRenderPosition().getY(),
                     component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
                     component.getRenderPosition().getY() + component.getRenderPosition().getHeight(),
-                    (component.isHovered() ? 0xFF4A96CC : Color.BLACK.getRGB()));
+                    (component.isHovered() ? uziColor.getRGB() : Color.BLACK.getRGB()));
             font.drawStringWithShadow(component.getRaw(), component.getRenderPosition().getX() + 2, (component.getRenderPosition().getY()
                     + (component.getRenderPosition().getHeight() / 2f) - (font.getStringHeight(component.getName()) / 2f)) + 3f, 0xFFFFFFFF);
         }
@@ -204,7 +192,7 @@ public class SolsticeTheme extends AbstractTheme {
             RenderUtil.drawRect(component.getRenderPosition().getX(), component.getRenderPosition().getY(),
                     component.getRenderPosition().getX() + component.getSliderLength(),
                     component.getRenderPosition().getY() + component.getRenderPosition().getHeight(),
-                    component.isHovered() ? 0xFF4A96CC : Color.BLACK.getRGB());
+                    component.isHovered() ? uziColor.getRGB() : Color.BLACK.getRGB());
             font.drawStringWithShadow(component.getName(), component.getRenderPosition().getX() + 2, (component.getRenderPosition().getY()
                     + (component.getRenderPosition().getHeight() / 2f) - (font.getStringHeight(component.getName()) / 2f)) + 3f, 0xFFFFFFFF);
             font.drawStringWithShadow(component.getProperty().getValue().toString(),
@@ -223,14 +211,14 @@ public class SolsticeTheme extends AbstractTheme {
             RenderUtil.drawRect(component.getRenderPosition().getX(), component.getRenderPosition().getY(),
                     component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
                     component.getRenderPosition().getY() + component.getRenderPosition().getHeight(),
-                    (component.isHovered() ? 0xFF4A96CC : Color.BLACK.getRGB()));
+                    (component.isHovered() ? uziColor.getRGB() : Color.BLACK.getRGB()));
             font.drawStringWithShadow(component.getName(), component.getRenderPosition().getX() + 2, (component.getRenderPosition().getY()
                     + (component.getRenderPosition().getHeight() / 2f) - (font.getStringHeight(component.getName()) / 2f)) + 3f, Color.WHITE.getRGB());
 
             if (component.isState()) {
                 RenderUtil.drawRect(component.getRenderPosition().getX() + component.getRenderPosition().getWidth() - 10,
                         component.getRenderPosition().getY(), component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
-                        component.getRenderPosition().getY() + component.getRenderPosition().getHeight(), 0xFF476C9F);
+                        component.getRenderPosition().getY() + component.getRenderPosition().getHeight(), uziColor.darker().getRGB());
             }
         }
     }
@@ -241,14 +229,14 @@ public class SolsticeTheme extends AbstractTheme {
             RenderUtil.drawRect(component.getRenderPosition().getX(), component.getRenderPosition().getY(),
                     component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
                     component.getRenderPosition().getY() + component.getRenderPosition().getHeight(),
-                    (component.isHovered() ? 0xFF4A96CC : Color.BLACK.getRGB()));
+                    (component.isHovered() ? uziColor.getRGB() : Color.BLACK.getRGB()));
             font.drawStringWithShadow(component.getName(), component.getRenderPosition().getX() + 2, (component.getRenderPosition().getY()
                     + (component.getRenderPosition().getHeight() / 2f) - (font.getStringHeight(component.getName()) / 2f)) + 3f, Color.WHITE.getRGB());
 
             if (component.isState()) {
                 RenderUtil.drawRect(component.getRenderPosition().getX() + component.getRenderPosition().getWidth() - 10,
                         component.getRenderPosition().getY(), component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
-                        component.getRenderPosition().getY() + component.getRenderPosition().getHeight(), 0xFF476C9F);
+                        component.getRenderPosition().getY() + component.getRenderPosition().getHeight(), uziColor.darker().getRGB());
             }
         }
     }
@@ -266,29 +254,32 @@ public class SolsticeTheme extends AbstractTheme {
             if (component.isExtended()) {
                 frameHeight += component.getMaxHeight() + 2;
             }
+            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + frameHeight, 0xFF101010);
+            RenderUtil.drawRect(position.getX() + position.getWidth() - 14, position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), component.isExtended() ? uziColor.getRGB() : 0xFF1F1F1F);
+            titleFont.drawString(component.getName(), position.getX() + 2, position.getY() + 6f, NahrFont.FontType.NORMAL, 0xFF565656, -1);
+        }
+    }
 
-            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + frameHeight, 0xFF34495e);
-            RenderUtil.drawRect(position.getX() + position.getWidth() - 14, position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), component.isExtended() ? 0xFF2ECC71 : 0xFF2C3E50);
-            titleFont.drawString(component.getName(), position.getX() + 4, position.getY() + 6f, NahrFont.FontType.SHADOW_THIN, 0xFFFFFFFF, Color.BLACK.getRGB());
-            if(!component.getName().equalsIgnoreCase("theme")) {
-                float x = position.getX() + position.getWidth() - 28;
-                int width = 11;
-                float y = (position.getY()) + 1.5f;
-                int height = 11;
-                GlStateManager.pushMatrix();
-                Minecraft.getMinecraft().getTextureManager().bindTexture(Category.getIcon(component.getName()));
-                GlStateManager.enableTexture2D();
-                Tessellator tessellator = Tessellator.getInstance();
-                BufferBuilder renderer = tessellator.getBuffer();
-                renderer.begin(GL11.GL_TRIANGLES, DefaultVertexFormats.POSITION_TEX);
-                renderer.pos(x + width, y, 0F).tex(1, 0).endVertex();
-                renderer.pos(x, y, 0F).tex(0, 0).endVertex();
-                renderer.pos(x, y + height, 0F).tex(0, 1).endVertex();
-                renderer.pos(x, y + height, 0F).tex(0, 1).endVertex();
-                renderer.pos(x + width, y + height, 0F).tex(1, 1).endVertex();
-                renderer.pos(x + width, y, 0F).tex(1, 0).endVertex();
-                tessellator.draw();
-                GlStateManager.popMatrix();
+    /**
+     * The component renderer for the console.
+     */
+    private class ConsoleComponentRenderer extends AbstractComponentRenderer<ConsoleComponent> {
+        @Override
+        public void renderComponent(ConsoleComponent component) {
+            Rectangle position = component.getRenderPosition();
+
+            // Input box first ofc :)
+            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + 12, 0xFF000000);
+            String username = Minecraft.getMinecraft().getSession().getUsername();
+            titleFont.drawStringWithShadow("\2477[\2476" + username + "@\247cuzi\2477]\2478:\247f" + component.getText(), position.getX() + 2, position.getY(), 0xFFFFFFFF);
+
+            // History box
+            RenderUtil.drawRect(position.getX(), position.getY() + 12, position.getX() + position.getWidth(), position.getY() + getHeight(), 0xFF000000);
+            int y = position.getY() + 12;
+
+            for (String line : component.getPreviousInput()) {
+                titleFont.drawStringWithShadow(line, position.getX() + 2, y, 0xFFFFFFFF);
+                y += 12;
             }
         }
     }
@@ -297,34 +288,14 @@ public class SolsticeTheme extends AbstractTheme {
      * The component renderer for plugin buttons.
      */
     private class PluginButtonComponentRenderer extends AbstractComponentRenderer<PluginButtonContainerComponent> {
-
         @Override
         public void renderComponent(PluginButtonContainerComponent component) {
             Rectangle position = component.getRenderPosition();
-            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), component.getPlugin().isEnabled() ? 0xFF2ECC71 : 0xFF2C3E50);
-            titleFont.drawString(component.getName(), position.getX() + 2, position.getY() + 7f, NahrFont.FontType.SHADOW_THIN, 0xFFFFFFFF, 0xFF000000);
+            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), component.getPlugin().isEnabled() ? uziColor.getRGB() : 0xFF1F1F1F);
+            titleFont.drawString(component.getName(), position.getX() + 2, position.getY() + 7f, NahrFont.FontType.SHADOW_THIN, 0xFF838383, 0xFF121212);
+
             if (!component.getComponents().isEmpty()) {
-                float x = (position.getX() + position.getWidth() - 14);
-                int width = 14;
-                float y = (position.getY());
-                int height = 14;
-                GlStateManager.pushMatrix();
-                Minecraft.getMinecraft().getTextureManager().bindTexture(settingsIcon);
-                GlStateManager.enableTexture2D();
-                if (component.isExtended()) {
-                    RenderUtil.color(0xFF2ECC71);
-                }
-                Tessellator tessellator = Tessellator.getInstance();
-                BufferBuilder renderer = tessellator.getBuffer();
-                renderer.begin(GL11.GL_TRIANGLES, DefaultVertexFormats.POSITION_TEX);
-                renderer.pos(x + width, y, 0F).tex(1, 0).endVertex();
-                renderer.pos(x, y, 0F).tex(0, 0).endVertex();
-                renderer.pos(x, y + height, 0F).tex(0, 1).endVertex();
-                renderer.pos(x, y + height, 0F).tex(0, 1).endVertex();
-                renderer.pos(x + width, y + height, 0F).tex(1, 1).endVertex();
-                renderer.pos(x + width, y, 0F).tex(1, 0).endVertex();
-                tessellator.draw();
-                GlStateManager.popMatrix();
+                titleFont.drawString("...", position.getX() + position.getWidth() - titleFont.getStringWidth("...") - 2, position.getY() + 7f, NahrFont.FontType.SHADOW_THICK, component.isExtended() ? uziColor.getRGB() : 0xFF838383, 0xFF121212);
             }
         }
     }
@@ -336,9 +307,9 @@ public class SolsticeTheme extends AbstractTheme {
         @Override
         public void renderComponent(PropertyButtonComponent component) {
             Rectangle position = component.getRenderPosition();
-            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), component.getProperty().getValue() ? 0xFF2ECC71 : 0xFF2C3E50);
-            RenderUtil.drawRect(position.getX() + 14, position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight() - 1, 0xFF2C3E50);
-            titleFont.drawString(component.getName(), position.getX() + 16, position.getY() + 7f, NahrFont.FontType.SHADOW_THIN, 0xFFFFFFFF, 0xFF000000);
+            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), component.getProperty().getValue() ? uziColor.getRGB() : 0xFF1F1F1F);
+            RenderUtil.drawRect(position.getX() + 14, position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight() - 1, 0xFF1F1F1F);
+            titleFont.drawString(component.getName(), position.getX() + 16, position.getY() + 7f, NahrFont.FontType.SHADOW_THIN, 0xFF838383, 0xFF121212);
         }
     }
 
@@ -349,11 +320,11 @@ public class SolsticeTheme extends AbstractTheme {
         @Override
         public void renderComponent(EnumPropertySpinnerComponent component) {
             Rectangle position = component.getRenderPosition();
-            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), 0xFF2C3E50);
-            titleFont.drawString(component.getName(), position.getX() + 2, position.getY() + 7f, NahrFont.FontType.SHADOW_THIN, 0xFFFFFFFF, 0xFF000000);
+            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), 0xFF1F1F1F);
+            titleFont.drawString(component.getName(), position.getX() + 2, position.getY() + 7f, NahrFont.FontType.SHADOW_THIN, 0xFF565656, 0xFF131313);
             titleFont.drawString(component.getProperty().getFixedValue(),
                     position.getX() + position.getWidth() - titleFont.getStringWidth(component.getProperty().getFixedValue()) - 2,
-                    position.getY() + 7f, NahrFont.FontType.SHADOW_THIN, 0xFFFFFFFF, 0xFF000000);
+                    position.getY() + 7f, NahrFont.FontType.SHADOW_THIN, 0xFF565656, 0xFF131313);
         }
     }
 
@@ -364,13 +335,13 @@ public class SolsticeTheme extends AbstractTheme {
         @Override
         public void renderComponent(NumberPropertySliderComponent component) {
             Rectangle position = component.getRenderPosition();
-            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), 0xFF2C3E50);
-            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + component.getLength(), position.getY() + position.getHeight(), 0xFF2ECC71);
-            RenderUtil.drawRect(position.getX() + component.getLength() - 2, position.getY(), position.getX() + component.getLength(), position.getY() + position.getHeight(), color.darker().getRGB());
-            titleFont.drawString(component.getName(), position.getX() + 2, position.getY() + 7f, NahrFont.FontType.SHADOW_THIN, 0xFFFFFFFF, 0xFF000000);
+            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), 0xFF1F1F1F);
+            RenderUtil.drawRect(position.getX(), position.getY(), position.getX() + component.getLength(), position.getY() + position.getHeight(), uziColor.getRGB());
+            RenderUtil.drawRect(position.getX() + component.getLength() - 2, position.getY(), position.getX() + component.getLength(), position.getY() + position.getHeight(), uziColor.darker().getRGB());
+            titleFont.drawString(component.getName(), position.getX() + 2, position.getY() + 7f, NahrFont.FontType.SHADOW_THIN, 0xFF838383, 0xFF121212);
             titleFont.drawString(component.getProperty().getValue().toString(),
                     position.getX() + position.getWidth() - titleFont.getStringWidth(component.getProperty().getValue().toString()) - 2,
-                    position.getY() + 7f, NahrFont.FontType.SHADOW_THIN, 0xFFFFFFFF, 0xFF000000);
+                    position.getY() + 7f, NahrFont.FontType.SHADOW_THIN, 0xFF838383, 0xFF121212);
         }
     }
 }

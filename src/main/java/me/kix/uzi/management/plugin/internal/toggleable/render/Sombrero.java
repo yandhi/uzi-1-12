@@ -38,7 +38,7 @@ public class Sombrero extends ToggleablePlugin {
 
         GlStateManager.pushMatrix();
         RenderUtil.enable3D();
-        float yaw = mc.player.prevRotationYawHead + (mc.player.rotationYawHead - mc.player.prevRotationYawHead) * hand.getPartialTicks();
+        float yaw = mc.player.prevRotationYaw + (mc.player.rotationYaw - mc.player.prevRotationYaw) * hand.getPartialTicks();
         GlStateManager.rotate(-yaw, 0, 1, 0);
         GlStateManager.rotate(90, 1, 0, 0);
         GlStateManager.translate(0, 0, -mc.player.eyeHeight + .2);

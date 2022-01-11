@@ -1,4 +1,4 @@
-package me.kix.uzi.management.click.themes;
+package me.kix.uzi.management.ui.themes;
 
 import me.kix.sodapop.components.frame.FrameContainerComponent;
 import me.kix.sodapop.theme.AbstractTheme;
@@ -8,10 +8,10 @@ import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.util.render.RainbowUtil;
 import me.kix.uzi.api.util.render.RenderUtil;
 import me.kix.uzi.api.util.render.font.NahrFont;
-import me.kix.uzi.management.click.component.buttons.PluginButtonContainerComponent;
-import me.kix.uzi.management.click.component.buttons.PropertyButtonComponent;
-import me.kix.uzi.management.click.component.sliders.NumberPropertySliderComponent;
-import me.kix.uzi.management.click.component.spinners.EnumPropertySpinnerComponent;
+import me.kix.uzi.management.ui.click.component.buttons.PluginButtonContainerComponent;
+import me.kix.uzi.management.ui.click.component.buttons.PropertyButtonComponent;
+import me.kix.uzi.management.ui.click.component.sliders.NumberPropertySliderComponent;
+import me.kix.uzi.management.ui.click.component.spinners.EnumPropertySpinnerComponent;
 import me.kix.uzi.management.plugin.internal.toggleable.render.ui.components.CoordinatesBlockComponent;
 import me.kix.uzi.management.plugin.internal.toggleable.render.ui.components.ToggleablesBlockComponent;
 import me.kix.uzi.management.plugin.internal.toggleable.render.ui.components.WatermarkComponent;
@@ -171,7 +171,7 @@ public class ModernesqueTheme extends AbstractTheme {
             RenderUtil.drawRect(component.getRenderPosition().getX(), component.getRenderPosition().getY(),
                     component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
                     component.getRenderPosition().getY() + component.getRenderPosition().getHeight(),
-                    (component.isHovered() ? 0xFF40B56F : Color.BLACK.getRGB()));
+                    (component.isHovered() ? RainbowUtil.INSTANCE.getColor().darker().darker().getRGB() : Color.BLACK.getRGB()));
             componentFont.drawStringWithShadow(component.getRaw(), component.getRenderPosition().getX() + 2, (component.getRenderPosition().getY()
                     + (component.getRenderPosition().getHeight() / 2f) - (componentFont.getStringHeight(component.getName()) / 2f)) + 3f, 0xFFFFFFFF);
         }

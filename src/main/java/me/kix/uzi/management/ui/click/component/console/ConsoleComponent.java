@@ -1,4 +1,4 @@
-package me.kix.uzi.management.click.component.console;
+package me.kix.uzi.management.ui.click.component.console;
 
 import me.kix.sodapop.AbstractComponent;
 import me.kix.sodapop.manage.GuiManager;
@@ -7,7 +7,6 @@ import me.kix.sodapop.util.MouseUtil;
 import me.kix.sodapop.util.Rectangle;
 import me.kix.uzi.Uzi;
 import me.kix.uzi.api.command.Command;
-import me.kix.uzi.api.util.logging.Logger;
 import net.minecraft.util.ChatAllowedCharacters;
 import org.lwjgl.input.Keyboard;
 

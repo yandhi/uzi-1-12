@@ -1,4 +1,4 @@
-package me.kix.uzi.management.click.component.sliders;
+package me.kix.uzi.management.ui.click.component.sliders;
 
 import me.kix.uzi.api.property.properties.NumberProperty;
 import me.kix.sodapop.components.slider.SliderComponent;

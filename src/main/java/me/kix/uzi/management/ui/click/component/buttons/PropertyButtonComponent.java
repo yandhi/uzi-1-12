@@ -1,4 +1,4 @@
-package me.kix.uzi.management.click.component.buttons;
+package me.kix.uzi.management.ui.click.component.buttons;
 
 import me.kix.uzi.api.property.Property;
 import me.kix.sodapop.components.button.buttons.ButtonComponent;

@@ -6,7 +6,7 @@ import me.kix.uzi.api.keybind.Keybind;
 import me.kix.uzi.api.plugin.*;
 import me.kix.uzi.api.event.events.input.key.EventKeyPressed;
 import me.kix.uzi.api.plugin.service.Service;
-import me.kix.uzi.management.click.GuiClick;
+import me.kix.uzi.management.ui.click.GuiClick;
 import org.lwjgl.input.Keyboard;
 
 public class Keybinds extends Service {

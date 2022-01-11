@@ -1,4 +1,4 @@
-package me.kix.uzi.management.click.component.spinners;
+package me.kix.uzi.management.ui.click.component.spinners;
 
 import me.kix.uzi.api.property.properties.EnumProperty;
 import me.kix.sodapop.components.spinner.SpinnerComponent;

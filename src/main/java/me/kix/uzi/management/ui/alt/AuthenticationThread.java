@@ -1,9 +1,11 @@
 package me.kix.uzi.management.ui.alt;
 
 import com.mojang.authlib.Agent;
+import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.exceptions.AuthenticationException;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import com.mojang.authlib.yggdrasil.YggdrasilUserAuthentication;
+import me.kix.uzi.api.util.render.SkinUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Session;
 
@@ -27,6 +29,8 @@ public class AuthenticationThread implements Runnable {
         auth.setPassword(password);
         try {
             auth.logIn();
+            alt.setUsername(auth.getSelectedProfile().getName());
+            alt.setUuid(auth.getSelectedProfile().getId());
             return new Session(auth.getSelectedProfile().getName(), auth.getSelectedProfile().getId().toString(), auth.getAuthenticatedToken(), "mojang");
         } catch (AuthenticationException e) {
             status = "\247cLogin failed.";
@@ -50,7 +54,7 @@ public class AuthenticationThread implements Runnable {
         session.setAccessible(true);
 
         if (alt.getPassword().equals("")) {
-            Session newSession = new Session(alt.getUsername(), "", "", "mojang");
+            Session newSession = new Session(alt.getEmail(), "", "", "mojang");
             try {
                 session.set(mc, newSession);
                 status = "\247aLogged in as\247r " + newSession.getUsername();
@@ -58,7 +62,7 @@ public class AuthenticationThread implements Runnable {
                 e.printStackTrace();
             }
         } else {
-            Session newSession = createSession(alt.getUsername(), alt.getPassword());
+            Session newSession = createSession(alt.getEmail(), alt.getPassword());
             if (newSession != null) {
                 try {
                     session.set(mc, newSession);

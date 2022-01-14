@@ -1,6 +1,7 @@
 package me.kix.uzi.management.ui.alt.screen;
 
 import me.kix.uzi.Uzi;
+import me.kix.uzi.api.util.render.RenderUtil;
 import me.kix.uzi.management.ui.alt.Alt;
 import me.kix.uzi.management.ui.alt.AuthenticationThread;
 import me.kix.uzi.management.ui.alt.component.AltSlot;
@@ -74,7 +75,7 @@ public class GuiAltManager extends GuiScreen {
                 mc.displayGuiScreen(guiCreateAlt);
             }
             if (button.id == 2) {
-                Uzi.INSTANCE.getAltManager().remove(alts.getAlt().getUsername());
+                Uzi.INSTANCE.getAltManager().remove(alts.getAlt().getEmail());
             }
             if (button.id == 3) {
                 login(alts.getAlt(random.nextInt(alts.size())));
@@ -83,10 +84,25 @@ public class GuiAltManager extends GuiScreen {
     }
 
     @Override
+    public void drawDefaultBackground() {
+        RenderUtil.drawRect(0, 0, width, height, 0xFF000000);
+    }
+
+    @Override
+    public void drawBackground(int tint) {
+        RenderUtil.drawRect(0, 0, width, height, 0xFF000000);
+    }
+
+    @Override
+    public void drawWorldBackground(int tint) {
+        RenderUtil.drawRect(0, 0, width, height, 0xFF000000);
+    }
+
+    @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        RenderUtil.drawRect(0, 0, width, height, 0xFF000000);
         alts.drawScreen(mouseX, mouseY, partialTicks);
         super.drawScreen(mouseX, mouseY, partialTicks);
-
         drawCenteredString(mc.fontRenderer, "\247a" + mc.getSession().getUsername(), width / 2, 5, 0xFFFFFFFF);
     }
 

@@ -26,6 +26,11 @@ public class EventManager {
      * @param object The object to be registered as a listener.
      */
     public void register(Object object) {
+        if (object == null) {
+            System.out.println("Provided object is equal to null");
+            return;
+        }
+
         Arrays.stream(object.getClass().getDeclaredMethods())
                 .filter(m -> m.isAnnotationPresent(Register.class))
                 .forEach(m -> {

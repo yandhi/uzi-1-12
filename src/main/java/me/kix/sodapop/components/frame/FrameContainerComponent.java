@@ -111,17 +111,25 @@ public class FrameContainerComponent extends ContainerComponent {
         if (canScroll) {
             if (Mouse.hasWheel()) {
                 if (Mouse.getEventDWheel() > 0) {
-                    if (scrollY < (getGuiManager().getTheme().getVerticalPadding() * 2) - getGuiManager().getTheme().getVerticalPadding() / 2) {
-                        scrollY = (getGuiManager().getTheme().getVerticalPadding() * 2) - getGuiManager().getTheme().getVerticalPadding() / 2;
+                    if (scrollY < 0) {
+                        scrollY = 0;
+                        return;
                     }
-                    scrollY -= 4;
+                    if (scrollY > 0) {
+                        scrollY -= 2;
+                    }
                 }
 
                 if (Mouse.getEventDWheel() < 0) {
-                    if (scrollY > (getFunctionalPosition().getHeight() - getRenderPosition().getHeight()) - (6 * (getGuiManager().getTheme().getComponentHeight() + getGuiManager().getTheme().getVerticalPadding())) - (getGuiManager().getTheme().getVerticalPadding() * 2) + getGuiManager().getTheme().getVerticalPadding() / 2) {
-                        scrollY = (getFunctionalPosition().getHeight() - getRenderPosition().getHeight()) - (6 * (getGuiManager().getTheme().getComponentHeight() + getGuiManager().getTheme().getVerticalPadding())) - (getGuiManager().getTheme().getVerticalPadding() * 2) + getGuiManager().getTheme().getVerticalPadding() / 2;
+                    int bottom = (getFunctionalPosition().getHeight() - 7 * (getGuiManager().getTheme().getComponentHeight() + getGuiManager().getTheme().getVerticalPadding()));
+                    if (scrollY > bottom) {
+                        scrollY = bottom;
+                        return;
                     }
-                    scrollY += 4;
+
+                    if (scrollY < bottom - 2) {
+                        scrollY += 2;
+                    }
                 }
             }
         }

@@ -166,16 +166,6 @@ public class PluginManager extends ListManager<Plugin> {
 
         getContents().forEach(Plugin::initPlugin);
         load();
-
-        StringBuilder enabledPlugins = new StringBuilder();
-
-        getContents().stream()
-                .filter(ToggleablePlugin.class::isInstance)
-                .map(ToggleablePlugin.class::cast)
-                .filter(ToggleablePlugin::isEnabled)
-                .forEach(tPlugin -> enabledPlugins.append(tPlugin.getLabel()).append(", "));
-
-        Logger.getGlobal().info(enabledPlugins.toString());
     }
 
     public Optional<Plugin> getPlugin(String label) {

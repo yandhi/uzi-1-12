@@ -18,7 +18,9 @@ import me.kix.uzi.management.ui.click.component.buttons.PropertyButtonComponent;
 import me.kix.uzi.management.ui.click.component.sliders.NumberPropertySliderComponent;
 import me.kix.uzi.management.ui.click.component.spinners.EnumPropertySpinnerComponent;
 import me.kix.uzi.management.ui.themes.*;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.ScaledResolution;
 import org.apache.commons.lang3.text.WordUtils;
 
 import java.io.IOException;
@@ -58,8 +60,10 @@ public final class GuiClick extends GuiScreen implements GuiManager {
     @SuppressWarnings("unchecked")
     private void initUI() {
         int frameX = guiClickTheme.getValue().theme.getHorizontalPadding();
+        int frameY = 2;
+        ScaledResolution scaledResolution = new ScaledResolution(Minecraft.getMinecraft());
         for (Category category : Category.values()) {
-            FrameContainerComponent frame = new FrameContainerComponent(WordUtils.capitalizeFully(category.name()), this, new Rectangle(frameX, 2, guiClickTheme.getValue().theme.getWidth(), guiClickTheme.getValue().theme.getHeight()), new BasicLayoutStrategy());
+            FrameContainerComponent frame = new FrameContainerComponent(WordUtils.capitalizeFully(category.name()), this, new Rectangle(frameX, frameY, guiClickTheme.getValue().theme.getWidth(), guiClickTheme.getValue().theme.getHeight()), new BasicLayoutStrategy());
 
             int pluginY = frame.getRenderPosition().getY() + guiClickTheme.getValue().theme.getVerticalPadding();
             for (Plugin plugin : Uzi.INSTANCE.getPluginManager().getContents()) {
@@ -95,9 +99,15 @@ public final class GuiClick extends GuiScreen implements GuiManager {
 
             frames.add(frame);
             frameX += guiClickTheme.getValue().theme.getWidth() + guiClickTheme.getValue().theme.getHorizontalPadding();
+
+            /* reset the x and bump it down a group for smaller displays. */
+            if (frameX > scaledResolution.getScaledWidth()) {
+                frameX = 2;
+                frameY += 202;
+            }
         }
 
-        FrameContainerComponent themeFrame = new FrameContainerComponent("Theme", this, new Rectangle(frameX, 2, guiClickTheme.getValue().theme.getWidth(), guiClickTheme.getValue().theme.getHeight()), new BasicLayoutStrategy());
+        FrameContainerComponent themeFrame = new FrameContainerComponent("Theme", this, new Rectangle(frameX, frameY, guiClickTheme.getValue().theme.getWidth(), guiClickTheme.getValue().theme.getHeight()), new BasicLayoutStrategy());
         themeFrame.getComponents().add(new EnumPropertySpinnerComponent("Theme", this,
                 new Rectangle(themeFrame.getRenderPosition().getX() + guiClickTheme.getValue().theme.getHorizontalPadding(), themeFrame.getRenderPosition().getY() + 2,
                         guiClickTheme.getValue().theme.getWidth() - (guiClickTheme.getValue().theme.getHorizontalPadding() * 2), guiClickTheme.getValue().theme.getComponentHeight()), guiClickTheme));
@@ -151,9 +161,10 @@ public final class GuiClick extends GuiScreen implements GuiManager {
      */
     private enum GuiClickTheme {
         UZI(new UziTheme()),
+        MATERIALGWORL(new MaterialGirlTheme()),
+        MODERNESQUE(new ModernesqueTheme()),
         NOIL(new NoilTheme()),
         SYNC(new SyncTheme()),
-        MODERNESQUE(new ModernesqueTheme()),
         SOLSTICE(new SolsticeTheme());
 
         /**

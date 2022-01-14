@@ -18,10 +18,32 @@ import java.awt.*;
 
 public class RenderUtil implements MinecraftAccessor {
 
+    private static final double TWICE_PI = Math.PI * 2;
     private static final Frustum viewFrustum = new Frustum();
 
     public static boolean isInViewFrustrum(Entity entity) {
         return isInViewFrustrum(entity.getEntityBoundingBox()) || entity.ignoreFrustumCheck;
+    }
+
+
+    public static void drawRegularPolygon(double x, double y, int radius, int sides) {
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder bufferBuilder = tessellator.getBuffer();
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+        bufferBuilder.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION);
+        bufferBuilder.pos(x, y, 0).endVertex();
+
+        for (int i = 0; i <= sides; i++) {
+            double angle = (TWICE_PI * i / sides) + Math.toRadians(180);
+            bufferBuilder.pos(x + Math.sin(angle) * radius, y + Math.cos(angle) * radius, 0).endVertex();
+        }
+        tessellator.draw();
+
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glDisable(GL11.GL_BLEND);
     }
 
     /**

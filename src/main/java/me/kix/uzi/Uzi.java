@@ -9,6 +9,10 @@ import me.kix.uzi.management.plugin.manage.PluginManager;
 import me.kix.uzi.management.ui.alt.manage.AltManager;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * This is the 1.12.2 version of Uzi.
@@ -62,21 +66,29 @@ public enum Uzi implements Client {
     /**
      * The directory of the client.
      */
-    private File directory;
+    private Path directory;
 
     @Override
     public void init() {
-        directory = new File(System.getProperty("user.home"), "Uzi");
-        friendManager = new FriendManager(directory);
-        keybindManager = new KeybindManager(directory);
-        pluginManager = new PluginManager(new File(directory, "Plugins"));
-        altManager = new AltManager(directory);
-        altManager.init();
-        friendManager.init();
-        pluginManager.init();
-        keybindManager.init();
-        commandManager.init();
+        try {
+            directory = Paths.get("Uzi");
+            if(!Files.exists(directory)) {
+                Files.createDirectory(directory);
+            }
+            friendManager = new FriendManager(directory);
+            keybindManager = new KeybindManager(directory);
+            pluginManager = new PluginManager(Paths.get(directory.toString(), "Plugins"));
+            altManager = new AltManager(directory);
+            altManager.init();
+            friendManager.init();
+            pluginManager.init();
+            keybindManager.init();
+            commandManager.init();
 
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Runtime.getRuntime().addShutdownHook(new Thread("Uzi shutdown thread") {
             @Override
             public void run() {
@@ -87,9 +99,6 @@ public enum Uzi implements Client {
 
     @Override
     public void shutdown() {
-        if (!this.directory.exists()) {
-            this.directory.mkdirs();
-        }
         friendManager.save();
         pluginManager.save();
         altManager.save();

@@ -1,10 +1,15 @@
 package me.kix.uzi.api.friend.manager;
 
 import com.google.gson.*;
+import com.google.gson.stream.JsonReader;
 import me.kix.uzi.api.friend.Friend;
 import me.kix.uzi.api.manager.ListManager;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -29,10 +34,10 @@ public class FriendManager extends ListManager<Friend> {
     /**
      * The file where friends are loaded / saved.
      */
-    private File friendFile;
+    private Path friendFile;
 
-    public FriendManager(File directory) {
-        friendFile = new File(directory.toString() + File.separator + "friends.json");
+    public FriendManager(Path directory) {
+        friendFile = Paths.get(directory.toString() + File.separator + "friends.json").toAbsolutePath();
     }
 
     /**
@@ -40,8 +45,8 @@ public class FriendManager extends ListManager<Friend> {
      */
     public void init() {
         try {
-            if (!friendFile.exists()) {
-                friendFile.createNewFile();
+            if (!Files.exists(friendFile)) {
+                Files.createFile(friendFile);
                 save();
                 return;
             }
@@ -56,13 +61,11 @@ public class FriendManager extends ListManager<Friend> {
      */
     public void save() {
         try {
-            final PrintWriter writer = new PrintWriter(friendFile);
             final JsonObject object = new JsonObject();
             getContents().forEach(friend -> object.add(friend.getLabel(), new JsonPrimitive(friend.getAlias())));
-            writer.print(GSON.toJson(object));
-            writer.close();
-        } catch (FileNotFoundException ignored) {
-
+            Files.write(friendFile, GSON.toJson(object).getBytes(StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -71,11 +74,11 @@ public class FriendManager extends ListManager<Friend> {
      */
     public void load() {
         try {
-            final JsonObject object = new JsonParser().parse(new FileReader(friendFile)).getAsJsonObject();
+            final JsonObject object = JsonParser.parseReader(new JsonReader(Files.newBufferedReader(friendFile))).getAsJsonObject();
             final Set<Map.Entry<String, JsonElement>> elements = object.entrySet();
             elements.forEach(entry -> getContents().add(new Friend(entry.getKey(), entry.getValue().getAsString())));
-        } catch (FileNotFoundException ignored) {
-
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

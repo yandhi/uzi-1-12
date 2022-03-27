@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 import me.kix.uzi.Uzi;
 import me.kix.uzi.api.manager.ListManager;
 import me.kix.uzi.api.plugin.AbstractPlugin;
@@ -24,14 +25,19 @@ import me.kix.uzi.management.plugin.internal.toggleable.server.*;
 import me.kix.uzi.management.plugin.internal.toggleable.world.*;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 public class PluginManager extends ListManager<Plugin> {
 
-    private File directory;
+    private Path directory;
 
-    public PluginManager(File directory) {
+    public PluginManager(Path directory) {
         this.directory = directory;
     }
 
@@ -176,51 +182,54 @@ public class PluginManager extends ListManager<Plugin> {
     }
 
     public void save() {
-        if (this.getContents().isEmpty()) {
-            this.directory.delete();
-        }
-        File[] files = this.directory.listFiles();
-        if (!this.directory.exists()) {
-            this.directory.mkdir();
-        } else if (files != null) {
-            for (final File file : files) {
-                file.delete();
+        try {
+            if (this.getContents().isEmpty()) {
+                Files.delete(directory);
             }
-        }
-        this.getContents().forEach(module -> {
-            final File file = new File(this.directory, module.getLabel() + ".json");
-            final JsonObject node = new JsonObject();
-            module.save(node);
-            if (node.entrySet().isEmpty()) {
-                return;
+            Stream<Path> files = Files.list(directory);
+            if (!Files.exists(directory)) {
+                System.out.println("test");
+                Files.createDirectory(directory);
+            } else if (files != null) {
+                files.forEach(file -> {
+                    try {
+                        Files.delete(file);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
             }
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return;
+            this.getContents().forEach(module -> {
+                final Path file = Paths.get(this.directory.toString(), module.getLabel() + ".json").toAbsolutePath();
+                final JsonObject node = new JsonObject();
+                module.save(node);
+                if (node.entrySet().isEmpty()) {
+                    return;
+                }
+                try {
+                    Files.createFile(file);
+                    Files.write(file, new GsonBuilder().setPrettyPrinting().create().toJson(node).getBytes(StandardCharsets.UTF_8));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            files = Files.list(directory);
+            if (files == null || !files.findAny().isPresent()) {
+                Files.delete(directory);
             }
-            try (final Writer writer = new FileWriter(file)) {
-                writer.write(new GsonBuilder().setPrettyPrinting().create().toJson((JsonElement) node));
-            } catch (IOException e) {
-                e.printStackTrace();
-                file.delete();
-            }
-        });
-        files = this.directory.listFiles();
-        if (files == null || files.length == 0) {
-            this.directory.delete();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     public void load() {
         this.getContents().forEach(module -> {
-            final File file = new File(this.directory, module.getLabel() + ".json");
-            if (!file.exists()) {
+            final Path file = Paths.get(this.directory.toString(), module.getLabel() + ".json").toAbsolutePath();
+            if (!Files.exists(file)) {
                 return;
             }
-            try (final Reader reader = new FileReader(file)) {
-                final JsonElement node = new JsonParser().parse(reader);
+            try {
+                final JsonElement node = JsonParser.parseReader(new JsonReader(Files.newBufferedReader(file)));
                 if (!node.isJsonObject()) {
                     return;
                 }

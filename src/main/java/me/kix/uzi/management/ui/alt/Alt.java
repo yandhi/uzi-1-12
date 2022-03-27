@@ -64,4 +64,5 @@ public class Alt {
     public String getPassword() {
         return password;
     }
+
 }

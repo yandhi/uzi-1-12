@@ -1,6 +1,7 @@
 package me.kix.uzi.api.keybind.manage;
 
 import com.google.gson.*;
+import com.google.gson.stream.JsonReader;
 import me.kix.uzi.Uzi;
 import me.kix.uzi.api.keybind.Keybind;
 import me.kix.uzi.api.keybind.task.KeybindTaskStrategy;
@@ -11,6 +12,10 @@ import me.kix.uzi.api.plugin.Plugin;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -25,10 +30,10 @@ public class KeybindManager extends ListManager<Keybind> {
     /**
      * The file we are modifying on startup and shutdown.
      */
-    private File bindsFile;
+    private final Path bindsFile;
 
-    public KeybindManager(File directory) {
-        this.bindsFile = new File(directory.toString() + File.separator + "keybinds.json");
+    public KeybindManager(Path directory) {
+        this.bindsFile = Paths.get(directory.toString() + File.separator + "keybinds.json").toAbsolutePath();
     }
 
     /**
@@ -36,8 +41,8 @@ public class KeybindManager extends ListManager<Keybind> {
      */
     public void init() {
         try {
-            if (!bindsFile.exists()) {
-                bindsFile.createNewFile();
+            if (!Files.exists(bindsFile)) {
+                Files.createFile(bindsFile);
                 save();
                 return;
             }
@@ -52,7 +57,7 @@ public class KeybindManager extends ListManager<Keybind> {
      */
     public void load() {
         try {
-            final JsonObject object = new JsonParser().parse(new FileReader(bindsFile)).getAsJsonObject();
+            final JsonObject object = JsonParser.parseReader(new JsonReader(Files.newBufferedReader(bindsFile))).getAsJsonObject();
             final Set<Map.Entry<String, JsonElement>> elements = object.entrySet();
             elements.forEach(element -> {
                 JsonObject jsonObject = element.getValue().getAsJsonObject();
@@ -77,7 +82,7 @@ public class KeybindManager extends ListManager<Keybind> {
                     getContents().add(new Keybind(element.getKey(), key, taskStrategy));
                 }
             });
-        } catch (FileNotFoundException ignored) {
+        } catch (IOException e) {
         }
     }
 
@@ -86,7 +91,6 @@ public class KeybindManager extends ListManager<Keybind> {
      */
     public void save() {
         try {
-            final PrintWriter writer = new PrintWriter(bindsFile);
             final JsonObject object = new JsonObject();
 
             getContents().forEach(keybind -> {
@@ -107,10 +111,9 @@ public class KeybindManager extends ListManager<Keybind> {
 
                 object.add(keybind.getLabel(), keybindObject);
             });
-
-            writer.print(GSON.toJson(object));
-            writer.close();
-        } catch (FileNotFoundException ignored) {
+            Files.write(bindsFile, GSON.toJson(object).getBytes(StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

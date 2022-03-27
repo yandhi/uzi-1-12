@@ -1,26 +1,31 @@
 package me.kix.uzi.management.ui.alt.manage;
 
 import com.google.gson.*;
+import com.google.gson.stream.JsonReader;
 import me.kix.uzi.api.manager.ListManager;
 import me.kix.uzi.management.ui.alt.Alt;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Set;
 
 public class AltManager extends ListManager<Alt> {
 
     private final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    private File altsFile;
+    private Path altsFile;
 
-    public AltManager(File directory) {
-        altsFile = new File(directory.toString() + File.separator + "alts.json");
+    public AltManager(Path directory) {
+        altsFile = Paths.get(directory.toString() + File.separator + "alts.json");
     }
 
     public void init() {
         try {
-            if (!altsFile.exists()) {
-                altsFile.createNewFile();
+            if (!Files.exists(altsFile)) {
+                Files.createFile(altsFile);
                 save();
                 return;
             }
@@ -32,7 +37,6 @@ public class AltManager extends ListManager<Alt> {
 
     public void save() {
         try {
-            final PrintWriter writer = new PrintWriter(altsFile);
             final JsonObject object = new JsonObject();
             getContents().forEach(alt -> {
                 JsonObject altObject = new JsonObject();
@@ -41,22 +45,22 @@ public class AltManager extends ListManager<Alt> {
 
                 object.add(alt.getEmail(), altObject);
             });
-            writer.print(GSON.toJson(object));
-            writer.close();
-        } catch (FileNotFoundException ignored) {
-
+            Files.write(altsFile, GSON.toJson(object).getBytes(StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     public void load() {
         try {
-            final JsonObject object = new JsonParser().parse(new FileReader(altsFile)).getAsJsonObject();
+            final JsonObject object = JsonParser.parseReader(new JsonReader(Files.newBufferedReader(altsFile))).getAsJsonObject();
             final Set<Map.Entry<String, JsonElement>> elements = object.entrySet();
             elements.forEach(entry -> {
                 JsonObject alt = entry.getValue().getAsJsonObject();
                 getContents().add(new Alt(alt.get("username").getAsString(), entry.getKey(), alt.get("password").getAsString()));
             });
-        } catch (FileNotFoundException ignored) {
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

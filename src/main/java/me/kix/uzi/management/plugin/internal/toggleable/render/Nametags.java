@@ -20,6 +20,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +73,9 @@ public class Nametags extends ToggleablePlugin {
                     if (event.getEntity() instanceof EntityPlayer && items.getValue()) {
                         GlStateManager.pushMatrix();
                         EntityPlayer player = (EntityPlayer) event.getEntity();
+                        if (player.getGameProfile().getId() != player.getUniqueID()) {
+                            return;
+                        }
                         drawArmor(player, Math.round(event.getBox().x + ((event.getBox().w - event.getBox().x) / 2)), Math.round(event.getBox().y) - 30);
                         GlStateManager.enableDepth();
                         GlStateManager.depthMask(true);
@@ -78,6 +83,7 @@ public class Nametags extends ToggleablePlugin {
                     }
 
                     if (event.getEntity() instanceof EntityLivingBase) {
+                        if (name.isEmpty() || name.trim().isEmpty() || StringUtils.isNullOrEmpty(name)) return;
                         EntityLivingBase entityLivingBase = (EntityLivingBase) event.getEntity();
                         String tag = String.format("%s %s", name, getHealthColor(entityLivingBase) + Math.round(entityLivingBase.getHealth() / 2));
                         RenderUtil.drawRect(event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) - (mc.fontRenderer.getStringWidth(tag) / 2f) - 1.5f, event.getBox().y - 11,

@@ -34,4 +34,8 @@ public class ToggleablePluginButtonTabComponent extends ButtonTabComponent {
     protected void executeAction() {
         plugin.toggle();
     }
+
+    public ToggleablePlugin getPlugin() {
+        return plugin;
+    }
 }

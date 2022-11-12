@@ -1,16 +1,22 @@
 package me.kix.uzi.management.ui.alt.screen;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.mojang.util.UUIDTypeAdapter;
 import me.kix.uzi.Uzi;
+import me.kix.uzi.api.connection.Request;
+import me.kix.uzi.api.game.accessors.client.Game;
 import me.kix.uzi.api.util.render.RenderUtil;
 import me.kix.uzi.management.ui.alt.Alt;
 import me.kix.uzi.management.ui.alt.AuthenticationThread;
 import me.kix.uzi.management.ui.alt.component.AltSlot;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-
+import net.minecraft.util.Session;
+import org.apache.commons.lang3.tuple.Pair;
 import java.io.IOException;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * The UI for management of Alts.
@@ -44,6 +50,8 @@ public class GuiAltManager extends GuiScreen {
      * Allows us to choose random alts.
      */
     private final Random random = new Random();
+
+    private final Gson gson = new Gson();
 
     public GuiAltManager(GuiScreen parentScreen) {
         this.parentScreen = parentScreen;
@@ -111,6 +119,7 @@ public class GuiAltManager extends GuiScreen {
         super.handleMouseInput();
         alts.handleMouseInput();
     }
+
 
     /**
      * Logs into the selected alt.

@@ -71,13 +71,13 @@ public enum Uzi implements Client {
     @Override
     public void init() {
         try {
-            directory = Paths.get("Uzi");
+            directory = Paths.get(System.getProperty("user.home"), "Uzi");
             if(!Files.exists(directory)) {
                 Files.createDirectory(directory);
             }
             friendManager = new FriendManager(directory);
             keybindManager = new KeybindManager(directory);
-            pluginManager = new PluginManager(Paths.get(directory.toString(), "Plugins"));
+            pluginManager = new PluginManager(Paths.get(directory.toString(), "Plugins").toAbsolutePath());
             altManager = new AltManager(directory);
             altManager.init();
             friendManager.init();
@@ -112,7 +112,7 @@ public enum Uzi implements Client {
 
     @Override
     public String getVersion() {
-        return "2.0.2";
+        return "2.0.3";
     }
 
     @Override
@@ -142,5 +142,9 @@ public enum Uzi implements Client {
 
     public AltManager getAltManager() {
         return altManager;
+    }
+
+    public Path getDirectory() {
+        return directory;
     }
 }

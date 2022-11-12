@@ -18,7 +18,6 @@ public class UziCoreMod implements IFMLLoadingPlugin {
 
     public UziCoreMod() {
         MixinBootstrap.init();
-
         Mixins.addConfiguration("mixins.uzi.json");
     }
 

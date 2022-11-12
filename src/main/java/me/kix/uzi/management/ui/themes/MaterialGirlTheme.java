@@ -145,27 +145,50 @@ public class MaterialGirlTheme extends AbstractTheme {
     private class FolderTabComponentRenderer extends AbstractComponentRenderer<FolderTabComponent> {
         @Override
         public void renderComponent(FolderTabComponent component) {
-            RenderUtil.drawRect(component.getRenderPosition().getX(), component.getRenderPosition().getY(),
-                    component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
-                    component.getRenderPosition().getY() + component.getRenderPosition().getHeight(),
-                    (component.isHovered() ? (component.isOpen() ? accent.darker().getRGB() : accent.getRGB()) : Color.BLACK.getRGB()));
+
+            Rectangle position = component.getRenderPosition();
+
+            GL11.glPushMatrix();
+            RenderUtil.verticalGradientRectangle(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), 0xFF1D1D1D, 0xFF000000);
+            RenderUtil.verticalGradientRectangle(position.getX() + 1, position.getY() + 1, position.getX() + position.getWidth() - 1, position.getY() + position.getHeight() - 1, 0xFF292929, 0xFF1D1D1D);
+            GL11.glColor4f(1f, 1f, 1f, 1f);
+            GL11.glPopMatrix();
+
+            if(component.isHovered()) {
+                GL11.glPushMatrix();
+                RenderUtil.border(position.getX() + 1, position.getY() + 1, position.getX() + position.getWidth() - 1, position.getY() + position.getHeight() - 1, 2f, Color.BLACK.getRGB());
+                RenderUtil.verticalGradientRectangle(position.getX() + 1, position.getY() + 1, position.getX() + position.getWidth() - 1, position.getY() + position.getHeight() - 1, accent.darker().darker().getRGB(), accent.darker().darker().darker().getRGB());
+                GL11.glColor4f(1f, 1f, 1f, 1f);
+                GL11.glPopMatrix();
+            }
             font.drawStringWithShadow(component.getName(), component.getRenderPosition().getX() + 2.5f, (component.getRenderPosition().getY()
-                    + (component.getRenderPosition().getHeight() / 2f) - (font.getStringHeight(component.getName()) / 2f)) + 3f, Color.WHITE.getRGB());
+                    + (component.getRenderPosition().getHeight() / 2f) - (font.getStringHeight(component.getName()) / 2f)) + 4f, component.isHovered() ? Color.WHITE.getRGB() : Color.GRAY.getRGB());
+            GL11.glEnable(GL11.GL_BLEND);
         }
     }
 
     private class ToggleablePluginFolderTabComponentRenderer extends AbstractComponentRenderer<ToggleablePluginFolderTabComponent> {
         @Override
         public void renderComponent(ToggleablePluginFolderTabComponent component) {
-            RenderUtil.drawRect(component.getRenderPosition().getX(), component.getRenderPosition().getY(),
-                    component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
-                    component.getRenderPosition().getY() + component.getRenderPosition().getHeight(),
-                    (component.isHovered() ? (component.isOpen() ? accent.darker().getRGB() : accent.getRGB()) : Color.BLACK.getRGB()));
+            Rectangle position = component.getRenderPosition();
+            GL11.glPushMatrix();
+            RenderUtil.verticalGradientRectangle(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), 0xFF1D1D1D, 0xFF000000);
+            RenderUtil.verticalGradientRectangle(position.getX() + 1, position.getY() + 1, position.getX() + position.getWidth() - 1, position.getY() + position.getHeight() - 1, 0xFF292929, component.getPlugin().isEnabled() ? accent.darker().darker().getRGB() : 0xFF1D1D1D);
+            GL11.glColor4f(1f, 1f, 1f, 1f);
+            GL11.glPopMatrix();
+
+            if(component.isHovered()) {
+                GL11.glPushMatrix();
+                RenderUtil.border(position.getX() + 1, position.getY() + 1, position.getX() + position.getWidth() - 1, position.getY() + position.getHeight() - 1, 2f, Color.BLACK.getRGB());
+                RenderUtil.verticalGradientRectangle(position.getX() + 1, position.getY() + 1, position.getX() + position.getWidth() - 1, position.getY() + position.getHeight() - 1, accent.darker().darker().getRGB(), accent.darker().darker().darker().getRGB());
+                GL11.glColor4f(1f, 1f, 1f, 1f);
+                GL11.glPopMatrix();
+            }
             font.drawStringWithShadow(component.getName(), component.getRenderPosition().getX() + 2, (component.getRenderPosition().getY()
-                    + (component.getRenderPosition().getHeight() / 2f) - (font.getStringHeight(component.getName()) / 2f)) + 3f, Color.WHITE.getRGB());
+                    + (component.getRenderPosition().getHeight() / 2f) - (font.getStringHeight(component.getName()) / 2f)) + 3f, component.isHovered() ? Color.WHITE.getRGB() : Color.GRAY.getRGB());
             font.drawStringWithShadow("...", component.getRenderPosition().getX() +
                             component.getRenderPosition().getWidth() - font.getStringWidth("...") - 2f,
-                    component.getRenderPosition().getY() + component.getRenderPosition().getHeight() - font.getStringHeight("...") + 3f, Color.LIGHT_GRAY.getRGB());
+                    component.getRenderPosition().getY() + component.getRenderPosition().getHeight() - font.getStringHeight("...") + 3f, component.isHovered() ? Color.LIGHT_GRAY.getRGB() : Color.GRAY.getRGB());
         }
     }
 
@@ -175,10 +198,20 @@ public class MaterialGirlTheme extends AbstractTheme {
     private class SpinnerTabComponentRenderer extends AbstractComponentRenderer<SpinnerTabComponent> {
         @Override
         public void renderComponent(SpinnerTabComponent component) {
-            RenderUtil.drawRect(component.getRenderPosition().getX(), component.getRenderPosition().getY(),
-                    component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
-                    component.getRenderPosition().getY() + component.getRenderPosition().getHeight(),
-                    (component.isHovered() ? accent.getRGB() : Color.BLACK.getRGB()));
+            Rectangle position = component.getRenderPosition();
+            GL11.glPushMatrix();
+            RenderUtil.verticalGradientRectangle(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), 0xFF1D1D1D, 0xFF000000);
+            RenderUtil.verticalGradientRectangle(position.getX() + 1, position.getY() + 1, position.getX() + position.getWidth() - 1, position.getY() + position.getHeight() - 1, 0xFF292929, 0xFF1D1D1D);
+            GL11.glColor4f(1f, 1f, 1f, 1f);
+            GL11.glPopMatrix();
+
+            if(component.isHovered()) {
+                GL11.glPushMatrix();
+                RenderUtil.border(position.getX() + 1, position.getY() + 1, position.getX() + position.getWidth() - 1, position.getY() + position.getHeight() - 1, 2f, Color.BLACK.getRGB());
+                RenderUtil.verticalGradientRectangle(position.getX() + 1, position.getY() + 1, position.getX() + position.getWidth() - 1, position.getY() + position.getHeight() - 1, accent.darker().darker().getRGB(), accent.darker().darker().darker().getRGB());
+                GL11.glColor4f(1f, 1f, 1f, 1f);
+                GL11.glPopMatrix();
+            }
             font.drawStringWithShadow(component.getRaw(), component.getRenderPosition().getX() + 2, (component.getRenderPosition().getY()
                     + (component.getRenderPosition().getHeight() / 2f) - (font.getStringHeight(component.getName()) / 2f)) + 3f, 0xFFFFFFFF);
         }
@@ -187,14 +220,20 @@ public class MaterialGirlTheme extends AbstractTheme {
     private class SliderTabComponentRenderer extends AbstractComponentRenderer<SliderTabComponent> {
         @Override
         public void renderComponent(SliderTabComponent component) {
-            RenderUtil.drawRect(component.getRenderPosition().getX(), component.getRenderPosition().getY(),
-                    component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
-                    component.getRenderPosition().getY() + component.getRenderPosition().getHeight(),
-                    Color.BLACK.getRGB());
-            RenderUtil.drawRect(component.getRenderPosition().getX(), component.getRenderPosition().getY(),
-                    component.getRenderPosition().getX() + component.getSliderLength(),
-                    component.getRenderPosition().getY() + component.getRenderPosition().getHeight(),
-                    component.isHovered() ? accent.getRGB() : Color.BLACK.getRGB());
+            Rectangle position = component.getRenderPosition();
+            GL11.glPushMatrix();
+            RenderUtil.verticalGradientRectangle(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), 0xFF1D1D1D, 0xFF000000);
+            RenderUtil.verticalGradientRectangle(position.getX() + 1, position.getY() + 1, position.getX() + position.getWidth() - 1, position.getY() + position.getHeight() - 1, 0xFF292929, 0xFF1D1D1D);
+            GL11.glColor4f(1f, 1f, 1f, 1f);
+            GL11.glPopMatrix();
+
+            if(component.isHovered()) {
+                GL11.glPushMatrix();
+                RenderUtil.border(position.getX() + 1, position.getY() + 1, position.getX() + component.getSliderLength() - 1, position.getY() + position.getHeight() - 1, 2f, Color.BLACK.getRGB());
+                RenderUtil.verticalGradientRectangle(position.getX() + 1, position.getY() + 1, position.getX() + component.getSliderLength() - 1, position.getY() + position.getHeight() - 1, accent.darker().darker().getRGB(), accent.darker().darker().darker().getRGB());
+                GL11.glColor4f(1f, 1f, 1f, 1f);
+                GL11.glPopMatrix();
+            }
             font.drawStringWithShadow(component.getName(), component.getRenderPosition().getX() + 2, (component.getRenderPosition().getY()
                     + (component.getRenderPosition().getHeight() / 2f) - (font.getStringHeight(component.getName()) / 2f)) + 3f, 0xFFFFFFFF);
             font.drawStringWithShadow(component.getProperty().getValue().toString(),
@@ -210,36 +249,44 @@ public class MaterialGirlTheme extends AbstractTheme {
     private class ToggleablePluginButtonTabComponentRenderer extends AbstractComponentRenderer<ToggleablePluginButtonTabComponent> {
         @Override
         public void renderComponent(ToggleablePluginButtonTabComponent component) {
-            RenderUtil.drawRect(component.getRenderPosition().getX(), component.getRenderPosition().getY(),
-                    component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
-                    component.getRenderPosition().getY() + component.getRenderPosition().getHeight(),
-                    (component.isHovered() ? accent.getRGB() : Color.BLACK.getRGB()));
-            font.drawStringWithShadow(component.getName(), component.getRenderPosition().getX() + 2, (component.getRenderPosition().getY()
-                    + (component.getRenderPosition().getHeight() / 2f) - (font.getStringHeight(component.getName()) / 2f)) + 3f, Color.WHITE.getRGB());
+            Rectangle position = component.getRenderPosition();
+            GL11.glPushMatrix();
+            RenderUtil.verticalGradientRectangle(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), 0xFF1D1D1D, 0xFF000000);
+            RenderUtil.verticalGradientRectangle(position.getX() + 1, position.getY() + 1, position.getX() + position.getWidth() - 1, position.getY() + position.getHeight() - 1, 0xFF292929, component.getPlugin().isEnabled() ? accent.darker().darker().getRGB() : 0xFF1D1D1D);
+            GL11.glColor4f(1f, 1f, 1f, 1f);
+            GL11.glPopMatrix();
 
-            if (component.isState()) {
-                RenderUtil.drawRect(component.getRenderPosition().getX() + component.getRenderPosition().getWidth() - 10,
-                        component.getRenderPosition().getY(), component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
-                        component.getRenderPosition().getY() + component.getRenderPosition().getHeight(), accent.darker().getRGB());
+            if(component.isHovered()) {
+                GL11.glPushMatrix();
+                RenderUtil.border(position.getX() + 1, position.getY() + 1, position.getX() + position.getWidth() - 1, position.getY() + position.getHeight() - 1, 2f, Color.BLACK.getRGB());
+                RenderUtil.verticalGradientRectangle(position.getX() + 1, position.getY() + 1, position.getX() + position.getWidth() - 1, position.getY() + position.getHeight() - 1, accent.darker().darker().getRGB(), accent.darker().darker().darker().getRGB());
+                GL11.glColor4f(1f, 1f, 1f, 1f);
+                GL11.glPopMatrix();
             }
+            font.drawStringWithShadow(component.getName(), component.getRenderPosition().getX() + 2, (component.getRenderPosition().getY()
+                    + (component.getRenderPosition().getHeight() / 2f) - (font.getStringHeight(component.getName()) / 2f)) + 3f, component.isHovered() ? Color.WHITE.getRGB() : Color.GRAY.getRGB());
         }
     }
 
     private class PropertyButtonTabComponentRenderer extends AbstractComponentRenderer<PropertyButtonTabComponent> {
         @Override
         public void renderComponent(PropertyButtonTabComponent component) {
-            RenderUtil.drawRect(component.getRenderPosition().getX(), component.getRenderPosition().getY(),
-                    component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
-                    component.getRenderPosition().getY() + component.getRenderPosition().getHeight(),
-                    (component.isHovered() ? accent.getRGB() : Color.BLACK.getRGB()));
-            font.drawStringWithShadow(component.getName(), component.getRenderPosition().getX() + 2, (component.getRenderPosition().getY()
-                    + (component.getRenderPosition().getHeight() / 2f) - (font.getStringHeight(component.getName()) / 2f)) + 3f, Color.WHITE.getRGB());
+            Rectangle position = component.getRenderPosition();
+            GL11.glPushMatrix();
+            RenderUtil.verticalGradientRectangle(position.getX(), position.getY(), position.getX() + position.getWidth(), position.getY() + position.getHeight(), 0xFF1D1D1D, 0xFF000000);
+            RenderUtil.verticalGradientRectangle(position.getX() + 1, position.getY() + 1, position.getX() + position.getWidth() - 1, position.getY() + position.getHeight() - 1, 0xFF292929, component.isState() ? accent.darker().darker().getRGB() : 0xFF1D1D1D);
+            GL11.glColor4f(1f, 1f, 1f, 1f);
+            GL11.glPopMatrix();
 
-            if (component.isState()) {
-                RenderUtil.drawRect(component.getRenderPosition().getX() + component.getRenderPosition().getWidth() - 10,
-                        component.getRenderPosition().getY(), component.getRenderPosition().getX() + component.getRenderPosition().getWidth(),
-                        component.getRenderPosition().getY() + component.getRenderPosition().getHeight(), accent.darker().getRGB());
+            if(component.isHovered()) {
+                GL11.glPushMatrix();
+                RenderUtil.border(position.getX() + 1, position.getY() + 1, position.getX() + position.getWidth() - 1, position.getY() + position.getHeight() - 1, 2f, Color.BLACK.getRGB());
+                RenderUtil.verticalGradientRectangle(position.getX() + 1, position.getY() + 1, position.getX() + position.getWidth() - 1, position.getY() + position.getHeight() - 1, accent.darker().darker().getRGB(), accent.darker().darker().darker().getRGB());
+                GL11.glColor4f(1f, 1f, 1f, 1f);
+                GL11.glPopMatrix();
             }
+            font.drawStringWithShadow(component.getName(), component.getRenderPosition().getX() + 2, (component.getRenderPosition().getY()
+                    + (component.getRenderPosition().getHeight() / 2f) - (font.getStringHeight(component.getName()) / 2f)) + 3f, component.isHovered() ? Color.WHITE.getRGB() : Color.GRAY.getRGB());
         }
     }
 

@@ -37,6 +37,7 @@ public class PluginManager extends ListManager<Plugin> {
 
     private Path directory;
 
+
     public PluginManager(Path directory) {
         this.directory = directory;
     }
@@ -181,42 +182,41 @@ public class PluginManager extends ListManager<Plugin> {
                 .findFirst();
     }
 
+    /**
+     * Saves plugin data on shutdown.
+     *
+     * @since revised 11/12/2022
+     */
     public void save() {
         try {
-            if (this.getContents().isEmpty()) {
-                Files.delete(directory);
-            }
-            Stream<Path> files = Files.list(directory);
-            if (!Files.exists(directory)) {
-                System.out.println("test");
-                Files.createDirectory(directory);
-            } else if (files != null) {
-                files.forEach(file -> {
-                    try {
-                        Files.delete(file);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-            }
-            this.getContents().forEach(module -> {
-                final Path file = Paths.get(this.directory.toString(), module.getLabel() + ".json").toAbsolutePath();
-                final JsonObject node = new JsonObject();
-                module.save(node);
-                if (node.entrySet().isEmpty()) {
-                    return;
+            if (Files.exists(directory)) {
+                Stream<Path> filesStream = Files.list(directory);
+                if (filesStream != null) {
+                    filesStream.forEach(file -> {
+                        try {
+                            Files.delete(file);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
                 }
+            } else {
+                Files.createDirectories(directory);
+            }
+
+            getContents().forEach(plugin -> {
+                JsonObject jsonObject = new JsonObject();
+                plugin.save(jsonObject);
+
+                Path file = Paths.get(this.directory.toString(), plugin.getLabel() + ".json").toAbsolutePath();
+
                 try {
                     Files.createFile(file);
-                    Files.write(file, new GsonBuilder().setPrettyPrinting().create().toJson(node).getBytes(StandardCharsets.UTF_8));
+                    Files.write(file, new GsonBuilder().setPrettyPrinting().create().toJson(jsonObject).getBytes(StandardCharsets.UTF_8));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             });
-            files = Files.list(directory);
-            if (files == null || !files.findAny().isPresent()) {
-                Files.delete(directory);
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -224,12 +224,12 @@ public class PluginManager extends ListManager<Plugin> {
 
     public void load() {
         this.getContents().forEach(module -> {
-            final Path file = Paths.get(this.directory.toString(), module.getLabel() + ".json").toAbsolutePath();
+            Path file = Paths.get(this.directory.toString(), module.getLabel() + ".json").toAbsolutePath();
             if (!Files.exists(file)) {
                 return;
             }
             try {
-                final JsonElement node = JsonParser.parseReader(new JsonReader(Files.newBufferedReader(file)));
+                JsonElement node = new JsonParser().parse(new JsonReader(Files.newBufferedReader(file)));
                 if (!node.isJsonObject()) {
                     return;
                 }

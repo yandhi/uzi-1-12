@@ -3,6 +3,8 @@ package me.kix.uzi.management.plugin.internal.toggleable.combat;
 import me.kix.uzi.api.event.Register;
 import me.kix.uzi.api.plugin.Category;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
+import me.kix.uzi.api.property.properties.NumberProperty;
+import me.kix.uzi.api.util.math.angle.AngleUtil;
 import me.kix.uzi.api.util.math.prediction.PredicitonUtil;
 import me.kix.uzi.api.util.math.vector.Vector3;
 import me.kix.uzi.api.event.events.entity.EventUpdate;
@@ -23,6 +25,11 @@ import java.util.List;
  */
 public class BowAimbot extends ToggleablePlugin {
 
+    /**
+     * The field of view.
+     */
+    private final NumberProperty<Float> fov = new NumberProperty<>("FOV", 360f, 0f, 360f, 1f);
+
     private final List<EntityLivingBase> entities = new ArrayList<>();
     private EntityLivingBase target;
 
@@ -30,6 +37,7 @@ public class BowAimbot extends ToggleablePlugin {
         super("BowAimbot", Category.COMBAT);
         setDisplay("Bow Aimbot");
         setColor(0xFFEBFFA3);
+        getProperties().add(fov);
     }
 
     @Register
@@ -59,7 +67,7 @@ public class BowAimbot extends ToggleablePlugin {
         entities.clear();
         for (Entity ent : mc.world.loadedEntityList) {
             if (ent instanceof EntityPlayer) {
-                if (ent.isEntityAlive() && !ent.isInvisible() && ent != mc.player && mc.player.canEntityBeSeen(ent)) {
+                if (ent.isEntityAlive() && !ent.isInvisible() && ent != mc.player && mc.player.canEntityBeSeen(ent) && AngleUtil.isEntityInFov((EntityLivingBase) ent, fov.getValue())) {
                     entities.add((EntityLivingBase) ent);
                 }
             }

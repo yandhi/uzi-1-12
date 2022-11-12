@@ -57,7 +57,7 @@ public class KeybindManager extends ListManager<Keybind> {
      */
     public void load() {
         try {
-            final JsonObject object = JsonParser.parseReader(new JsonReader(Files.newBufferedReader(bindsFile))).getAsJsonObject();
+            final JsonObject object = new JsonParser().parse(new JsonReader(Files.newBufferedReader(bindsFile))).getAsJsonObject();
             final Set<Map.Entry<String, JsonElement>> elements = object.entrySet();
             elements.forEach(element -> {
                 JsonObject jsonObject = element.getValue().getAsJsonObject();

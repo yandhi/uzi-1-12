@@ -5,6 +5,7 @@ import me.kix.sodapop.theme.AbstractTheme;
 import me.kix.sodapop.theme.renderer.AbstractComponentRenderer;
 import me.kix.sodapop.util.Rectangle;
 import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
+import me.kix.uzi.api.util.network.TPSTracker;
 import me.kix.uzi.api.util.render.RenderUtil;
 import me.kix.uzi.api.util.render.font.NahrFont;
 import me.kix.uzi.management.ui.click.component.buttons.PluginButtonContainerComponent;
@@ -80,7 +81,7 @@ public class UziTheme extends AbstractTheme {
 
         @Override
         public void renderComponent(WatermarkComponent component) {
-            font.drawStringWithShadow("Uzi", component.getRenderPosition().getX(), component.getRenderPosition().getY() + 2, Color.WHITE.getRGB());
+            font.drawStringWithShadow("\247fUzi", component.getRenderPosition().getX(), component.getRenderPosition().getY() + 2, 0xFFDCC6FF);
         }
     }
 

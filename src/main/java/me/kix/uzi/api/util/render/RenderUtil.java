@@ -387,7 +387,7 @@ public class RenderUtil implements MinecraftAccessor {
         GL11.glColor4f(c[0], c[1], c[2], c[3]);
         GL11.glBegin(GL11.GL_LINES);
         {
-            GL11.glVertex3d(res.getScaledWidth() / 2, res.getScaledHeight() / 2, 0);
+            GL11.glVertex3d(res.getScaledWidth() / 2, res.getScaledHeight() - 40, 0);
             GL11.glVertex3d(pos[0] + ((pos[2] - pos[0]) / 2), pos[1] + ((pos[3] - pos[1]) / 2), pos[2]);
         }
         GL11.glEnd();

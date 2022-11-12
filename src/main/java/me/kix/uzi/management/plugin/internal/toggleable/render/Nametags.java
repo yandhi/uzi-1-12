@@ -8,6 +8,7 @@ import me.kix.uzi.api.property.Property;
 import me.kix.uzi.api.util.render.RenderUtil;
 import me.kix.uzi.api.event.events.render.EventRender;
 import me.kix.uzi.api.event.events.render.EventRenderNameplate;
+import me.kix.uzi.api.util.render.font.NahrFont;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
@@ -43,6 +44,8 @@ public class Nametags extends ToggleablePlugin {
     private final Property<Boolean> mobs = new Property<>("Monsters", false);
     private final Property<Boolean> items = new Property<>("Items", false);
 
+    private final NahrFont font = new NahrFont("Consolas", 16);
+
     public Nametags() {
         super("Nametags", Category.RENDER);
         setHidden(true);
@@ -60,7 +63,7 @@ public class Nametags extends ToggleablePlugin {
             /* raytracing check :) */
             if (raytracing.getValue() || mc.player.canEntityBeSeen(event.getEntity())) {
                 if (event.getEntity() instanceof EntityPlayer && players.getValue() || event.getEntity() instanceof EntityAnimal && animals.getValue() || (event.getEntity() instanceof EntityMob && mobs.getValue()) || event.getEntity() instanceof EntityItem && items.getValue()) {
-                    String name = event.getEntity().getDisplayName().getFormattedText();
+                    String name = (mc.getCurrentServerData() != null && mc.getCurrentServerData().serverIP.equalsIgnoreCase("hypixel.net")) ? event.getEntity().getName() : event.getEntity().getDisplayName().getFormattedText();
 
                     if (Uzi.INSTANCE.getFriendManager().isFriend(event.getEntity().getName())) {
                         name = Uzi.INSTANCE.getFriendManager().getReplacedText(name);
@@ -86,16 +89,16 @@ public class Nametags extends ToggleablePlugin {
                         if (name.isEmpty() || name.trim().isEmpty() || StringUtils.isNullOrEmpty(name)) return;
                         EntityLivingBase entityLivingBase = (EntityLivingBase) event.getEntity();
                         String tag = String.format("%s %s", name, getHealthColor(entityLivingBase) + Math.round(entityLivingBase.getHealth() / 2));
-                        RenderUtil.drawRect(event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) - (mc.fontRenderer.getStringWidth(tag) / 2f) - 1.5f, event.getBox().y - 11,
-                                event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) + (mc.fontRenderer.getStringWidth(tag) / 2f) + 0.5f, event.getBox().y - 2f, 0x60000000);
-                        mc.fontRenderer.drawStringWithShadow(tag,
-                                event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) - (mc.fontRenderer.getStringWidth(tag) / 2f),
-                                event.getBox().y - 10,
+                        RenderUtil.drawRect(event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) - (font.getStringWidth(tag) / 2f) - 1.5f, event.getBox().y - 11,
+                                event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) + (font.getStringWidth(tag) / 2f) + 0.5f, event.getBox().y - 2f, 0x60000000);
+                        font.drawStringWithShadow(tag,
+                                event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) - (font.getStringWidth(tag) / 2f),
+                                event.getBox().y - 8,
                                 0xFFFFFFFF);
                     } else {
-                        mc.fontRenderer.drawStringWithShadow(name,
-                                event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) - (mc.fontRenderer.getStringWidth(name) / 2f),
-                                event.getBox().y - 10,
+                        font.drawStringWithShadow(name,
+                                event.getBox().x + ((event.getBox().w - event.getBox().x) / 2) - (font.getStringWidth(name) / 2f),
+                                event.getBox().y - 8,
                                 0xFFFFFFFF);
                     }
                 }

@@ -74,7 +74,7 @@ public class FriendManager extends ListManager<Friend> {
      */
     public void load() {
         try {
-            final JsonObject object = JsonParser.parseReader(new JsonReader(Files.newBufferedReader(friendFile))).getAsJsonObject();
+            final JsonObject object = new JsonParser().parse(new JsonReader(Files.newBufferedReader(friendFile))).getAsJsonObject();
             final Set<Map.Entry<String, JsonElement>> elements = object.entrySet();
             elements.forEach(entry -> getContents().add(new Friend(entry.getKey(), entry.getValue().getAsString())));
         } catch (IOException e) {

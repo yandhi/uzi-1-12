@@ -53,7 +53,7 @@ public class AltManager extends ListManager<Alt> {
 
     public void load() {
         try {
-            final JsonObject object = JsonParser.parseReader(new JsonReader(Files.newBufferedReader(altsFile))).getAsJsonObject();
+            final JsonObject object = new JsonParser().parse(new JsonReader(Files.newBufferedReader(altsFile))).getAsJsonObject();
             final Set<Map.Entry<String, JsonElement>> elements = object.entrySet();
             elements.forEach(entry -> {
                 JsonObject alt = entry.getValue().getAsJsonObject();

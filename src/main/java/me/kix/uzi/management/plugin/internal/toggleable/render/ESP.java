@@ -136,7 +136,7 @@ public class ESP extends ToggleablePlugin {
             if (Uzi.INSTANCE.getFriendManager().isFriend(entity.getName())) {
                 return 0xFF7FCDFF;
             } else {
-                return 0xFF22CA00;
+                return 0xFFDCC6FF;
             }
         }
         if (entity instanceof EntityAnimal) {

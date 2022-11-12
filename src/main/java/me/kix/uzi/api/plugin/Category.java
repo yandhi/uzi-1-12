@@ -10,7 +10,9 @@ public enum Category {
     PLAYER(new ResourceLocation("player.png")),
     RENDER(new ResourceLocation("render.png")),
     WORLD(new ResourceLocation("world.png")),
-    SERVER(new ResourceLocation("server.png"));
+    SERVER(new ResourceLocation("server.png")),
+    QOL(new ResourceLocation("server.png")),
+    PROTECTIONS(new ResourceLocation("combat.png"));
 
     /**
      * The icon for the category.

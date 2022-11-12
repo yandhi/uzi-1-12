@@ -26,7 +26,7 @@ public class SoundLag extends ToggleablePlugin {
     private final NumberProperty<Integer> packets = new NumberProperty<>("Packets", 20, 5, 10000, 5);
 
     public SoundLag() {
-        super("SoundLag", Category.MISCELLANEOUS);
+        super("SoundLag", Category.SERVER);
         setDisplay("Sound Lag");
         getProperties().add(packets);
     }

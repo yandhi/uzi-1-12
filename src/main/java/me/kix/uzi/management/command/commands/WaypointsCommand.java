@@ -3,7 +3,7 @@ package me.kix.uzi.management.command.commands;
 import me.kix.uzi.api.command.argument.factory.registration.RegisterArgument;
 import me.kix.uzi.api.command.commands.ArgumentativeCommand;
 import me.kix.uzi.api.util.logging.Logger;
-import me.kix.uzi.management.plugin.internal.toggleable.render.Waypoints;
+import me.kix.uzi.management.plugin.internal.toggleable.qol.Waypoints;
 
 /**
  * Handles waypoints for the client.

@@ -44,34 +44,36 @@ public enum TabGui implements GuiManager {
      */
     public void setup() {
         for (Category category : Category.values()) {
-            FolderTabComponent categoryItem = new FolderTabComponent(WordUtils.capitalizeFully(category.name()), this, new Rectangle(0,0,0,0));
+            if (category != Category.PROTECTIONS && category != Category.QOL) {
+                FolderTabComponent categoryItem = new FolderTabComponent(WordUtils.capitalizeFully(category.name()), this, new Rectangle(0, 0, 0, 0));
 
-            for (Plugin plugin : Uzi.INSTANCE.getPluginManager().getContents()) {
-                if (plugin instanceof ToggleablePlugin) {
-                    ToggleablePlugin toggleablePlugin = (ToggleablePlugin) plugin;
-                    if (toggleablePlugin.getCategory() == category) {
-                        if (toggleablePlugin.getProperties().isEmpty()) {
-                            categoryItem.getContents().add(new ToggleablePluginButtonTabComponent(this, new Rectangle(0,0,0,0),toggleablePlugin));
-                        } else {
-                            ToggleablePluginFolderTabComponent toggleablePluginFolderTabComponent = new ToggleablePluginFolderTabComponent(this, new Rectangle(0,0,0,0), toggleablePlugin);
+                for (Plugin plugin : Uzi.INSTANCE.getPluginManager().getContents()) {
+                    if (plugin instanceof ToggleablePlugin) {
+                        ToggleablePlugin toggleablePlugin = (ToggleablePlugin) plugin;
+                        if (toggleablePlugin.getCategory() == category) {
+                            if (toggleablePlugin.getProperties().isEmpty()) {
+                                categoryItem.getContents().add(new ToggleablePluginButtonTabComponent(this, new Rectangle(0, 0, 0, 0), toggleablePlugin));
+                            } else {
+                                ToggleablePluginFolderTabComponent toggleablePluginFolderTabComponent = new ToggleablePluginFolderTabComponent(this, new Rectangle(0, 0, 0, 0), toggleablePlugin);
 
-                            for (Property property : toggleablePlugin.getProperties()) {
-                                if (property.getValue() instanceof Boolean) {
-                                    toggleablePluginFolderTabComponent.getContents().add(new PropertyButtonTabComponent(this, new Rectangle(0,0,0,0), property));
+                                for (Property property : toggleablePlugin.getProperties()) {
+                                    if (property.getValue() instanceof Boolean) {
+                                        toggleablePluginFolderTabComponent.getContents().add(new PropertyButtonTabComponent(this, new Rectangle(0, 0, 0, 0), property));
+                                    }
+                                    if (property instanceof NumberProperty) {
+                                        toggleablePluginFolderTabComponent.getContents().add(new SliderTabComponent(this, new Rectangle(0, 0, 0, 0), (NumberProperty) property));
+                                    }
+                                    if (property instanceof EnumProperty) {
+                                        toggleablePluginFolderTabComponent.getContents().add(new SpinnerTabComponent(this, new Rectangle(0, 0, 0, 0), (EnumProperty) property));
+                                    }
                                 }
-                                if (property instanceof NumberProperty) {
-                                    toggleablePluginFolderTabComponent.getContents().add(new SliderTabComponent(this, new Rectangle(0,0,0,0), (NumberProperty) property));
-                                }
-                                if (property instanceof EnumProperty) {
-                                    toggleablePluginFolderTabComponent.getContents().add(new SpinnerTabComponent(this, new Rectangle(0,0,0,0), (EnumProperty) property));
-                                }
+                                categoryItem.getContents().add(toggleablePluginFolderTabComponent);
                             }
-                            categoryItem.getContents().add(toggleablePluginFolderTabComponent);
                         }
                     }
                 }
+                mainTab.getContents().add(categoryItem);
             }
-            mainTab.getContents().add(categoryItem);
         }
         mainTab.setHovered(true);
     }

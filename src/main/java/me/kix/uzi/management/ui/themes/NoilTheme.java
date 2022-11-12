@@ -75,7 +75,10 @@ public class NoilTheme extends AbstractTheme {
 
         @Override
         public void renderComponent(WatermarkComponent component) {
-            // latch didn't have a watermark for the noil theme so, we leave it off :).
+            GlStateManager.pushMatrix();
+            GlStateManager.enableBlend();
+            Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("U", component.getRenderPosition().getX(), component.getRenderPosition().getY(), 0x80DEDEDE);
+            GlStateManager.popMatrix();
         }
     }
 

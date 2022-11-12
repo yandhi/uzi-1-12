@@ -23,6 +23,11 @@ import java.nio.file.Paths;
  * It began some time during March of 2018.
  * </p>
  *
+ * <p>
+ * This utility mod is massive, like, extremely.
+ * I'm working on trying to make it easier to use.
+ * </p>
+ *
  * @author k1x
  * @since April 2018 (Revised June 2019).
  */

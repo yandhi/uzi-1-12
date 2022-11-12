@@ -1,10 +1,10 @@
 package me.kix.uzi.management.command.commands;
 
 import me.kix.uzi.api.command.Command;
-import me.kix.uzi.management.plugin.internal.toggleable.miscellaneous.SmartChat;
+import me.kix.uzi.management.plugin.internal.toggleable.qol.AutoTranslate;
 
 /**
- * Allows us to modify the characters for {@link me.kix.uzi.management.plugin.internal.toggleable.miscellaneous.SmartChat}.
+ * Allows us to modify the characters for {@link AutoTranslate}.
  *
  * @author Kix
  * Created in 06 2019.
@@ -20,7 +20,7 @@ public class SmartChatCommand extends Command {
         String[] split = args.split(" ");
 
         if (split.length >= 1) {
-            SmartChat.splitter = split[1];
+            AutoTranslate.splitter = split[1];
         }
     }
 }

@@ -13,7 +13,7 @@ public class Murderer extends ToggleablePlugin {
     private EntityPlayer murderer;
 
     public Murderer() {
-        super("Murderer", Category.RENDER);
+        super("Murderer", Category.SERVER);
         setColor(0xFFEAFF91);
     }
 

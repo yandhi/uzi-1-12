@@ -7,9 +7,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import me.kix.uzi.Uzi;
 import me.kix.uzi.api.manager.ListManager;
-import me.kix.uzi.api.plugin.AbstractPlugin;
 import me.kix.uzi.api.plugin.Plugin;
-import me.kix.uzi.api.plugin.toggleable.ToggleablePlugin;
 import me.kix.uzi.api.util.network.TPSTracker;
 import me.kix.uzi.management.plugin.internal.Commands;
 import me.kix.uzi.management.plugin.internal.Keybinds;
@@ -20,6 +18,8 @@ import me.kix.uzi.management.plugin.internal.toggleable.combat.KillAura;
 import me.kix.uzi.management.plugin.internal.toggleable.miscellaneous.*;
 import me.kix.uzi.management.plugin.internal.toggleable.movement.*;
 import me.kix.uzi.management.plugin.internal.toggleable.player.*;
+import me.kix.uzi.management.plugin.internal.toggleable.protections.*;
+import me.kix.uzi.management.plugin.internal.toggleable.qol.*;
 import me.kix.uzi.management.plugin.internal.toggleable.render.*;
 import me.kix.uzi.management.plugin.internal.toggleable.server.*;
 import me.kix.uzi.management.plugin.internal.toggleable.world.*;
@@ -30,7 +30,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
-import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 public class PluginManager extends ListManager<Plugin> {
@@ -74,7 +73,7 @@ public class PluginManager extends ListManager<Plugin> {
         getContents().add(new AntiBot());
         getContents().add(new Speedmine());
         getContents().add(new AutoSwim());
-        getContents().add(new AutoPayload());
+        getContents().add(new Spammer());
         getContents().add(new AutoPotion());
         getContents().add(new AutoSoup());
         getContents().add(new AntiWeather());
@@ -140,7 +139,7 @@ public class PluginManager extends ListManager<Plugin> {
         getContents().add(new SoundLag());
         getContents().add(new AntiSoundSploit());
         getContents().add(new CapabilityFly());
-        getContents().add(new SmartChat());
+        getContents().add(new AutoTranslate());
         getContents().add(new AntiDesync());
         getContents().add(new BedAura());
         getContents().add(new PearlLogger());

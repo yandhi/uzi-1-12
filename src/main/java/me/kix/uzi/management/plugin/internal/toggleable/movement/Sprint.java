@@ -14,7 +14,7 @@ public class Sprint extends ToggleablePlugin {
 
     @Register
     public void onUpdate(EventUpdate.Pre event) {
-        if (!mc.player.isSprinting() && !mc.player.isSneaking() && !mc.player.isCollidedHorizontally && mc.player.getFoodStats().getFoodLevel() > 6f && mc.player.movementInput.forwardKeyDown) {
+        if (!mc.player.isSprinting() && !mc.player.isSneaking() && !mc.player.collidedHorizontally && mc.player.getFoodStats().getFoodLevel() > 6f && mc.player.movementInput.forwardKeyDown) {
             mc.player.setSprinting(true);
         }
     }

@@ -36,7 +36,7 @@ public class Bomber extends ToggleablePlugin {
     public void onPreUpdate(EventUpdate.Pre event) {
         List<EntityPlayer> nearbyPlayers = mc.world.playerEntities.stream()
                 .filter(entityPlayer -> entityPlayer != mc.player)
-                .filter(entityPlayer -> mc.player.getDistanceToEntity(entityPlayer) <= 5)
+                .filter(entityPlayer -> mc.player.getDistance(entityPlayer) <= 5)
                 .collect(Collectors.toList());
         if (!nearbyPlayers.isEmpty()) {
             if (hasBombs() && mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() != Items.SPAWN_EGG) {

@@ -46,7 +46,7 @@ public class Speedmine extends ToggleablePlugin {
         posX = MathHelper.floor(posX);
         posY = MathHelper.floor(posY);
         posZ = MathHelper.floor(posZ);
-        return this.mc.world.getChunkFromBlockCoords(new BlockPos(posX, posY, posZ))
+        return this.mc.world.getChunk(new BlockPos(posX, posY, posZ))
                 .getBlockState(new BlockPos(posX, posY, posZ)).getBlock();
     }
 

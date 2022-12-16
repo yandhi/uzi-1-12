@@ -31,7 +31,7 @@ public class Breed extends ToggleablePlugin {
 		EntityPlayerSP player = mc.player;
 		if (player.getHeldItemMainhand().getItem() != Items.AIR && (player.getHeldItemMainhand().getItem() instanceof ItemFood || player.getHeldItemMainhand().getItem() == Items.WHEAT)) {
 			for (Entity entity : mc.world.loadedEntityList) {
-				if (entity instanceof EntityAnimal && player.getDistanceToEntity(entity) <= 6) {
+				if (entity instanceof EntityAnimal && player.getDistance(entity) <= 6) {
 						player.connection.sendPacket(new CPacketUseEntity(entity, EnumHand.MAIN_HAND));
 				}
 			}

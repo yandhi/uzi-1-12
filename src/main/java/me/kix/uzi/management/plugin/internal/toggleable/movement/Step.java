@@ -42,7 +42,7 @@ public class Step extends ToggleablePlugin {
 	@Register
 	public void onPreStep(EventStep.Pre event) {
 		float stepHeight = 1f;
-		if (((LivingEntity) mc.player).getIsJumping() || mc.player.isInWater() || mc.player.isInLava() || !mc.player.isCollidedHorizontally)
+		if (((LivingEntity) mc.player).getIsJumping() || mc.player.isInWater() || mc.player.isInLava() || !mc.player.collidedHorizontally)
 			return;
 		if (mc.world.getCollisionBoxes(mc.player, mc.player.getEntityBoundingBox().offset(mc.player.motionX, 1.6, mc.player.motionZ)).isEmpty())
 			stepHeight = 1.5f;
@@ -61,7 +61,7 @@ public class Step extends ToggleablePlugin {
 
 	@Register
 	public void onPostStep(EventStep.Post event) {
-		if (((LivingEntity) mc.player).getIsJumping() || mc.player.isInWater() || mc.player.isInLava() || !mc.player.isCollidedHorizontally)
+		if (((LivingEntity) mc.player).getIsJumping() || mc.player.isInWater() || mc.player.isInLava() || !mc.player.collidedHorizontally)
 			return;
 		if (offsets != null) {
 			Arrays.stream(offsets)

@@ -33,7 +33,7 @@ public class WhomstveWolfCommand extends ArgumentativeCommand implements Minecra
         List<EntityWolf> nearbyWolves = mc.world.loadedEntityList.stream().filter(EntityWolf.class::isInstance)
                 .map(EntityWolf.class::cast).collect(Collectors.toList());
         nearbyWolves
-                .sort((o1, o2) -> Float.compare(mc.player.getDistanceToEntity(o1), mc.player.getDistanceToEntity(o2)));
+                .sort((o1, o2) -> Float.compare(mc.player.getDistance(o1), mc.player.getDistance(o2)));
         if (!nearbyWolves.isEmpty()) {
             EntityWolf nearest = nearbyWolves.get(0);
             Logger.printMessage(nearest.getOwner().getName() + " owns that wolf!");

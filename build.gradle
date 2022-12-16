@@ -1,9 +1,9 @@
 buildscript {
     repositories {
-        jcenter()
+        gradlePluginPortal()
         maven {
             name = "forge"
-            url = "http://files.minecraftforge.net/maven"
+            url = "https://maven.minecraftforge.net/"
         }
         maven {
             name = 'SpongePowered'
@@ -11,19 +11,20 @@ buildscript {
         }
     }
     dependencies {
-        classpath "net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT"
-        classpath 'org.spongepowered:mixingradle:0.5-SNAPSHOT'
-        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
+        classpath "net.minecraftforge.gradle:ForgeGradle:4.+"
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:6.1.0'
     }
 }
 
-apply plugin: "net.minecraftforge.gradle.forge"
+apply plugin: "net.minecraftforge.gradle"
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'com.github.johnrengelman.shadow'
 
 version = "1.0"
 group = "me.kix.uzi"
 archivesBaseName = "uzi"
+def mcVersion = "1.12.2"
 
 sourceCompatibility = targetCompatibility = '1.8'
 compileJava {
@@ -31,10 +32,21 @@ compileJava {
 }
 
 minecraft {
-    version = "1.12.2-14.23.3.2655"
-    runDir = "run"
-    mappings = "snapshot_20170624"
-    makeObfSourceJar = false
+    mappings channel: "stable", version: "39-1.12"
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+
+            property 'fml.coreMods.load', 'me.kix.uzi.UziCoreMod'
+        }
+    }
 }
 repositories {
     maven {
@@ -55,30 +67,40 @@ repositories {
 }
 
 dependencies {
+    minecraft "net.minecraftforge:forge:1.12.2-14.23.5.2860"
 
-    compile("org.spongepowered:mixin:0.7.5-SNAPSHOT") {
-        exclude module: 'asm-commons'
-        exclude module: 'asm-tree'
+    annotationProcessor ('org.spongepowered:mixin:0.8.3-SNAPSHOT:processor') {
+        exclude module: 'gson'
+    }
+    implementation("org.spongepowered:mixin:0.8.5") {
         exclude module: 'launchwrapper'
         exclude module: 'guava'
-        exclude module: 'log4j-core'
+        exclude module: 'gson'
+        exclude module: 'commons-io'
     }
 }
 
 processResources {
+    // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
+    inputs.property "mcversion", mcVersion
+
+    // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
-        include "mcmod.info"
-        expand "version": project.version, "mcversion": project.minecraft.version
+        include 'mcmod.info'
+
+        // replace version and mcversion
+        expand 'version': project.version, 'mcversion': mcVersion
     }
+
+    // copy everything else except the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
-        exclude "mcmod.info"
+        exclude 'mcmod.info'
     }
 }
 
 mixin {
-    defaultObfuscationEnv searge
+    defaultObfuscationEnv 'searge'
 }
 
 reobf {
@@ -102,6 +124,7 @@ jar {
     exclude 'log4j2.xml'
     manifest {
         attributes(
+                'FMLCorePlugin': 'me.kix.uzi.UziCoreMod',
                 "TweakClass": 'org.spongepowered.asm.launch.MixinTweaker',
                 "TweakOrder": 0,
                 "MixinConfigs": 'mixins.uzi.json'

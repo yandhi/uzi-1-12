@@ -37,7 +37,7 @@ public class Triggerbot extends ToggleablePlugin {
 
     @Register
     public void onUpdate(EventUpdate.Pre event) {
-        if (mc.objectMouseOver != null && mc.objectMouseOver.entityHit instanceof EntityPlayer && mc.player.getDistanceToEntity(mc.objectMouseOver.entityHit) <= range.getValue()) {
+        if (mc.objectMouseOver != null && mc.objectMouseOver.entityHit instanceof EntityPlayer && mc.player.getDistance(mc.objectMouseOver.entityHit) <= range.getValue()) {
             if (mouse.getValue()) {
                 if (Mouse.isButtonDown(0)) {
                     if (timer.completed(1000 / (random.nextInt((aps.getValue() + 2) - (aps.getValue() - 2)) + aps.getValue()))) {

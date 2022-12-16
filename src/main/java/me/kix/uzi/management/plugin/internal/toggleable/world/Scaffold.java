@@ -84,9 +84,9 @@ public class Scaffold extends ToggleablePlugin {
 
     private void lookAtBlockSide(BlockPos pos, EnumFacing facing) {
         if (mc.world.getBlockState(new BlockPos(mc.player.posX, mc.player.posY - 1, mc.player.posZ)).getMaterial() == Material.AIR) {
-            double d0 = pos.getX() + 0.5 + (float) facing.getOpposite().getFrontOffsetX() / 2 - mc.player.posX;
-            double d1 = pos.getY() + 0.5 + (float) facing.getOpposite().getFrontOffsetY() / 2 - (mc.player.posY + (double) mc.player.getEyeHeight());
-            double d2 = pos.getZ() + 0.5 + (float) facing.getOpposite().getFrontOffsetZ() / 2 - mc.player.posZ;
+            double d0 = pos.getX() + 0.5 + (float) facing.getOpposite().getXOffset() / 2 - mc.player.posX;
+            double d1 = pos.getY() + 0.5 + (float) facing.getOpposite().getYOffset() / 2 - (mc.player.posY + (double) mc.player.getEyeHeight());
+            double d2 = pos.getZ() + 0.5 + (float) facing.getOpposite().getZOffset() / 2 - mc.player.posZ;
             double d3 = (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
             float f = (float) (MathHelper.atan2(d2, d0) * 57.29577951308232D) - 90.0F;
             float f1 = (float) (-(MathHelper.atan2(d1, d3) * 57.29577951308232D));

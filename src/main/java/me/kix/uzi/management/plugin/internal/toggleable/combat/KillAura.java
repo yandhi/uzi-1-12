@@ -227,7 +227,7 @@ public class KillAura extends ToggleablePlugin {
         if (entities.isEmpty()) {
             return null;
         }
-        entities.sort((player, t1) -> Float.compare(mc.player.getDistanceToEntity(player), mc.player.getDistanceToEntity(t1)));
+        entities.sort((player, t1) -> Float.compare(mc.player.getDistance(player), mc.player.getDistance(t1)));
         return entities.get(0);
     }
 
@@ -239,7 +239,7 @@ public class KillAura extends ToggleablePlugin {
      */
     private boolean isEntityApplicable(EntityLivingBase entity) {
         boolean notMe = entity != mc.player;
-        boolean withinRange = mc.player.getDistanceToEntity(entity) <= range.getValue();
+        boolean withinRange = mc.player.getDistance(entity) <= range.getValue();
         boolean existedLongEnough = entity.ticksExisted >= 10;
         boolean alive = entity.isEntityAlive();
         boolean old = entity.ticksExisted > age.getValue();

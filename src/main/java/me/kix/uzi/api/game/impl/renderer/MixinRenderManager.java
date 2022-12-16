@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class MixinRenderManager implements GameRenderManager {
 
 
-    @Redirect(method = "doRenderEntity", at = @At(value = "INVOKE", target = "net/minecraft/client/renderer/entity/Render.doRender(Lnet/minecraft/entity/Entity;DDDFF)V"))
+    @Redirect(method = "renderEntity", at = @At(value = "INVOKE", target = "net/minecraft/client/renderer/entity/Render.doRender(Lnet/minecraft/entity/Entity;DDDFF)V"))
     @SuppressWarnings("unchecked")
     private void doRenderEntity$doRender(Render render, Entity entity, double x, double y, double z, float entityYaw, float partialTicks) {
         EventPreRenderEntity pre = new EventPreRenderEntity(render, entity, x, y, z, entityYaw, partialTicks);

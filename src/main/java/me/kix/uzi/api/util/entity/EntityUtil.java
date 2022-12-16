@@ -16,7 +16,7 @@ public class EntityUtil implements MinecraftAccessor {
      * @author halalaboos.
      */
     public static float[] getEntityCaps(EntityLivingBase entity, float distance) {
-        float distanceRatio = distance / mc.player.getDistanceToEntity(entity); /* I honestly do not remember my logic behind this and I don't want to bring out a notebook and figure out why this works, but it seems to work */
+        float distanceRatio = distance / mc.player.getDistance(entity); /* I honestly do not remember my logic behind this and I don't want to bring out a notebook and figure out why this works, but it seems to work */
         float entitySize = 5F; /* magic number */
         return new float[]{distanceRatio * entity.width * entitySize, distanceRatio * entity.height * entitySize};
     }

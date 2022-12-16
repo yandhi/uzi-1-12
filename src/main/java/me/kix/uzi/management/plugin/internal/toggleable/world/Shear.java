@@ -31,7 +31,7 @@ public class Shear extends ToggleablePlugin {
 		EntityPlayerSP player = mc.player;
 		if (player.getHeldItemMainhand().getItem() != Items.AIR && player.getHeldItemMainhand().getItem() instanceof ItemShears) {
 			for (Entity entity : mc.world.loadedEntityList) {
-				if (entity instanceof EntitySheep && player.getDistanceToEntity(entity) <= 6) {
+				if (entity instanceof EntitySheep && player.getDistance(entity) <= 6) {
 					if (!((EntitySheep) entity).getSheared()) {
 							player.connection.sendPacket(new CPacketUseEntity(entity, EnumHand.MAIN_HAND));
 					}

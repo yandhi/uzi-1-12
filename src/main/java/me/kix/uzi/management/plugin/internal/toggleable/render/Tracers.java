@@ -38,7 +38,7 @@ public class Tracers extends ToggleablePlugin {
         if (event.getEntity() instanceof EntityPlayer && players.getValue() || event.getEntity() instanceof EntityAnimal && animals.getValue() || (event.getEntity() instanceof EntityMob && mobs.getValue())) {
             GlStateManager.pushMatrix();
             GlStateManager.enableBlend();
-            final float distance = mc.player.getDistanceToEntity(event.getEntity());
+            final float distance = mc.player.getDistance(event.getEntity());
             float[] color = new float[]{0.0F, 0.90F, 0.0F, 1f};
             if (distance <= 64) {
                 color = new float[]{0.9F, distance / 64.0F, 0.0F, 1f};

@@ -75,7 +75,7 @@ public class BowAimbot extends ToggleablePlugin {
         if (entities.isEmpty()) {
             return null;
         }
-        entities.sort((player, t1) -> Float.compare(mc.player.getDistanceToEntity(player), mc.player.getDistanceToEntity(t1)));
+        entities.sort((player, t1) -> Float.compare(mc.player.getDistance(player), mc.player.getDistance(t1)));
         return entities.get(0);
     }
 

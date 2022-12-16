@@ -46,7 +46,7 @@ public class AutoTool extends ToggleablePlugin {
 
         for (int i = 0; i <= 8; i++) {
             ItemStack indexItem = player.inventory.getStackInSlot(i);
-            if (indexItem.getStrVsBlock(blockState) > currentBestItem.getStrVsBlock(blockState)) {
+            if (indexItem.getDestroySpeed(blockState) > currentBestItem.getDestroySpeed(blockState)) {
                 currentBestItemSlot = i;
             }
         }

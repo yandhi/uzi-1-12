@@ -85,8 +85,8 @@ public class BedAura extends ToggleablePlugin {
         return world.playerEntities.stream()
                 .filter(player -> player != clientPlayer)
                 .filter(player -> !(Uzi.INSTANCE.getFriendManager().isFriend(player.getName())))
-                .filter(player -> clientPlayer.getDistanceToEntity(player) <= range.getValue())
-                .min(Comparator.comparing(clientPlayer::getDistanceToEntity));
+                .filter(player -> clientPlayer.getDistance(player) <= range.getValue())
+                .min(Comparator.comparing(clientPlayer::getDistance));
     }
 
     /**

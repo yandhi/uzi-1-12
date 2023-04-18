@@ -9,6 +9,9 @@ buildscript {
             name = 'SpongePowered'
             url = 'https://repo.spongepowered.org/repository/maven-public/'
         }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
         classpath "net.minecraftforge.gradle:ForgeGradle:4.+"
@@ -69,15 +72,16 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:1.12.2-14.23.5.2860"
 
-    annotationProcessor ('org.spongepowered:mixin:0.8.3-SNAPSHOT:processor') {
-        exclude module: 'gson'
-    }
-    implementation("org.spongepowered:mixin:0.8.5") {
+    annotationProcessor 'org.spongepowered:mixin:0.8.3-SNAPSHOT:processor'
+    testAnnotationProcessor 'org.spongepowered:mixin:0.8.3-SNAPSHOT:processor'
+
+    implementation("org.spongepowered:mixin:0.8.3-SNAPSHOT") {
         exclude module: 'launchwrapper'
         exclude module: 'guava'
         exclude module: 'gson'
         exclude module: 'commons-io'
     }
+    //compile "org.j
 }
 
 processResources {
@@ -118,8 +122,6 @@ shadowJar {
     classifier = 'full'
 }
 
-build.dependsOn(shadowJar)
-
 jar {
     exclude 'log4j2.xml'
     manifest {
@@ -132,3 +134,5 @@ jar {
     }
 }
 sourceCompatibility = targetCompatibility = "1.8"
+
+build.dependsOn(shadowJar)
